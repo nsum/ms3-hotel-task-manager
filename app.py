@@ -4,6 +4,7 @@ from flask import (
     redirect, request, session, url_for)
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
+from werkzeug.security import generate_password_hash, check_password_hash
 if os.path.exists("env.py"):
     import env
 
@@ -28,6 +29,40 @@ def home():
     return render_template("index.html", tasks=tasks)
     # just to test then change to index.html and hero image
 
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        # check does username exist in db
+        existing_user = mongo.db.users.find_one(
+            {"username": request.form.get("username").lower()})
+
+        if existing_user:
+            # make sure password matches user input
+            if check_password_hash(
+                    existing_user["password"], request.form.get("password")):
+                session["user"] = request.form.get("username").lower()
+                flash("Welcome, {}".format(request.form.get("username")))
+            else:
+                # invalid password
+                flash("Incorrect Username and/or Password")
+
+        else:
+            # username doesn't exist
+            flash("Incorrect Username and/or Password")
+            return redirect(url_for("login"))
+
+    return render_template("login.html")
+
+
+@app.route("/control")
+def control():
+    return render_template("control_panel.html")
+
+
+@app.route("/register", methods=["POST", "GET"])
+def register():
+    return render_template("register.html")
 
 
 # Fetch env vars
