@@ -2,8 +2,12 @@
 
 
 
-
-
+## Credits
+- https://randomkeygen.com/ - for generating SECRET_KEY
+- https://materializecss.com/ - framework
+- jQuery
+- font awesome
+- 
 
 
 # PRESET README
