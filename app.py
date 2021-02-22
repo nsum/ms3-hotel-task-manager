@@ -40,16 +40,19 @@ def tasks():
 def login():
     if request.method == "POST":
         # check does username exist in db
-        existing_user = mongo.db.users.find_one(
+        logged_user = mongo.db.users.find_one(
             {"username": request.form.get("username").lower()})
 
-        if existing_user:
+        if logged_user:
             # make sure password matches user input
             if check_password_hash(
-                    existing_user["password"], request.form.get("password")):
+                    logged_user["password"], request.form.get("password")):
                 session["user"] = request.form.get("username").lower()
+                # grab user's department
+                session["department"] = logged_user["department"].lower()
+                session["first_name"] = logged_user["first_name"].capitalize()
                 flash("Welcome, {}".format(request.form.get("username")))
-                return redirect(url_for("home"))
+                return redirect(url_for("profile", username=session["user"]))
             else:
                 # invalid password
                 flash("Incorrect Username and/or Password")
@@ -118,7 +121,7 @@ def profile(username):
 def logout():
     # remove session cookies
     flash("You have been logged out")
-    session.pop("user")
+    session.clear()
     return redirect(url_for("login"))
 
 
