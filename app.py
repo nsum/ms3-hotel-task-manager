@@ -32,8 +32,11 @@ def home():
 
 @app.route("/tasks")
 def tasks():
-    tasks = mongo.db.department_tasks.find()
-    return render_template("tasks.html", tasks=tasks)
+    shared_tasks = mongo.db.shared_tasks.find()
+    department_tasks = mongo.db.department_tasks.find()
+    return render_template(
+        "tasks.html", department_tasks=department_tasks,
+        shared_tasks=shared_tasks)
 
 
 @app.route("/login", methods=["GET", "POST"])
