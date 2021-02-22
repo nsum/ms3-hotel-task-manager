@@ -27,7 +27,7 @@
                     <li><a href="#">Tasks</a></li>
                     <li><a href="#">New Task</a></li>
                     <li><a href="{{ url_for('control') }}">Control Panel</a></li>
-                    <li><a href="#">Profile</a></li>
+                    <li><a href="{{ url_for('profile', username=session['user']) }}">Profile</a></li>
                     <li><a href="{{ url_for('login') }}">Log In</a></li>
                     <li><a href="#">Log Out</a></li>
                 </ul>
@@ -41,7 +41,7 @@
             <li><a href="#">Tasks</a></li>
             <li><a href="#">New Task</a></li>
             <li><a href="{{ url_for('control') }}">Control Panel</a></li>
-            <li><a href="#">Profile</a></li>
+            <li><a href="{{ url_for('profile', username=session['user']) }}">Profile</a></li>
             <li><a href="{{ url_for('login') }}">Log In</a></li>
             <li><a href="#">Log Out</a></li>
         </ul>

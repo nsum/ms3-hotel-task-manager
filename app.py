@@ -43,6 +43,7 @@ def login():
                     existing_user["password"], request.form.get("password")):
                 session["user"] = request.form.get("username").lower()
                 flash("Welcome, {}".format(request.form.get("username")))
+                return redirect(url_for("home"))
             else:
                 # invalid password
                 flash("Incorrect Username and/or Password")
@@ -52,6 +53,7 @@ def login():
             flash("Incorrect Username and/or Password")
             return redirect(url_for("login"))
 
+    # change to profile or tasks when created
     return render_template("login.html")
 
 
@@ -87,6 +89,14 @@ def register():
         return redirect(url_for("control"))
 
     return render_template("register.html")
+
+
+@app.route("/profile/<username>", methods=["POST", "GET"])
+def profile(username):
+    # grab session's username from db
+    username = mongo.db.users.find_one(
+        {"username": session["user"]})["username"]
+    return render_template("profile.html", username=username)
 
 
 # Fetch env vars
