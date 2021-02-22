@@ -30,6 +30,12 @@ def home():
     # just to test then change to index.html and hero image
 
 
+@app.route("/tasks")
+def tasks():
+    tasks = mongo.db.department_tasks.find()
+    return render_template("tasks.html", tasks=tasks)
+
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
