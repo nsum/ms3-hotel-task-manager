@@ -60,8 +60,32 @@ def control():
     return render_template("control_panel.html")
 
 
-@app.route("/register", methods=["POST", "GET"])
+@app.route("/register", methods=["GET", "POST"])
 def register():
+    if request.method == "POST":
+        # check is username exists
+        existing_user = mongo.db.users.find_one(
+            {"username": request.form.get("username").lower()})
+
+        if existing_user:
+            flash("Username Already Exists")
+            return redirect(url_for("register"))
+
+        register = {
+            "username": request.form.get("username").lower(),
+            "password": generate_password_hash(request.form.get("password"))
+        }
+        mongo.db.users.insert_one(register)
+
+        # flash username and password
+        flash(
+            "User '{}' Successfully Created!".format(
+                request.form.get("username")))
+        flash(
+            "Please Provide User With The Password: '{}'".format(
+                request.form.get("password")))
+        return redirect(url_for("control"))
+
     return render_template("register.html")
 
 

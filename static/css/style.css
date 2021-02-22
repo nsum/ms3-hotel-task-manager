@@ -1,5 +1,8 @@
-.flashes h4 {
-    line-height: 2;
+.flashes h5 {
+    line-height: 1.5;
+}
+.flashes {
+    margin: 1rem 6rem 0 6rem;
 }
 
 .text-shadow {
