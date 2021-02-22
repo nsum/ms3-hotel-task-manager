@@ -73,9 +73,14 @@ def register():
             flash("Username Already Exists")
             return redirect(url_for("register"))
 
+        admin = "on" if request.form.get("admin") else "off"
+        mgmt = "on" if request.form.get("mgmt") else "off"
+
         register = {
             "username": request.form.get("username").lower(),
-            "password": generate_password_hash(request.form.get("password"))
+            "password": generate_password_hash(request.form.get("password")),
+            "admin": admin,
+            "mgmt": mgmt
         }
         mongo.db.users.insert_one(register)
 
