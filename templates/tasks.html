@@ -5,7 +5,7 @@
         <!-- Session user's department tasks -->
         <div class="col s12 m6 task-list">
             <ul class="collapsible">
-                <h5 class="center-align">{{ session.department.capitalize() }}'s Tasks</h5>
+                <h5 class="center-align purple-text darken-4">{{ session.department.capitalize() }}'s Tasks</h5>
                 {% for task in tasks if task.department.lower() == session.department.lower() %}
                     <li>
                         <div class="collapsible-header white-text text-shadow purple darken-1"><i class="fas fa-caret-down"></i>
@@ -32,7 +32,7 @@
         <!-- Shared tasks -->
         <div class="col s12 m6 task-list">
             <ul class="collapsible">
-                <h5 class="center-align">Shared Tasks</h5>
+                <h5 class="center-align purple-text darken-4">Shared Tasks</h5>
                 {% for task in tasks if task.department.lower() == "shared" %}
                     <li>
                         <div class="collapsible-header white-text text-shadow purple darken-1"><i class="fas fa-caret-down"></i>
