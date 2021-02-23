@@ -2,32 +2,44 @@
 {% block content %}
 
 <div class="row">
-    <ul class="collapsible col s12 m6">
-        <h5 class="center-align">{{ session.department.capitalize() }} Tasks</h5>
-        {% for department_task in department_tasks if department_task.department_name == session.department.lower() %}
-            <li>
-            <div class="collapsible-header white-text text-shadow purple darken-1"><i class="fas fa-caret-down"></i>
-                {{ department_task.task_name }}
-            </div>
-            <div class="collapsible-body">
-                <span>Lorem ipsum dolor sit amet.</span>
-                </div>
-            </li>
-        {% endfor %}
-    </ul>
-    <ul class="collapsible col s12 m6">
-        <h5 class="center-align">Shared Tasks</h5>
-        {% for shared_task in shared_tasks %}
-            <li>
-            <div class="collapsible-header white-text text-shadow purple darken-1"><i class="fas fa-caret-down"></i>
-                {{ shared_task.task_name }}
-            </div>
-            <div class="collapsible-body">
-                <span>Lorem ipsum dolor sit amet.</span>
-                </div>
-            </li>
-        {% endfor %}
-    </ul>
+    <div class="col s12 m6 task-list">
+        <ul class="collapsible">
+            <h5 class="center-align">{{ session.department.capitalize() }} Tasks</h5>
+            {% for task in tasks if task.department_name.lower() == session.department.lower() %}
+                <li>
+                    <div class="collapsible-header white-text text-shadow purple darken-1"><i class="fas fa-caret-down"></i>
+                        <strong>{{ task.task_name.capitalize() }}</strong>
+                        <span>&nbsp;&nbsp; - &nbsp;Due by:&nbsp;</span>{{ task.due_date }}
+                    </div>
+                    <div class="collapsible-body">
+                        <p>{{ task.task_description.capitalize() }}</p>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <!--
+is_urgent
+periodic
+created_by
+created_on
+    -->
+    <div class="col s12 m6 task-list">
+        <ul class="collapsible">
+            <h5 class="center-align">Shared Tasks</h5>
+            {% for task in tasks if task.department_name.lower() == "shared" %}
+                <li>
+                    <div class="collapsible-header white-text text-shadow purple darken-1"><i class="fas fa-caret-down"></i>
+                        <strong>{{ task.task_name.capitalize() }}</strong>
+                        <span>&nbsp;&nbsp; - &nbsp;Due by:&nbsp;</span>{{ task.due_date }}
+                    </div>
+                    <div class="collapsible-body">
+                        <p>{{ task.task_description.capitalize() }}</p>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 </div>
 
 {% endblock %}

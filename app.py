@@ -32,11 +32,12 @@ def home():
 
 @app.route("/tasks")
 def tasks():
-    shared_tasks = mongo.db.shared_tasks.find()
-    department_tasks = mongo.db.department_tasks.find()
+    # we need list(x) to iterate multiple times through tasks
+    tasks = list(mongo.db.department_tasks.find())
+    # change above if renamed tasks and put all in one collection
+    # add personal_tasks list here
     return render_template(
-        "tasks.html", department_tasks=department_tasks,
-        shared_tasks=shared_tasks)
+        "tasks.html", tasks=tasks)
 
 
 @app.route("/login", methods=["GET", "POST"])
