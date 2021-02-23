@@ -70,7 +70,7 @@ def login():
                 session["last_name"] = logged_user["last_name"].capitalize()
                 session["is_admin"] = logged_user["admin"]
                 session["is_mgmt"] = logged_user["mgmt"]
-                flash("Welcome, {}".format(request.form.get("username")))
+                flash("Welcome, {}".format(session["first_name"]))
                 return redirect(url_for("profile", username=session["user"]))
             else:
                 # invalid password
