@@ -1,4 +1,5 @@
 {% extends "base.html" %}
 {% block content %}
-    <a href="{{ url_for('register') }}">Register New User</a>
+    <a href="{{ url_for('register') }}" class="btn purple lighten-1">Register New User</a>
+    <a href="{{ url_for('add_task') }}" class="btn purple lighten-1">Add New Task</a>
 {% endblock %}

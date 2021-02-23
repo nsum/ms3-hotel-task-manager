@@ -129,6 +129,11 @@ def logout():
     return redirect(url_for("login"))
 
 
+@app.route("/add_task")
+def add_task():
+    return render_template("add_task.html")
+
+
 # Fetch env vars
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
