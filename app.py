@@ -1,10 +1,10 @@
 import os
+import datetime
 from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for)
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
-import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 if os.path.exists("env.py"):
     import env
@@ -131,7 +131,7 @@ def profile(username):
 
 @app.route("/logout")
 def logout():
-    # remove session cookies
+    # Remove session cookies
     flash("You have been logged out")
     session.clear()
     return redirect(url_for("login"))
@@ -141,16 +141,21 @@ def logout():
 def add_dept_task():
     if request.method == "POST":
         is_urgent = "on" if request.form.get("is_urgent") else "off"
-        current_date = datetime.date.today().strftime('%y-%m-%d')
+        # Grabs and formats current date for "created on"
+        current_date = datetime.date.today().strftime('%d/%b/%Y')
+        # Used to insert task creator's full name in "created by"
+        creator = session["first_name"] + " " + session["last_name"]
+
         task = {
             "department": request.form.get("department_name"),
             "task_name": request.form.get("task_name"),
             "task_description": request.form.get("task_description"),
             "is_urgent": is_urgent,
             "due_date": request.form.get("due_date"),
-            "created_by": session["user"],
+            "created_by": creator,
             "created_on": current_date
         }
+
         mongo.db.tasks.insert_one(task)
         flash("Department Task Successfully Added!")
         return redirect(url_for('tasks'))
