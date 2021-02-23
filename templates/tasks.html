@@ -9,15 +9,22 @@
                 <!-- Looks for department name in tasks and shows only tasks for department current user belong too -->
                 {% for task in tasks if task.department.lower() == session.department.lower() %}
                     <li>
-                        <div class="collapsible-header white-text text-shadow purple darken-1"><i class="fas fa-caret-down"></i>
-                            <strong>{{ task.task_name.capitalize() }}</strong>
-                            <span>&nbsp;&nbsp; - &nbsp;Due:&nbsp;</span>{{ task.due_date }}
-                            <span> &nbsp;&nbsp;&nbsp;&nbsp;
-                                {% if task.is_urgent == "on" %}
-                                    <i class="fas fa-exclamation-circle yellow-text text-darken-3 tooltipped" data-position="right"
-                                        data-tooltip="Urgent Task!"></i>
-                                {% endif %}
-                            </span>
+                        <div class="collapsible-header white-text text-shadow purple darken-1">
+                            <div class="col s5">
+                                <i class="fas fa-caret-down"></i>
+                                <a href="" class="btn-small accent-4 green">Done</a>
+                                <a href="" class="btn-small blue">Edit</a>
+                            </div>
+                            <div class="col s7">
+                                <strong>{{ task.task_name.capitalize() }}</strong>
+                                <span>&nbsp;&nbsp; - &nbsp;Due:&nbsp;</span>{{ task.due_date }}
+                                    <span> &nbsp;&nbsp;&nbsp;&nbsp;
+                                    {% if task.is_urgent == "on" %}
+                                        <i class="fas fa-exclamation-circle yellow-text text-darken-3 tooltipped" data-position="right"
+                                            data-tooltip="Urgent Task!"></i>
+                                    {% endif %}
+                                </span>
+                            </div>
                         </div>
                         <div class="collapsible-body">
                             <p>{{ task.task_description.capitalize() }}</p>
@@ -37,15 +44,22 @@
                 <!-- Looks for tasks with "shared" department name -->
                 {% for task in tasks if task.department.lower() == "shared" %}
                     <li>
-                        <div class="collapsible-header white-text text-shadow purple darken-1"><i class="fas fa-caret-down"></i>
-                            <strong>{{ task.task_name.capitalize() }}</strong>
-                            <span>&nbsp;&nbsp; - &nbsp;Due:&nbsp;</span>{{ task.due_date }}
-                            <span> &nbsp;&nbsp;&nbsp;&nbsp;
-                                {% if task.is_urgent == "on" %}
+                        <div class="collapsible-header white-text text-shadow purple darken-1">
+                            <div class="col s5">
+                                <i class="fas fa-caret-down"></i>
+                                <a href="" class="btn-small accent-4 green">Done</a>
+                                <a href="" class="btn-small blue">Edit</a>
+                            </div>
+                            <div class="col s7">
+                                <strong>{{ task.task_name.capitalize() }}</strong>
+                                <span>&nbsp;&nbsp; - &nbsp;Due:&nbsp;</span>{{ task.due_date }}
+                                <span> &nbsp;&nbsp;&nbsp;&nbsp;
+                                    {% if task.is_urgent == "on" %}
                                     <i class="fas fa-exclamation-circle yellow-text text-darken-3 tooltipped" data-position="right"
                                         data-tooltip="Urgent Task!"></i>
-                                {% endif %}
-                            </span>
+                                    {% endif %}
+                                </span>
+                            </div>
                         </div>
                         <div class="collapsible-body">
                             <p>{{ task.task_description.capitalize() }}</p>
