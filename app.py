@@ -25,7 +25,7 @@ mongo = PyMongo(app)
 
 @app.route("/")
 def home():
-    tasks = mongo.db.department_tasks.find()
+    tasks = mongo.db.tasks.find()
     return render_template("index.html", tasks=tasks)
     # just to test then change to index.html and hero image
 
@@ -33,7 +33,7 @@ def home():
 @app.route("/tasks")
 def tasks():
     # we need list(x) to iterate multiple times through tasks
-    tasks = list(mongo.db.department_tasks.find())
+    tasks = list(mongo.db.tasks.find())
     # change above if renamed tasks and put all in one collection
     # add personal_tasks list here
     return render_template(
