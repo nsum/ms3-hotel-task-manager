@@ -129,9 +129,9 @@ def logout():
     return redirect(url_for("login"))
 
 
-@app.route("/add_task")
-def add_task():
-    return render_template("add_task.html")
+@app.route("/add_dept_task")
+def add_dept_task():
+    return render_template("add_dept_task.html")
 
 
 # Fetch env vars

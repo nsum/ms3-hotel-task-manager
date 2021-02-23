@@ -2,6 +2,14 @@
     width: 90%;
 }
 
+.card-panel .row {
+    padding: 0 1rem;
+}
+
+.title {
+    padding: 1rem 0 2rem 0;
+}
+
 .flashes h5 {
     line-height: 1.5;
 }

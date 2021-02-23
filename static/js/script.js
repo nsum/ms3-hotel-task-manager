@@ -8,4 +8,15 @@ $(document).ready(function(){
     // Initialize tooltips
     $('.tooltipped').tooltip();
 
+    // Initialize date picker
+    $('.datepicker').datepicker({
+        format: "dd mmmm, yyyy",
+        yearRange: 1,
+        showClearBtn: true,
+        // disables picking days in the past
+        minDate: new Date(),
+        i18n: {
+            done: "Select"
+        }
+    });
 });
