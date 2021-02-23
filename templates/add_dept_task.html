@@ -5,6 +5,18 @@
     <div class="row">
         <form class="card-panel grey lighten-5 col s12 m8 offset-m2" method="POST" action="">
             <div class="row">
+                <div class="input-field col s12">
+                    <i class="prefix fas fa-hotel purple-text darken-4"></i>
+                    <select id="department_name" name="department_name" class="validate" required>
+                        <option value="" disabled selected>Select Department</option>
+                        {% for department in departments %}
+                            <option value="{department.department_name}">{{ department.department_label }}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="department_name">Materialize Select</label>
+                </div>
+            </div>
+            <div class="row">
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="prefix fas fa-edit purple-text darken-4"></i>

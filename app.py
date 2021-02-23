@@ -131,7 +131,8 @@ def logout():
 
 @app.route("/add_dept_task")
 def add_dept_task():
-    return render_template("add_dept_task.html")
+    departments = mongo.db.departments.find()
+    return render_template("add_dept_task.html", departments=departments)
 
 
 # Fetch env vars
