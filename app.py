@@ -4,6 +4,7 @@ from flask import (
     redirect, request, session, url_for)
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
+import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 if os.path.exists("env.py"):
     import env
@@ -55,6 +56,7 @@ def login():
                 # grab user's department
                 session["department"] = logged_user["department"].lower()
                 session["first_name"] = logged_user["first_name"].capitalize()
+                session["last_name"] = logged_user["last_name"].capitalize()
                 flash("Welcome, {}".format(request.form.get("username")))
                 return redirect(url_for("profile", username=session["user"]))
             else:
@@ -129,8 +131,25 @@ def logout():
     return redirect(url_for("login"))
 
 
-@app.route("/add_dept_task")
+@app.route("/add_dept_task", methods=["GET", "POST"])
 def add_dept_task():
+    if request.method == "POST":
+        is_urgent = "on" if request.form.get("is_urgent") else "off"
+        current_date = datetime.date.today().strftime('%y-%m-%d')
+        task = {
+            "department": request.form.get("department_name"),
+            "task_name": request.form.get("task_name"),
+            "task_description": request.form.get("task_description"),
+            "is_urgent": is_urgent,
+            "due_date": request.form.get("due_date"),
+            "created_by": session["user"],
+            "created_on": current_date
+        }
+        mongo.db.tasks.insert_one(task)
+        flash("Department Task Successfully Added!")
+        return redirect(url_for('tasks'))
+
+    # pull list of departments
     departments = mongo.db.departments.find()
     return render_template("add_dept_task.html", departments=departments)
 
