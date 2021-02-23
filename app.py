@@ -94,6 +94,10 @@ def register():
         register = {
             "username": request.form.get("username").lower(),
             "password": generate_password_hash(request.form.get("password")),
+            "first_name": request.form.get("first_name").capitalize(),
+            "last_name": request.form.get("last_name").capitalize(),
+            "department": request.form.get("department"),
+            "super_user": "off",
             "admin": admin,
             "mgmt": mgmt
         }
@@ -108,7 +112,9 @@ def register():
                 request.form.get("password")))
         return redirect(url_for("control"))
 
-    return render_template("register.html")
+    # pull list of departments
+    departments = mongo.db.departments.find()
+    return render_template("register.html", departments=departments)
 
 
 @app.route("/profile/<username>", methods=["POST", "GET"])

@@ -2,10 +2,11 @@
 {% block content %}
 
     <div class="row">
-        <!-- Session user's department tasks -->
+        <!-- Session's user's department tasks -->
         <div class="col s12 m6 task-list">
             <ul class="collapsible">
                 <h5 class="center-align purple-text darken-4">{{ session.department.capitalize() }}'s Tasks</h5>
+                <!-- Looks for department name in tasks and shows only tasks for department current user belong too -->
                 {% for task in tasks if task.department.lower() == session.department.lower() %}
                     <li>
                         <div class="collapsible-header white-text text-shadow purple darken-1"><i class="fas fa-caret-down"></i>
@@ -33,6 +34,7 @@
         <div class="col s12 m6 task-list">
             <ul class="collapsible">
                 <h5 class="center-align purple-text darken-4">Shared Tasks</h5>
+                <!-- Looks for tasks with "shared" department name -->
                 {% for task in tasks if task.department.lower() == "shared" %}
                     <li>
                         <div class="collapsible-header white-text text-shadow purple darken-1"><i class="fas fa-caret-down"></i>
