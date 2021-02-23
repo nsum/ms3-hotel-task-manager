@@ -2,12 +2,41 @@
 {% block content %}
 
     <div class="row">
-        <div class="col s12 m8 offset-m2">
-            <div class="card-panel">
+        <!-- List of personal tasks -->
+        <div class="col s12 m8 offset-m2 task-list">
+            <ul class="collapsible">
                 <h5 class="center-align purple-text text-darken-1">
-                    <strong>{{ session.first_name }}'s Profile</strong>
-                </h5>
-            </div>
+                    <strong>{{ session.first_name }}'s Tasks</strong></h5>
+                <!-- Looks for department name in tasks and shows only tasks for department current user belong too -->
+                    {% for task in tasks %}
+                        {% if task.assigned_to.lower() == session.user.lower() %}
+                        <li>
+                            <div class="collapsible-header white-text text-shadow purple darken-1"><i class="fas fa-caret-down"></i>
+                                <strong>{{ task.task_name.capitalize() }}</strong>
+                                <span>&nbsp;&nbsp; - &nbsp;Due:&nbsp;</span>{{ task.due_date }}
+                                <span> &nbsp;&nbsp;&nbsp;&nbsp;
+                                    {% if task.is_urgent == "on" %}
+                                        <i class="fas fa-exclamation-circle yellow-text text-darken-3 tooltipped" data-position="right"
+                                            data-tooltip="Urgent Task!"></i>
+                                    {% endif %}
+                                </span>
+                            </div>
+                            <div class="collapsible-body">
+                                <p>{{ task.task_description.capitalize() }}</p>
+                                <p><em>by: {{ task.created_by }}&nbsp;&nbsp;&nbsp;&nbsp; 
+                                    on: {{ task.created_on }} </em>
+                                </p>
+                            </div>
+                        </li>
+                        {% else %}
+                            <li>
+                                <div class="collapsible-header white-text center-align text-shadow purple darken-1">No Active Tasks</div>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+
+                
+            </ul>
         </div>
     </div>
 

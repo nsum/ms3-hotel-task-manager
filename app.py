@@ -41,6 +41,17 @@ def tasks():
         "tasks.html", tasks=tasks)
 
 
+@app.route("/all_tasks")
+def all_tasks():
+    # Checks if user in session is mgmt or admin
+    if session["is_admin"] or session["is_mgmt"] == "true":
+        tasks = list(mongo.db.tasks.find())
+        # pull list of departments
+        departments = list(mongo.db.departments.find())
+        return render_template(
+            "all_tasks.html", tasks=tasks, departments=departments)
+
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
@@ -57,6 +68,8 @@ def login():
                 session["department"] = logged_user["department"].lower()
                 session["first_name"] = logged_user["first_name"].capitalize()
                 session["last_name"] = logged_user["last_name"].capitalize()
+                session["is_admin"] = logged_user["admin"]
+                session["is_mgmt"] = logged_user["mgmt"]
                 flash("Welcome, {}".format(request.form.get("username")))
                 return redirect(url_for("profile", username=session["user"]))
             else:
@@ -122,9 +135,10 @@ def profile(username):
     # grab session's username from db
     username = mongo.db.users.find_one(
         {"username": session["user"]})["username"]
+    tasks = list(mongo.db.personal_tasks.find())
 
     if session["user"]:
-        return render_template("profile.html", username=username)
+        return render_template("profile.html", tasks=tasks, username=username)
 
     return redirect(url_for("login"))
 
