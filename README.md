@@ -1,7 +1,20 @@
 ## Bugs & Fixes
-- login_required decorator needs fix 
-    - is user not logged in and tries to access restricted area,
-        throws and error instead of redirecting to login
+- login_required decorator was throwing an error instead of 
+    redirecting when unlogged users tried to access restricted pages.
+    Fixed by using: is_logged = session.get("user")
+        if is_logged is None: ...
+        
+        instead of if session["user"] is None
+
+## Features
+### Back End
+- Session expiry after some time of inactivity
+- Redirects to home page if unlogged user tries to access any of the pages login is required for
+- Redirects to task page if non-admin or non-mgmt user tries to access admin & mgmt pages
+
+
+### Front End
+- 
 
 
 

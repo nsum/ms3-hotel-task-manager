@@ -1,5 +1,6 @@
 import os
 import datetime
+from datetime import timedelta
 from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for)
@@ -25,15 +26,23 @@ app.secret_key = os.environ.get("SECRET_KEY")
 mongo = PyMongo(app)
 
 
+# Logout user after specified time of Inactivity
+@app.before_request
+def set_session_timeout():
+    session.permanent = True
+    app.permanent_session_lifetime = timedelta(minutes=10)
+
+
 # Restricts access to unlogged users
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         # Throws and error is user not logged in. Try to fix
         # NEEDS A FIX
-        if session["user"]:
-            return f(*args, **kwargs)
-        return redirect(url_for('login'))
+        is_logged = session.get("user")
+        if is_logged is None:
+            return redirect(url_for('login'))
+        return f(*args, **kwargs)
     return decorated_function
 
 
