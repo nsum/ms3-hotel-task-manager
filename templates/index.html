@@ -1,8 +1,19 @@
 {% extends "base.html" %}
 {% block content %}
-    {% for task in tasks %}
-        <h3>Extending base</h3>
-        {{ task.task_name}} <br>
-        {{ task.task_description}} <br>
-    {% endfor %}
+    
+    <div class="parallax-container">
+        <div class="parallax"><img src="{{ url_for('static', filename='images/cih-1.jpg') }}"></div>
+    </div>
+    <div class="section white">
+        <div class="row container">
+            <h3 class="header">Cork International Hotel Task Manager</h3>
+            <p class="grey-text text-darken-3 lighten-3"><strong>
+                Say goodbye to uncompleted tasks
+            </strong></p>
+        </div>
+    </div>
+    <div class="parallax-container">
+        <div class="parallax"><img src="{{ url_for('static', filename='images/cih-2.jpg') }}"></div>
+    </div>
+
 {% endblock %}

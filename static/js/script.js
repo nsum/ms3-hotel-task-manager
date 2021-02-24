@@ -11,6 +11,11 @@ $(document).ready(function(){
     // Initialize Drop-down lists
     $('select').formSelect();
 
+    // Initialize Parallax
+    $(document).ready(function () {
+        $('.parallax').parallax();
+    });
+
     // Initialize date picker
     $('.datepicker').datepicker({
         format: "dd mmmm, yyyy",

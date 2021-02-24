@@ -3,10 +3,6 @@ html {
     position: relative;
 }
 
-.container {
-    width: 90%;
-}
-
 .card-panel .row {
     padding: 0 1rem;
 }
