@@ -20,7 +20,7 @@
         <nav class="nav-extended text-shadow purple darken-1">
             <!-- top navbar -->
             <div class="nav-wrapper">
-                <a href="#!" class="logo">
+                <a href="{{ url_for('home') }}" class="logo">
                     CIH Task Manager 
                     {% if session.department %}
                         - {{ session.department.capitalize() }}

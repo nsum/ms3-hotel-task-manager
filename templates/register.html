@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 
-    <h4 class="center-align purple-text text-darken-4">Register New User</h4>
+    <h4 class="center-align purple-text text-darken-1">Register New User</h4>
 
     <div class="row">
         <form class="col s12 m6 offset-m3" method="POST" action="{{ url_for('register') }}">
@@ -9,7 +9,7 @@
                 <!-- username -->
                 <div class="row">
                     <div class="input-field col s12">
-                        <i class="fas fa-user-plus prefix purple-text text-darken-4"></i>
+                        <i class="fas fa-user-plus prefix purple-text text-darken-1"></i>
                         <input id="username" name="username" type="text" minlength="5" maxlength="15"
                             pattern="^[a-zA-Z0-9]{5,15}$" class="validate" required>
                         <label for="username">Username</label>
@@ -18,7 +18,7 @@
                 <!-- First & last name -->
                 <div class="row">
                     <div class="input-field col s12 m6"> 
-                        <i class="fas fa-user-alt prefix purple-text text-darken-4"></i>
+                        <i class="fas fa-user-alt prefix purple-text text-darken-1"></i>
                         <input id="first_name" name="first_name" type="text" minlength="3" maxlength="20"
                             pattern="^[a-zA-Z]{3,20}$" class="validate" required>
                         <label for="first_name">First Name</label>
@@ -32,7 +32,7 @@
                 <!-- Department dropdown -->
                 <div class="row">
                     <div class="input-field col s12">
-                        <i class="prefix fas fa-hotel purple-text text-darken-4"></i>
+                        <i class="prefix fas fa-hotel purple-text text-darken-1"></i>
                         <select id="department" name="department" class="validate" required>
                             <option value="" disabled selected>Select Department</option>
                             {% for department in departments if department.department_name != "shared" %}
@@ -45,7 +45,7 @@
                 <!-- passowrd -->
                 <div class="row">
                     <div class="input-field col s12">
-                        <i class="fas fa-user-lock prefix purple-text text-darken-4"></i>
+                        <i class="fas fa-user-lock prefix purple-text text-darken-1"></i>
                         <input id="password" name="password" type="password" minlength="5" maxlength="15"
                             pattern="^[a-zA-Z0-9]{5,15}$" class="validate" required>
                         <label for="password">Password</label>
@@ -53,7 +53,7 @@
                 </div>
                 <!-- Switch -->
                 <div class="row">
-                    <i class="fas fa-question-circle prefix purple-text text-darken-4 tooltipped" data-position="right" 
+                    <i class="fas fa-question-circle prefix purple-text text-darken-1 hoverable tooltipped" data-position="right" 
                     data-tooltip="Admin & Mgmt can see & edit all tasks. Admin can add new users"></i>
                     <span class="switch center-align col s5">
                         <label for="admin">
@@ -73,7 +73,7 @@
                 <!-- / TESTING ADDITIONAL USER KEYS -->
                 <!-- register button -->
                 <div class="row">
-                    <button type="submit" class="col s12 btn-large purple darken-4 text-shadow">
+                    <button type="submit" class="col hoverable waves-effect waves-light s12 btn-large purple darken-1 text-shadow">
                         Register <i class="fas fa-sign-in-alt"></i>
                     </button>
                 </div>
