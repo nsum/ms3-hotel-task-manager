@@ -223,6 +223,17 @@ def add_dept_task():
     return render_template("add_dept_task.html", departments=departments)
 
 
+@app.route("/edit_dept_task/<task_id>", methods=["GET", "POST"])
+def edit_dept_task(task_id):
+    task = mongo.db.tasks.find_one({"_id": ObjectId(task_id)})
+
+    departments = mongo.db.departments.find()
+    return render_template(
+        "edit_dept_task.html", task=task, departments=departments)
+
+
+
+
 @app.route("/logout")
 def logout():
     # Remove session cookies
