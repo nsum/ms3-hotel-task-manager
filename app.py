@@ -4,6 +4,7 @@ from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for)
 from flask_pymongo import PyMongo
+from functools import wraps
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
 if os.path.exists("env.py"):
@@ -24,32 +25,68 @@ app.secret_key = os.environ.get("SECRET_KEY")
 mongo = PyMongo(app)
 
 
+# Restricts access to unlogged users
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        # Throws and error is user not logged in. Try to fix
+        # NEEDS A FIX
+        if session["user"]:
+            return f(*args, **kwargs)
+        return redirect(url_for('login'))
+    return decorated_function
+
+
+# Allows admins to access certain pages
+def admin_access(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if session["is_admin"] == "off":
+            return redirect(url_for('home'))
+        return f(*args, **kwargs)
+    return decorated_function
+
+
+# Allows management to access certain pages
+def mgmt_access(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if session["is_mgmt"] == "off":
+            return redirect(url_for('home'))
+        return f(*args, **kwargs)
+    return decorated_function
+
+
 @app.route("/")
+@app.route("/home")
 def home():
     tasks = mongo.db.tasks.find()
     return render_template("index.html", tasks=tasks)
     # just to test then change to index.html and hero image
 
 
+# Shows shared and user's departments tasks
 @app.route("/tasks")
+@login_required
 def tasks():
     # we need list(x) to iterate multiple times through tasks
     tasks = list(mongo.db.tasks.find())
-    # change above if renamed tasks and put all in one collection
-    # add personal_tasks list here
     return render_template(
         "tasks.html", tasks=tasks)
 
 
 @app.route("/all_tasks")
+@login_required
 def all_tasks():
     # Checks if user in session is mgmt or admin
-    if session["is_admin"] or session["is_mgmt"] == "true":
+    if session["is_admin"] or session["is_mgmt"] == "on":
         tasks = list(mongo.db.tasks.find())
         # pull list of departments
         departments = list(mongo.db.departments.find())
         return render_template(
             "all_tasks.html", tasks=tasks, departments=departments)
+    else:
+        return redirect(url_for('/'))
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -86,6 +123,8 @@ def login():
 
 
 @app.route("/control")
+@login_required
+@admin_access
 def control():
     return render_template("control_panel.html")
 

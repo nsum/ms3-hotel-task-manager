@@ -1,4 +1,7 @@
-
+## Bugs & Fixes
+- login_required decorator needs fix 
+    - is user not logged in and tries to access restricted area,
+        throws and error instead of redirecting to login
 
 
 
