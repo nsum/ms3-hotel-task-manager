@@ -86,7 +86,6 @@ def tasks():
 
 @app.route("/all_tasks")
 @login_required
-@admin_access
 @mgmt_access
 def all_tasks():
     tasks = list(mongo.db.tasks.find())
@@ -131,7 +130,6 @@ def login():
 # Admin & mgmt control panel
 @app.route("/control")
 @login_required
-@admin_access
 @mgmt_access
 def control():
     return render_template("control_panel.html")
@@ -194,7 +192,6 @@ def profile(username):
 # Add department and shared tasks
 @app.route("/add_dept_task", methods=["GET", "POST"])
 @login_required
-@admin_access
 @mgmt_access
 def add_dept_task():
     if request.method == "POST":
@@ -202,7 +199,7 @@ def add_dept_task():
         # Grabs and formats current date for "created on"
         current_date = datetime.date.today().strftime('%d/%b/%Y')
         # Used to insert task creator's full name in "created by"
-        creator = session["first_name"] + " " + session["last_name"]
+        creator_label = session["first_name"] + " " + session["last_name"]
 
         task = {
             "department": request.form.get("department_name"),
@@ -210,7 +207,8 @@ def add_dept_task():
             "task_description": request.form.get("task_description"),
             "is_urgent": is_urgent,
             "due_date": request.form.get("due_date"),
-            "created_by": creator,
+            "created_by": session["user"],
+            "creator_label": creator_label,
             "created_on": current_date
         }
 
@@ -224,14 +222,33 @@ def add_dept_task():
 
 
 @app.route("/edit_dept_task/<task_id>", methods=["GET", "POST"])
+@mgmt_access
 def edit_dept_task(task_id):
-    task = mongo.db.tasks.find_one({"_id": ObjectId(task_id)})
+    if request.method == "POST":
+        is_urgent = "on" if request.form.get("is_urgent") else "off"
+        # Grabs and formats current date for "created on"
+        current_date = datetime.date.today().strftime('%d/%b/%Y')
+        # Used to insert task creator's full name in "created by"
+        creator = session["first_name"] + " " + session["last_name"]
 
+        submit_edit = {
+            "department": request.form.get("department_name"),
+            "task_name": request.form.get("task_name"),
+            "task_description": request.form.get("task_description"),
+            "is_urgent": is_urgent,
+            "due_date": request.form.get("due_date"),
+            "created_by": creator,
+            "created_on": current_date
+        }
+
+        mongo.db.tasks.update({"_id": ObjectId(task_id)}, submit_edit)
+        flash("Department Task Successfully Updated!")
+        return redirect(url_for('tasks'))
+
+    task = mongo.db.tasks.find_one({"_id": ObjectId(task_id)})
     departments = mongo.db.departments.find()
     return render_template(
         "edit_dept_task.html", task=task, departments=departments)
-
-
 
 
 @app.route("/logout")

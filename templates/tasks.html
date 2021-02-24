@@ -13,7 +13,10 @@
                             <div class="col s5">
                                 <i class="fas fa-caret-down"></i>
                                 <a href="" class="btn-small waves-effect waves-light accent-4 green">Done</a>
-                                <a href="{{ url_for('edit_dept_task', task_id=task._id) }}" class="btn-small waves-effect waves-light blue">Edit</a>
+                                {% if session.user|lower == task.created_by|lower or session.is_admin == "on" or session.is_mgmt == "on" %}
+                                    <a href="{{ url_for('edit_dept_task', task_id=task._id) }}" 
+                                        class="btn-small waves-effect waves-light blue">Edit</a>
+                                {% endif %}
                             </div>
                             <div class="col s7">
                                 <strong>{{ task.task_name.capitalize() }}</strong>
@@ -28,7 +31,7 @@
                         </div>
                         <div class="collapsible-body">
                             <p>{{ task.task_description.capitalize() }}</p>
-                            <p><em>by: {{ task.created_by }}&nbsp;&nbsp;&nbsp;&nbsp; 
+                            <p><em>by: {{ task.creator_label }}&nbsp;&nbsp;&nbsp;&nbsp; 
                                 on: {{ task.created_on }} </em>
                             </p>
                         </div>
@@ -48,7 +51,9 @@
                             <div class="col s5">
                                 <i class="fas fa-caret-down"></i>
                                 <a href="" class="btn-small waves-effect waves-light accent-4 green">Done</a>
-                                <a href="{{ url_for('edit_dept_task', task_id=task._id) }}" class="btn-small waves-effect waves-light blue">Edit</a>
+                                {% if session.user|lower == task.created_by|lower or session.is_admin == "on" or session.is_mgmt == "on" %}
+                                    <a href="{{ url_for('edit_dept_task', task_id=task._id) }}" class="btn-small waves-effect waves-light blue">Edit</a>
+                                {% endif %}
                             </div>
                             <div class="col s7">
                                 <strong>{{ task.task_name.capitalize() }}</strong>
