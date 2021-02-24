@@ -62,14 +62,14 @@ def mgmt_access(f):
 def home():
     tasks = mongo.db.tasks.find()
     return render_template("index.html", tasks=tasks)
-    # just to test then change to index.html and hero image
+    # Just to test then change to index.html and hero image
 
 
 # Shows shared and user's departments tasks
 @app.route("/tasks")
 @login_required
 def tasks():
-    # we need list(x) to iterate multiple times through tasks
+    # We need list(x) to iterate multiple times through tasks
     tasks = list(mongo.db.tasks.find())
     return render_template(
         "tasks.html", tasks=tasks)
@@ -77,31 +77,29 @@ def tasks():
 
 @app.route("/all_tasks")
 @login_required
+@admin_access
+@mgmt_access
 def all_tasks():
-    # Checks if user in session is mgmt or admin
-    if session["is_admin"] or session["is_mgmt"] == "on":
-        tasks = list(mongo.db.tasks.find())
-        # pull list of departments
-        departments = list(mongo.db.departments.find())
-        return render_template(
-            "all_tasks.html", tasks=tasks, departments=departments)
-    else:
-        return redirect(url_for('/'))
+    tasks = list(mongo.db.tasks.find())
+    # Pull list of departments
+    departments = list(mongo.db.departments.find())
+    return render_template(
+        "all_tasks.html", tasks=tasks, departments=departments)
 
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        # check does username exist in db
+        # Check does username exist in db
         logged_user = mongo.db.users.find_one(
             {"username": request.form.get("username").lower()})
 
         if logged_user:
-            # make sure password matches user input
+            # Make sure password matches user input
             if check_password_hash(
                     logged_user["password"], request.form.get("password")):
                 session["user"] = request.form.get("username").lower()
-                # grab user's department
+                # Grab session user's info
                 session["department"] = logged_user["department"].lower()
                 session["first_name"] = logged_user["first_name"].capitalize()
                 session["last_name"] = logged_user["last_name"].capitalize()
@@ -110,21 +108,22 @@ def login():
                 flash("Welcome, {}".format(session["first_name"]))
                 return redirect(url_for("profile", username=session["user"]))
             else:
-                # invalid password
+                # Invalid password
                 flash("Incorrect Username and/or Password")
-
         else:
-            # username doesn't exist
+            # Username doesn't exist
             flash("Incorrect Username and/or Password")
             return redirect(url_for("login"))
 
-    # change to profile or tasks when created
+    # Change to profile or tasks when created
     return render_template("login.html")
 
 
+# Admin & mgmt control panel
 @app.route("/control")
 @login_required
 @admin_access
+@mgmt_access
 def control():
     return render_template("control_panel.html")
 
@@ -132,7 +131,7 @@ def control():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
-        # check is username exists
+        # Check is username exists
         existing_user = mongo.db.users.find_one(
             {"username": request.form.get("username").lower()})
 
@@ -155,7 +154,7 @@ def register():
         }
         mongo.db.users.insert_one(register)
 
-        # flash username and password
+        # Flash username and password
         flash(
             "User '{}' Successfully Created!".format(
                 request.form.get("username")))
@@ -164,14 +163,15 @@ def register():
                 request.form.get("password")))
         return redirect(url_for("control"))
 
-    # pull list of departments
+    # Pull list of departments for dropdown list
     departments = mongo.db.departments.find()
     return render_template("register.html", departments=departments)
 
 
 @app.route("/profile/<username>", methods=["POST", "GET"])
+@login_required
 def profile(username):
-    # grab session's username from db
+    # Grab session's username from db
     username = mongo.db.users.find_one(
         {"username": session["user"]})["username"]
     tasks = list(mongo.db.personal_tasks.find())
@@ -182,15 +182,11 @@ def profile(username):
     return redirect(url_for("login"))
 
 
-@app.route("/logout")
-def logout():
-    # Remove session cookies
-    flash("You have been logged out")
-    session.clear()
-    return redirect(url_for("login"))
-
-
+# Add department and shared tasks
 @app.route("/add_dept_task", methods=["GET", "POST"])
+@login_required
+@admin_access
+@mgmt_access
 def add_dept_task():
     if request.method == "POST":
         is_urgent = "on" if request.form.get("is_urgent") else "off"
@@ -213,9 +209,17 @@ def add_dept_task():
         flash("Department Task Successfully Added!")
         return redirect(url_for('tasks'))
 
-    # pull list of departments
+    # Pull list of departments
     departments = mongo.db.departments.find()
     return render_template("add_dept_task.html", departments=departments)
+
+
+@app.route("/logout")
+def logout():
+    # Remove session cookies
+    flash("You have been logged out")
+    session.clear()
+    return redirect(url_for("login"))
 
 
 # Fetch env vars
