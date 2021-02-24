@@ -3,8 +3,14 @@
     redirecting when unlogged users tried to access restricted pages.
     Fixed by using: is_logged = session.get("user")
         if is_logged is None: ...
-        
+
         instead of if session["user"] is None
+
+## Coding Process
+- Initially I set up two collections for tasks 'tasks' for department tasks, and 'personal' 
+    for personal tasks, because I wasn't sure will I be able to manage it in one colelction.
+    After learning how to manage it, I refactored code to use one collection 'tasks' for 
+    both personal and department tasks.
 
 ## Features
 ### Back End
