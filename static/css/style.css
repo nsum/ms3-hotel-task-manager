@@ -1,3 +1,7 @@
+html {
+    min-height: 100%;
+    position: relative;
+}
 
 .container {
     width: 90%;
@@ -32,8 +36,8 @@
 }
 
 footer {
+    background-color: #d4d4d4;
     position: absolute;
-	margin-top: 25px;
     bottom: 0;
 	width: 100%;
 }
