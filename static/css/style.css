@@ -30,3 +30,11 @@
 .task-list {
     margin-top: 2rem;
 }
+
+footer {
+    background-color: #320d3e;
+    position: absolute;
+	margin-top: 25px;
+    bottom: 0;
+	width: 100%;
+}
