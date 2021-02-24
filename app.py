@@ -181,7 +181,7 @@ def profile(username):
     # Grab session's username from db
     username = mongo.db.users.find_one(
         {"username": session["user"]})["username"]
-    tasks = list(mongo.db.personal_tasks.find())
+    tasks = list(mongo.db.tasks.find())
 
     if session["user"]:
         return render_template("profile.html", tasks=tasks, username=username)
@@ -202,6 +202,8 @@ def add_dept_task():
         creator_label = session["first_name"] + " " + session["last_name"]
 
         task = {
+            "type": "departmental",
+            "assigned_to": "no",
             "department": request.form.get("department_name"),
             "task_name": request.form.get("task_name"),
             "task_description": request.form.get("task_description"),
@@ -232,6 +234,7 @@ def edit_dept_task(task_id):
         creator = session["first_name"] + " " + session["last_name"]
 
         submit_edit = {
+            "type": "departamental",
             "department": request.form.get("department_name"),
             "task_name": request.form.get("task_name"),
             "task_description": request.form.get("task_description"),
