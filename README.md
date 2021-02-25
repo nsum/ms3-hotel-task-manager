@@ -6,6 +6,8 @@
 
         instead of if session["user"] is None
 
+- don't forget to add confirmation for completing the task
+
 ## Coding Process
 - Initially I set up two collections for tasks 'tasks' for department tasks, and 'personal' 
     for personal tasks, because I wasn't sure will I be able to manage it in one colelction.
