@@ -30,7 +30,7 @@ mongo = PyMongo(app)
 @app.before_request
 def set_session_timeout():
     session.permanent = True
-    app.permanent_session_lifetime = timedelta(minutes=10)
+    app.permanent_session_lifetime = timedelta(minutes=15)
 
 
 # Restricts access to unlogged users
@@ -203,7 +203,7 @@ def add_dept_task():
 
         task = {
             "type": "departmental",
-            "assigned_to": "no",
+            "assigned_to": "none",
             "department": request.form.get("department_name"),
             "task_name": request.form.get("task_name"),
             "task_description": request.form.get("task_description"),
@@ -231,16 +231,18 @@ def edit_dept_task(task_id):
         # Grabs and formats current date for "created on"
         current_date = datetime.date.today().strftime('%d/%b/%Y')
         # Used to insert task creator's full name in "created by"
-        creator = session["first_name"] + " " + session["last_name"]
+        creator_label = session["first_name"] + " " + session["last_name"]
 
         submit_edit = {
-            "type": "departamental",
+            "type": "departmental",
+            "assigned_to": "none",
             "department": request.form.get("department_name"),
             "task_name": request.form.get("task_name"),
             "task_description": request.form.get("task_description"),
             "is_urgent": is_urgent,
             "due_date": request.form.get("due_date"),
-            "created_by": creator,
+            "created_by": session["user"],
+            "creator_label": creator_label,
             "created_on": current_date
         }
 
