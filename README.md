@@ -5,6 +5,11 @@
         if is_logged is None: ...
 
         instead of if session["user"] is None
+- had to refactor tasks list half-way through after adding slideToggle click event to ul.
+    Idea was for tasks to be hidden until "show tasks" button was clicked. It would then show 
+    collapsable li of tasks. Had to reorganize divs and li's a bit to make it work.
+
+
 
 - don't forget to add confirmation for completing the task
 

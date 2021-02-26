@@ -50,9 +50,25 @@ footer {
     height: 3rem;
 }
 
-#collapsed-dept-tasks, 
-#collapsed-personal-tasks,
-#collapsed-shared-tasks {
+#dept-tasks, 
+#personal-tasks,
+#shared-tasks {
     display: none;
 }
 
+#collapse-personal,
+#collapse-dept,
+#collapse-shared {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.list-heading {
+    padding: 1rem;
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.2)
+}
+
+.box-shadow {
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.2)
+}

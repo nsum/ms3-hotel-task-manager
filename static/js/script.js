@@ -1,18 +1,18 @@
 $(document).ready(function(){
-    //
-    $(`.click-collapse-shared-tasks`).click(function () {
+    // Collapse tasks lists divs
+    $(`#collapse-personal`).click(function () {
 
-        $(`#collapsed-shared-tasks`).slideToggle("medium", "linear");
+        $(`#personal-tasks`).slideToggle("medium", "linear");
     });
 
-    $(`.click-collapse-dept-tasks`).click(function () {
+    $(`#collapse-dept`).click(function () {
 
-        $(`#collapsed-dept-tasks`).slideToggle("medium", "linear");
+        $(`#dept-tasks`).slideToggle("medium", "linear");
     });
+    
+    $(`#collapse-shared`).click(function () {
 
-    $(`.click-collapse-personal-tasks`).click(function () {
-
-        $(`#collapsed-personal-tasks`).slideToggle("medium", "linear");
+        $(`#shared-tasks`).slideToggle("medium", "linear");
     });
 
     // Initialize mobile side nav

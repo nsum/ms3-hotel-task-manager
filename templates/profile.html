@@ -4,21 +4,21 @@
     <div class="row">
         <!-- List of personal tasks -->
         <div class="col s12 m8 offset-m2 task-list">
-            <ul class="collapsible">
-                <h5 class="center-align purple-text text-darken-1">
-                    <strong>{{ session.first_name }}'s Tasks</strong></h5>
-                <!-- Looks for department name in tasks and shows only tasks for department current user belong too -->
-                <div id="collapsed-personal-tasks">
-                {% for task in tasks %}
-                    {% if task.assigned_to.lower() == session.user.lower() %}
+            <ul>
+                <h5 class="list-heading center-align purple-text text-darken-1">
+                    <strong>{{ session.first_name }}'s Tasks</strong>
+                </h5>
+                <!-- Looks for department name in tasks and shows only tasks for department current user belong too -->  
+                <ul id="personal-tasks" class="collapsible">
+                    {% for task in tasks if task.assigned_to.lower() == session.user.lower() %}
                         <li>
                             <div class="collapsible-header white-text text-shadow purple darken-1">
                                 <div class="col s3">
                                     <i class="fas fa-caret-down"></i>
                                     <a href="" class="btn-small waves-effect waves-light accent-4 green">Done</a>
                                     {% if session.user|lower == task.created_by|lower or session.user|lower == "nsumrak" %}
-                                    <a href="" class="btn-small waves-effect waves-light blue">
-                                        Edit</a>
+                                        <a href="" class="btn-small waves-effect waves-light blue">
+                                            Edit</a>
                                     {% endif %}
                                 </div>
                                 <div class="col s9">
@@ -26,8 +26,8 @@
                                     <span>&nbsp;&nbsp; - &nbsp;Due:&nbsp;</span>{{ task.due_date }}
                                     <span> &nbsp;&nbsp;&nbsp;&nbsp;
                                         {% if task.is_urgent == "on" %}
-                                        <i class="fas fa-exclamation-circle yellow-text text-darken-3 tooltipped"
-                                            data-position="right" data-tooltip="Urgent Task!"></i>
+                                            <i class="fas fa-exclamation-circle yellow-text text-darken-3 tooltipped" data-position="right"
+                                                data-tooltip="Urgent Task!"></i>
                                         {% endif %}
                                     </span>
                                 </div>
@@ -35,19 +35,18 @@
                             <div class="collapsible-body">
                                 <p>{{ task.task_description.capitalize() }}</p>
                                 <p><em>by: {{ task.creator_label }}&nbsp;&nbsp;&nbsp;&nbsp;
-                                        on: {{ task.created_on }} </em>
+                                        on: {{ task.created_on }} 
+                                    </em>
                                 </p>
                             </div>
                         </li>
-                    
-                    {% endif %}
-                    
-                {% endfor %}
-                </div>
+                    {% endfor %}
+                </ul>
             </ul>
-            <div class="expand-div center-align purple darken-1">
-                        <button class="click-collapse-personal-tasks click-collapse center-align white-text text-shadow purple darken-1">Show Tasks</button>
-                    </div>
+            <div class="expand-div box-shadow center-align purple darken-1">
+                <button id="collapse-personal" class="center-align white-text text-shadow purple darken-1">
+                    Show / Hide {{ session.first_name }}'s Tasks</button>
+            </div>
         </div>
     </div>
 

@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
 
-    <div class="row container">
+    <div class="row">
         <!-- Session's user's department tasks -->
-        <div class="col s12 task-list">
-            <ul class="collapsible">
-                <h5 class="center-align purple-text darken-4">
+        <div class="col s12 m8 offset-m2 task-list">
+            <ul>
+                <h5 class=" list-heading center-align purple-text darken-4">
                     <strong>{{ session.department.capitalize() }}'s Tasks</strong>
                 </h5>
                 <!-- Looks for department name in tasks and shows only tasks for department current user belong too -->
-                <div id="collapsed-dept-tasks">
+                <ul id="dept-tasks" class="collapsible">
                 {% for task in tasks if task.department.lower() == session.department.lower() %}
                     <li>
                         <div class="collapsible-header white-text text-shadow purple darken-1">
@@ -41,22 +41,22 @@
                     </li>
                 {% endfor %}
                 
-                </div>
+                </ul>
                 
             </ul>
-            <div class="expand-div center-align purple darken-1">
-                        <button class="click-collapse click-collapse-dept-tasks center-align white-text text-shadow purple darken-1">Show
+            <div class="expand-div box-shadow center-align purple darken-1">
+                        <button id="collapse-dept" class="center-align white-text text-shadow purple darken-1">Show
                             Tasks</button>
                     </div>
                     
         </div>
         <!-- / Session user's department tasks -->
         <!-- Shared tasks -->
-        <div class="col s12 task-list">
-            <ul class="collapsible">
-                <h5 class="center-align purple-text darken-4"><strong>Shared Tasks</strong></h5>
+        <div class="col s12 m8 offset-m2 task-list">
+            <ul>
+                <h5 class="list-heading center-align purple-text darken-4"><strong>Shared Tasks</strong></h5>
                 <!-- Looks for tasks with "shared" department name -->
-                <div id="collapsed-shared-tasks">
+                <ul id="shared-tasks" class="collapsible">
                 {% for task in tasks if task.department.lower() == "shared" %}
                     <li>
                         <div class="collapsible-header white-text text-shadow purple darken-1">
@@ -86,11 +86,11 @@
                         </div>
                     </li>
                 {% endfor %}
-                </div>
+                </ul>
                 
             </ul>
-            <div class="expand-div center-align purple darken-1">
-                        <button class="click-collapse-shared-tasks click-collapse center-align white-text text-shadow purple darken-1">Show Tasks</button>
+            <div class="expand-div box-shadow center-align purple darken-1">
+                        <button id="collapse-shared" class="center-align white-text text-shadow purple darken-1">Show Tasks</button>
                     </div>
         </div>
         <!-- / Shared tasks -->
