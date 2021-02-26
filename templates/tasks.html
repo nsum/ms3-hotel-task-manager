@@ -1,12 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
 
-    <div class="row">
+    <div class="row container">
         <!-- Session's user's department tasks -->
-        <div class="col s12 m6 task-list">
+        <div class="col s12 task-list">
             <ul class="collapsible">
-                <h5 class="center-align purple-text darken-4">{{ session.department.capitalize() }}'s Tasks</h5>
+                <h5 class="center-align purple-text darken-4">
+                    <strong>{{ session.department.capitalize() }}'s Tasks</strong>
+                </h5>
                 <!-- Looks for department name in tasks and shows only tasks for department current user belong too -->
+                <div id="collapsed-dept-tasks">
                 {% for task in tasks if task.department.lower() == session.department.lower() %}
                     <li>
                         <div class="collapsible-header white-text text-shadow purple darken-1">
@@ -37,14 +40,23 @@
                         </div>
                     </li>
                 {% endfor %}
+                
+                </div>
+                
             </ul>
+            <div class="expand-div center-align purple darken-1">
+                        <button class="click-collapse click-collapse-dept-tasks center-align white-text text-shadow purple darken-1">Show
+                            Tasks</button>
+                    </div>
+                    
         </div>
         <!-- / Session user's department tasks -->
         <!-- Shared tasks -->
-        <div class="col s12 m6 task-list">
+        <div class="col s12 task-list">
             <ul class="collapsible">
-                <h5 class="center-align purple-text darken-4">Shared Tasks</h5>
+                <h5 class="center-align purple-text darken-4"><strong>Shared Tasks</strong></h5>
                 <!-- Looks for tasks with "shared" department name -->
+                <div id="collapsed-shared-tasks">
                 {% for task in tasks if task.department.lower() == "shared" %}
                     <li>
                         <div class="collapsible-header white-text text-shadow purple darken-1">
@@ -74,7 +86,12 @@
                         </div>
                     </li>
                 {% endfor %}
+                </div>
+                
             </ul>
+            <div class="expand-div center-align purple darken-1">
+                        <button class="click-collapse-shared-tasks click-collapse center-align white-text text-shadow purple darken-1">Show Tasks</button>
+                    </div>
         </div>
         <!-- / Shared tasks -->
     </div>

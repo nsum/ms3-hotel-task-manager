@@ -8,6 +8,7 @@
                 <h5 class="center-align purple-text text-darken-1">
                     <strong>{{ session.first_name }}'s Tasks</strong></h5>
                 <!-- Looks for department name in tasks and shows only tasks for department current user belong too -->
+                <div id="collapsed-personal-tasks">
                 {% for task in tasks %}
                     {% if task.assigned_to.lower() == session.user.lower() %}
                         <li>
@@ -42,11 +43,11 @@
                     {% endif %}
                     
                 {% endfor %}
-                <li>
-                    <div class="collapsible-header white-text center-align text-shadow purple darken-1"></div>
-                </li>
-            
+                </div>
             </ul>
+            <div class="expand-div center-align purple darken-1">
+                        <button class="click-collapse-personal-tasks click-collapse center-align white-text text-shadow purple darken-1">Show Tasks</button>
+                    </div>
         </div>
     </div>
 

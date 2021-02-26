@@ -38,3 +38,21 @@ footer {
     bottom: 0;
 	width: 100%;
 }
+/* Style for collapsable lists and collapse buttons */
+
+.click-collapse {
+    border: none;
+    width: 100%;
+    height: 100%;
+}
+
+.expand-div {
+    height: 3rem;
+}
+
+#collapsed-dept-tasks, 
+#collapsed-personal-tasks,
+#collapsed-shared-tasks {
+    display: none;
+}
+

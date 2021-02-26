@@ -1,4 +1,20 @@
 $(document).ready(function(){
+    //
+    $(`.click-collapse-shared-tasks`).click(function () {
+
+        $(`#collapsed-shared-tasks`).slideToggle("medium", "linear");
+    });
+
+    $(`.click-collapse-dept-tasks`).click(function () {
+
+        $(`#collapsed-dept-tasks`).slideToggle("medium", "linear");
+    });
+
+    $(`.click-collapse-personal-tasks`).click(function () {
+
+        $(`#collapsed-personal-tasks`).slideToggle("medium", "linear");
+    });
+
     // Initialize mobile side nav
     $('.sidenav').sidenav({edge: "right"});
 
