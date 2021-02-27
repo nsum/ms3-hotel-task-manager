@@ -1,13 +1,17 @@
 ## Bugs & Fixes
+- All html files except base.html throw warning "Doctype must be declared first."
+    - It is ignored because all html files are injected into base.html and it's Doctype is declared.
+- edit_dept_task has to identical id's in switches.
+    - It can be ignored because it's in if-else loop and only one id is used.
 - login_required decorator was throwing an error instead of 
-    redirecting when unlogged users tried to access restricted pages.
-    Fixed by using: is_logged = session.get("user")
+    redirecting when unlogged users tried to access restricted pages,
+    because I used 'if session["user"] is None'.
+    - Fixed by using: is_logged = session.get("user") in:
         if is_logged is None: ...
 
-        instead of if session["user"] is None
-- had to refactor tasks list half-way through after adding slideToggle click event to ul.
+- Had to refactor tasks list half-way through the project after adding slideToggle click event to ul.
     Idea was for tasks to be hidden until "show tasks" button was clicked. It would then show 
-    collapsable li of tasks. Had to reorganize divs and li's a bit to make it work.
+    collapsable li of tasks, but it didn't work until I reorganized divs and li's a lot to make it work.
 
 
 
@@ -21,7 +25,7 @@
 
 ## Features
 ### Back End
-- Session expiry after some time of inactivity
+- Session expiry after set time of inactivity (set time inside set_session_timeout function)
 - Redirects to home page if unlogged user tries to access any of the pages login is required for
 - Redirects to task page if non-admin or non-mgmt user tries to access admin & mgmt pages
 
