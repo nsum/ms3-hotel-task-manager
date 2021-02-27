@@ -14,10 +14,10 @@
                                 <div class="col s3">
                                     <i class="fas fa-caret-down"></i>
                                     <a href="" class="btn-small waves-effect waves-light accent-4 green">Done</a>
-                                    <a href="{{ url_for('edit_dept_task', task_id=task._id) }}"
+                                    <!-- <a href="{{ url_for('edit_dept_task', task_id=task._id) }}"
                                         class="btn-small waves-effect waves-light blue">
                                         Edit
-                                    </a>
+                                    </a> -->
                                 </div>
                                 <div class="col s9">
                                     <strong>
@@ -49,6 +49,10 @@
                                         on: {{ task.created_on }} 
                                     </em>
                                 </p>
+                                <a href="{{ url_for('edit_dept_task', task_id=task._id) }}"
+                                        class="btn-small waves-effect waves-light blue">
+                                        Edit
+                                </a>
                             </div>
                         </li>
                     {% endif %}
