@@ -37,8 +37,6 @@ def set_session_timeout():
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        # Throws and error is user not logged in. Try to fix
-        # NEEDS A FIX
         is_logged = session.get("user")
         if is_logged is None:
             return redirect(url_for('login'))
@@ -69,9 +67,7 @@ def mgmt_access(f):
 @app.route("/")
 @app.route("/home")
 def home():
-    tasks = mongo.db.tasks.find()
-    return render_template("index.html", tasks=tasks)
-    # Just to test then change to index.html and hero image
+    return render_template("index.html")
 
 
 # Shows shared and user's departments tasks
@@ -109,13 +105,29 @@ def login():
                     logged_user["password"], request.form.get("password")):
                 # Grab session username
                 session["user"] = request.form.get("username").lower()
-                session["department"] = logged_user["department"].lower()
                 # Grab other sesssion user's info
+                session["department"] = logged_user["department"].lower()
                 session["first_name"] = logged_user["first_name"].capitalize()
                 session["last_name"] = logged_user["last_name"].capitalize()
                 session["is_admin"] = logged_user["admin"]
                 session["is_mgmt"] = logged_user["mgmt"]
-
+                # Insert user's department
+                if session["department"] == "shared":
+                    session["department_label"] = "Shared"
+                elif session["department"] == "mgmt":
+                    session["department_label"] = "Management"
+                elif session["department"] == "fo":
+                    session["department_label"] = "Front Office"
+                elif session["department"] == "kitchen":
+                    session["department_label"] = "Kitchen"
+                elif session["department"] == "night":
+                    session["department_label"] = "Nights"
+                elif session["department"] == "hsk":
+                    session["department_label"] = "Housekeeping"
+                elif session["department"] == "fb":
+                    session["department_label"] = "Food & Beverage"
+                elif session["department"] == "maintenance":
+                    session["department_label"] = "Maintenance"
                 flash("Welcome, {}".format(session["first_name"]))
                 return redirect(url_for("profile", username=session["user"]))
             else:
