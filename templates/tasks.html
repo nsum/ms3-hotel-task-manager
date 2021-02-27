@@ -15,28 +15,24 @@
                     {% for task in tasks if task.department.lower() == session.department.lower() %}
                         <li>
                             <div class="collapsible-header white-text text-shadow purple darken-1">
-                                <div class="col s5">
-                                    <i class="fas fa-caret-down"></i>
-                                    <a href="" class="btn-small waves-effect waves-light accent-4 green">Done</a>
-                                    {% if session.user|lower == task.created_by|lower 
-                                        or session.is_admin == "on" or session.is_mgmt == "on" %}
-                                        <a href="{{ url_for('edit_dept_task', task_id=task._id) }}" 
-                                            class="btn-small waves-effect waves-light blue">
-                                            Edit
-                                        </a>
-                                    {% endif %}
+                                <div class="col s1">
+                                    <i class="fas fa-caret-down"></i>  
                                 </div>
-                                <div class="col s7">
-                                    <strong>{{ task.task_name.capitalize() }}</strong>
-                                    <span>&nbsp;&nbsp; - &nbsp;Due:&nbsp;</span>
-                                    {{ task.due_date }}
-                                    <span> 
-                                        &nbsp;&nbsp;&nbsp;&nbsp;
-                                        {% if task.is_urgent == "on" %}
-                                            <i class="fas fa-exclamation-circle yellow-text text-darken-3 tooltipped" 
-                                                data-position="right" data-tooltip="Urgent Task!">
-                                            </i>
-                                        {% endif %}
+                                <div class="col s11">
+                                    <span class="col s12 m6">
+                                        <strong>{{ task.task_name.capitalize() }}</strong>
+                                    </span>
+                                    <span class="col s12 m6">
+                                        <span>Due:&nbsp;</span>
+                                        {{ task.due_date }}
+                                        <span> 
+                                            &nbsp;&nbsp;&nbsp;&nbsp;
+                                            {% if task.is_urgent == "on" %}
+                                                <i class="fas fa-exclamation-circle yellow-text text-darken-3 tooltipped" 
+                                                    data-position="right" data-tooltip="Urgent Task!">
+                                                </i>
+                                            {% endif %}
+                                        </span>
                                     </span>
                                 </div>
                             </div>
@@ -48,6 +44,15 @@
                                         on: {{ task.created_on }} 
                                     </em>
                                 </p>
+                                <a href="" class="btn-small waves-effect waves-light accent-4 green">Done</a>
+                                {% if session.user|lower == task.created_by|lower 
+                                    or session.is_admin == "on" or session.is_mgmt == "on" %}
+                                    <a href="{{ url_for('edit_dept_task', task_id=task._id) }}" 
+                                        class="btn-small waves-effect waves-light blue">
+                                        Edit
+                                    </a>
+                                    <a href="" class="btn-small waves-effect waves-light accent-4 red">Delete</a>
+                                {% endif %}
                             </div>
                         </li>
                     {% endfor %}
@@ -69,30 +74,24 @@
                     {% for task in tasks if task.department.lower() == "shared" %}
                         <li>
                             <div class="collapsible-header white-text text-shadow purple darken-1">
-                                <div class="col s5">
+                                <div class="col s1">
                                     <i class="fas fa-caret-down"></i>
-                                    <a href="" class="btn-small waves-effect waves-light accent-4 green">
-                                        Done
-                                    </a>
-                                    {% if session.user|lower == task.created_by|lower or session.is_admin == "on" 
-                                        or session.is_mgmt == "on" %}
-                                        <a href="{{ url_for('edit_dept_task', task_id=task._id) }}" 
-                                            class="btn-small waves-effect waves-light blue">
-                                            Edit
-                                        </a>
-                                    {% endif %}
                                 </div>
-                                <div class="col s7">
-                                    <strong>{{ task.task_name.capitalize() }}</strong>
-                                    <span>&nbsp;&nbsp; - &nbsp;Due:&nbsp;</span>
-                                    {{ task.due_date }}
-                                    <span> 
-                                        &nbsp;&nbsp;&nbsp;&nbsp;
-                                        {% if task.is_urgent == "on" %}
-                                            <i class="fas fa-exclamation-circle yellow-text text-darken-3 tooltipped" 
-                                                data-position="right" data-tooltip="Urgent Task!">
-                                            </i>
-                                        {% endif %}
+                                <div class="col s11">
+                                    <span class="col s12 m6">
+                                        <strong>{{ task.task_name.capitalize() }}</strong>
+                                    </span>
+                                    <span class="col s12 m6">
+                                        <span>Due:&nbsp;</span>
+                                        {{ task.due_date }}
+                                        <span> 
+                                            &nbsp;&nbsp;&nbsp;&nbsp;
+                                            {% if task.is_urgent == "on" %}
+                                                <i class="fas fa-exclamation-circle yellow-text text-darken-3 tooltipped" 
+                                                    data-position="right" data-tooltip="Urgent Task!">
+                                                </i>
+                                            {% endif %}
+                                        </span>
                                     </span>
                                 </div>
                             </div>
@@ -104,6 +103,19 @@
                                         on: {{ task.created_on }} 
                                     </em>
                                 </p>
+                                <a href="" class="btn-small waves-effect waves-light accent-4 green">
+                                    Done
+                                </a>
+                                {% if session.user|lower == task.created_by|lower or session.is_admin == "on" 
+                                    or session.is_mgmt == "on" %}
+                                    <a href="{{ url_for('edit_dept_task', task_id=task._id) }}" 
+                                        class="btn-small waves-effect waves-light blue">
+                                        Edit
+                                    </a>
+                                {% endif %}
+                                <a href="" class="btn-small waves-effect waves-light accent-4 red">
+                                    Delete
+                                </a>
                             </div>
                         </li>
                     {% endfor %}
