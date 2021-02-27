@@ -2,11 +2,10 @@
 {% block content %}
 
     <h4 class="center-align purple-text text-darken-1">Register New User</h4>
-
     <div class="row">
         <form class="col s12 m6 offset-m3" method="POST" action="{{ url_for('register') }}">
             <div class="card-panel">
-                <!-- username -->
+                <!-- Username -->
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="fas fa-user-plus prefix purple-text text-darken-1"></i>
@@ -29,7 +28,7 @@
                         <label for="last_name">Last Name</label>
                     </div>
                 </div>
-                <!-- Department dropdown -->
+                <!-- Department list dropdown -->
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="prefix fas fa-hotel purple-text text-darken-1"></i>
@@ -42,7 +41,7 @@
                         <label for="department">Select Department</label>
                     </div>
                 </div>
-                <!-- passowrd -->
+                <!-- Passowrd -->
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="fas fa-user-lock prefix purple-text text-darken-1"></i>
@@ -51,10 +50,11 @@
                         <label for="password">Password</label>
                     </div>
                 </div>
-                <!-- Switch -->
+                <!-- Admin & mgmt switches -->
                 <div class="row">
                     <i class="fas fa-question-circle prefix purple-text text-darken-1 hoverable tooltipped" data-position="right" 
-                    data-tooltip="Admin & Mgmt can see & edit all tasks. Admin can add new users"></i>
+                        data-tooltip="Admin & Mgmt can see & edit all tasks. Admin can add new users">
+                    </i>
                     <span class="switch center-align col s5">
                         <label for="admin">
                             Administrator
@@ -70,8 +70,7 @@
                         </label>
                     </span>
                 </div>
-                <!-- / TESTING ADDITIONAL USER KEYS -->
-                <!-- register button -->
+                <!-- Register button -->
                 <div class="row">
                     <button type="submit" class="col hoverable waves-effect waves-light s12 btn-large purple darken-1 text-shadow">
                         Register <i class="fas fa-sign-in-alt"></i>

@@ -2,7 +2,7 @@
 {% block content %}
 
     <div class="row">
-        <!-- List of all tasks -->
+        <!-- List of all departmental tasks -->
         <div class="col s12 m10 offset-m1 task-list">
             <ul class="collapsible">
                 <h5 class="center-align purple-text darken-4">List of All Departmental Tasks</h5>
@@ -35,7 +35,8 @@
                                     <span> &nbsp;&nbsp;&nbsp;&nbsp;
                                         {% if task.is_urgent == "on" %}
                                             <i class="fas fa-exclamation-circle yellow-text text-darken-3 tooltipped" 
-                                            data-position="right" data-tooltip="Urgent Task!"></i>
+                                                data-position="right" data-tooltip="Urgent Task!">
+                                            </i>
                                         {% endif %}
                                     </span>
                                 </div>
