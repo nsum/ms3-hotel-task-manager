@@ -80,8 +80,10 @@ def home():
 def tasks():
     # We need list(x) to iterate multiple times through tasks
     tasks = list(mongo.db.tasks.find())
+    # Grab users department
+    departments = list(mongo.db.departments.find())
     return render_template(
-        "tasks.html", tasks=tasks)
+        "tasks.html", tasks=tasks, departments=departments)
 
 
 @app.route("/all_tasks")
@@ -101,18 +103,19 @@ def login():
         # Check does username exist in db
         logged_user = mongo.db.users.find_one(
             {"username": request.form.get("username").lower()})
-
         if logged_user:
             # Make sure password matches user input
             if check_password_hash(
                     logged_user["password"], request.form.get("password")):
+                # Grab session username
                 session["user"] = request.form.get("username").lower()
-                # Grab session user's info
                 session["department"] = logged_user["department"].lower()
+                # Grab other sesssion user's info
                 session["first_name"] = logged_user["first_name"].capitalize()
                 session["last_name"] = logged_user["last_name"].capitalize()
                 session["is_admin"] = logged_user["admin"]
                 session["is_mgmt"] = logged_user["mgmt"]
+
                 flash("Welcome, {}".format(session["first_name"]))
                 return redirect(url_for("profile", username=session["user"]))
             else:

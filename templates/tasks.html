@@ -6,7 +6,9 @@
         <div class="col s12 m8 offset-m2 task-list">
             <ul>
                 <h5 class=" list-heading center-align purple-text darken-4">
-                    <strong>{{ session.department.capitalize() }}'s Tasks</strong>
+                    {% for department in departments if department.department_name == session.department %}
+                        <strong>{{ department.department_label}} Tasks</strong>
+                    {% endfor %}
                 </h5>
                 <!-- Looks for department name in tasks and shows only tasks for department current user belong too -->
                 <ul id="dept-tasks" class="collapsible">
@@ -45,8 +47,9 @@
                 
             </ul>
             <div class="expand-div box-shadow center-align purple darken-1">
-                        <button id="collapse-dept" class="center-align white-text text-shadow purple darken-1">Show
-                            Tasks</button>
+                        <button id="collapse-dept" class="center-align white-text text-shadow purple darken-1">
+                            Show / Hide {{ session.department.capitalize() }}'s Tasks
+                        </button>
                     </div>
                     
         </div>
@@ -90,7 +93,9 @@
                 
             </ul>
             <div class="expand-div box-shadow center-align purple darken-1">
-                        <button id="collapse-shared" class="center-align white-text text-shadow purple darken-1">Show Tasks</button>
+                        <button id="collapse-shared" class="center-align white-text text-shadow purple darken-1">
+                            Show / Hide Shared Tasks
+                        </button>
                     </div>
         </div>
         <!-- / Shared tasks -->
