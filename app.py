@@ -245,23 +245,21 @@ def edit_dept_task(task_id):
         is_urgent = "on" if request.form.get("is_urgent") else "off"
         # Grabs and formats current date for "created on"
         current_date = datetime.date.today().strftime('%d/%b/%Y')
-        # Used to insert task creator's full name in "created by"
-        creator_label = session["first_name"] + " " + session["last_name"]
+        # Create editor's full name label
+        updator_label = session["first_name"] + " " + session["last_name"]
 
-        submit_edit = {
-            "type": "departmental",
-            "assigned_to": "none",
+        # mongo.db.tasks.update({"_id": ObjectId(task_id)}, submit_edit)
+        mongo.db.tasks.update({"_id": ObjectId(task_id)}, {"$set": {
             "department": request.form.get("department_name"),
             "task_name": request.form.get("task_name"),
             "task_description": request.form.get("task_description"),
             "is_urgent": is_urgent,
             "due_date": request.form.get("due_date"),
-            "created_by": session["user"],
-            "creator_label": creator_label,
-            "created_on": current_date
-        }
+            "updated_by": session["user"],
+            "updator_label": updator_label,
+            "updated_on": current_date
+        }})
 
-        mongo.db.tasks.update({"_id": ObjectId(task_id)}, submit_edit)
         flash("Department Task Successfully Updated!")
         return redirect(url_for('tasks'))
 

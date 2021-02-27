@@ -9,15 +9,12 @@
     - Fixed by using: is_logged = session.get("user") in:
         if is_logged is None: ...
 - There is a bug on mobile (specifically IOS) where when you click on item in dropdown select list, 
-    wrong item gets selected. Also dropdown caret is positioned wrong
+    wrong item gets selected. Also dropdown caret is positioned wrong.
+    - Fixed by adding Alvin Wang's select.js file to scripts
 
 - Had to refactor tasks list half-way through the project after adding slideToggle click event to ul.
     Idea was for tasks to be hidden until "show tasks" button was clicked. It would then show 
     collapsable li of tasks, but it didn't work until I reorganized divs and li's a lot to make it work.
-
-
-
-- don't forget to add confirmation for completing the task
 
 ## Coding Process
 - Initially I set up two collections for tasks 'tasks' for department tasks, and 'personal' 
@@ -42,7 +39,7 @@
 - https://materializecss.com/ - framework
 - jQuery
 - font awesome
-- 
+- Alvin Wang - https://github.com/Dogfalo - select.js fix for select dropdown
 
 
 # PRESET README
