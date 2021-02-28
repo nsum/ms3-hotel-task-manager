@@ -269,6 +269,13 @@ def edit_dept_task(task_id):
         "edit_dept_task.html", task=task, departments=departments)
 
 
+@app.route("/delete_task/<task_id>")
+def delete_task(task_id):
+    mongo.db.tasks.remove({"_id": ObjectId(task_id)})
+    flash("Task Successfully Deleted")
+    return redirect(url_for("tasks"))
+
+
 @app.route("/logout")
 def logout():
     # Remove session cookies

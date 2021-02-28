@@ -8,19 +8,25 @@
     because I used 'if session["user"] is None'.
     - Fixed by using: is_logged = session.get("user") in:
         if is_logged is None: ...
-- There is a bug on mobile (specifically IOS) where when you click on item in dropdown select list, 
+- There was a bug on mobile (specifically IOS) where when you click on item in dropdown select list, 
     wrong item gets selected. Also dropdown caret is positioned wrong.
-    - Fixed by adding Alvin Wang's select.js file to scripts
+    - Fixed by adding Alvin Wang's select.js file to scripts (full credit in 'Credits')
 
 - Had to refactor tasks list half-way through the project after adding slideToggle click event to ul.
     Idea was for tasks to be hidden until "show tasks" button was clicked. It would then show 
     collapsable li of tasks, but it didn't work until I reorganized divs and li's a lot to make it work.
+- Half-way through the project I noticed created_by & created_on labels changed to editors information 
+    after editing tasks. Fixed by using $set syntax, which enabled to update with just given values. 
+    All other non-provided values on editing (like created_by, created_on) stay the same.
 
-## Coding Process
-- Initially I set up two collections for tasks 'tasks' for department tasks, and 'personal' 
+
+## Coding Process / REasoning
+- Initially I set up two collections for tasks: 'tasks' for department tasks, and 'personal' 
     for personal tasks, because I wasn't sure will I be able to manage it in one colelction.
     After learning how to manage it, I refactored code to use one collection 'tasks' for 
     both personal and department tasks.
+- I decided to use Materialize as a front-end Framework, because it's a new framework for me,
+    and wanted to get more familiar with it.
 
 ## Features
 ### Back End
