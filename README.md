@@ -18,7 +18,12 @@
 - Half-way through the project I noticed created_by & created_on labels changed to editors information 
     after editing tasks. Fixed by using $set syntax, which enabled to update with just given values. 
     All other non-provided values on editing (like created_by, created_on) stay the same.
-
+- Had a bug with modals just after implementing them to pop to confirm deletion of a task. 
+    Modals would open only for first task which I fixed by moving modal structure outside of collapsible body.
+    That fixed modals opening for just first item in the list but still if I try to delete e.g. 5th
+    task in the list, first task in the list would be deleted. It was because of modals id's so 
+    I fixed it by using #modal1{{ loop.index }} for first list, #modal2{{ loop.index }} for second etc.
+- 
 
 ## Coding Process / REasoning
 - Initially I set up two collections for tasks: 'tasks' for department tasks, and 'personal' 

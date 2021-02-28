@@ -15,6 +15,10 @@ $(document).ready(function(){
         $(`#shared-tasks`).slideToggle("medium", "linear");
     });
 
+    // Initialize Modals
+    $(document).ready(function () {
+        $('.modal').modal();
+    });
     // Initialize mobile side nav
     $('.sidenav').sidenav({edge: "right"});
 

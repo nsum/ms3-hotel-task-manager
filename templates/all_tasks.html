@@ -62,11 +62,31 @@
                                         class="btn-small waves-effect waves-light blue">
                                         Edit
                                     </a>
-                                    <a href="{{ url_for('delete_task', task_id=task._id) }}" 
-                                        class="btn-small waves-effect waves-light accent-4 red">
+                                    <!-- Delete button triggers modal to confirm for defensive purposes -->
+                                    <a href="#modal1{{ loop.index }}" 
+                                        class="btn-small waves-effect waves-light accent-4 modal-trigger red">
                                         Delete
                                     </a>
                                 {% endif %}
+                            </div>
+                            <!-- Modal Structure -->
+                            <div id="modal1{{ loop.index }}" class="modal">
+                                <div class="modal-content">
+                                    <h5>
+                                        <strong>
+                                            Confirming This Action Will Permanently Delete Task
+                                        </strong>
+                                    </h5>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="modal-close waves-effect accent-4 green waves-light btn-small">
+                                        Cancel
+                                    </button>
+                                    <a href="{{ url_for('delete_task', task_id=task._id) }}"
+                                        class="modal-close waves-effect accent-4 red waves-light btn-small">
+                                        Delete Task
+                                    </a>
+                                </div>
                             </div>
                         </li>
                     {% endif %}

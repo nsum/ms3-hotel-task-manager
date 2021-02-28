@@ -231,7 +231,7 @@ def add_dept_task():
 
         mongo.db.tasks.insert_one(task)
         flash("Department Task Successfully Added!")
-        return redirect(url_for('tasks'))
+        return redirect(url_for('control'))
 
     # Pull list of departments
     departments = mongo.db.departments.find()
