@@ -51,7 +51,10 @@
                                         </em>
                                     {% endif %}
                                 </p>
-                                <a href="" class="btn-small waves-effect waves-light accent-4 green">Done</a>
+                                <a href="{{ url_for('complete_task', task_id=task._id) }}" 
+                                    class="btn-small waves-effect waves-light accent-4 green">
+                                    Done
+                                </a>
                                 {% if session.user|lower == task.created_by|lower 
                                     or session.is_admin == "on" or session.is_mgmt == "on" %}
                                     <a href="{{ url_for('edit_dept_task', task_id=task._id) }}" 
@@ -140,7 +143,8 @@
                                         </em>
                                     {% endif %}
                                 </p>
-                                <a href="" class="btn-small waves-effect waves-light accent-4 green">
+                                <a href="{{ url_for('complete_task', task_id=task._id) }}" 
+                                    class="btn-small waves-effect waves-light accent-4 green">
                                     Done
                                 </a>
                                 {% if session.user|lower == task.created_by|lower or session.is_admin == "on" 

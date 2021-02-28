@@ -248,7 +248,6 @@ def edit_dept_task(task_id):
         # Create editor's full name label
         updator_label = session["first_name"] + " " + session["last_name"]
 
-        # mongo.db.tasks.update({"_id": ObjectId(task_id)}, submit_edit)
         mongo.db.tasks.update({"_id": ObjectId(task_id)}, {"$set": {
             "department": request.form.get("department_name"),
             "task_name": request.form.get("task_name"),
@@ -273,6 +272,27 @@ def edit_dept_task(task_id):
 def delete_task(task_id):
     mongo.db.tasks.remove({"_id": ObjectId(task_id)})
     flash("Task Successfully Deleted")
+    return redirect(url_for("tasks"))
+
+
+@app.route("/complete_task/<task_id>", methods=["GET", "POST"])
+def complete_task(task_id):
+    # Grabs and formats current date for "created on"
+    current_date = datetime.date.today().strftime('%d/%b/%Y')
+    # Finds the task in db
+    completed_task = mongo.db.tasks.find_one(
+        {"_id": ObjectId(task_id)})
+    # Inserts it into collection of completed tasks
+    mongo.db.completed_tasks.insert_one(completed_task)
+    # Updates it to keep track on who and when completed it
+    mongo.db.completed_tasks.update({"_id": ObjectId(task_id)}, {"$set": {
+            "completed_by": session["user"],
+            "completed_on": current_date
+        }})
+    # Removes completed_task from active tasks collection
+    mongo.db.tasks.remove(completed_task)
+
+    flash("Task Successfully Completed")
     return redirect(url_for("tasks"))
 
 
