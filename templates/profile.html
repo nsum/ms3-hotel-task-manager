@@ -48,8 +48,8 @@
                                         </em>
                                     {% endif %}
                                 </p>
-                                <a href="{{ url_for('complete_task', task_id=task._id) }}" 
-                                    class="btn-small waves-effect waves-light accent-4 green">
+                                <a href="#modal6{{ loop.index }}" 
+                                    class="btn-small waves-effect waves-light accent-4 modal-trigger green">
                                     Done
                                 </a>
                                 {% if session.user|lower == task.created_by|lower 
@@ -81,6 +81,24 @@
                                     <a href="{{ url_for('delete_task', task_id=task._id) }}" 
                                         class="modal-close waves-effect accent-4 red waves-light btn-small">
                                         Delete Task
+                                    </a>
+                                </div>
+                            </div>
+                            <div id="modal6{{ loop.index }}" class="modal">
+                                <div class="modal-content">
+                                    <h5>
+                                        <strong>
+                                            Confirming This Action Will Complete The Task
+                                        </strong>
+                                    </h5>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="modal-close waves-effect accent-4 red waves-light btn-small">
+                                        Cancel
+                                    </button>
+                                    <a href="{{ url_for('complete_task', task_id=task._id) }}" 
+                                        class="btn-small waves-effect waves-light accent-4 green">
+                                        Complete Task
                                     </a>
                                 </div>
                             </div>
