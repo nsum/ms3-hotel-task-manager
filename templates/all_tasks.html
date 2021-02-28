@@ -61,10 +61,10 @@
                                 </a>
                                 {% if session.user|lower == task.created_by|lower 
                                     or session.is_admin == "on" or session.is_mgmt == "on" %}
-                                <a href="{{ url_for('edit_dept_task', task_id=task._id) }}" 
-                                    class="btn-small waves-effect waves-light blue">
-                                    Edit
-                                </a>
+                                    <a href="{{ url_for('edit_dept_task', task_id=task._id) }}" 
+                                        class="btn-small waves-effect waves-light blue">
+                                        Edit
+                                    </a>
                                     <!-- Delete button triggers modal to confirm for defensive purposes -->
                                     <a href="#modal1{{ loop.index }}" 
                                         class="btn-small waves-effect waves-light accent-4 modal-trigger red">
@@ -75,11 +75,11 @@
                             <!-- Modal Structure -->
                             <div id="modal1{{ loop.index }}" class="modal">
                                 <div class="modal-content">
-                                    <h5>
+                                    <h6>
                                         <strong>
-                                            Confirming This Action Will Permanently Delete Task
+                                            Are You Sure You Want To Permanently Delete The Task?
                                         </strong>
-                                    </h5>
+                                    </h6>
                                 </div>
                                 <div class="modal-footer">
                                     <button class="modal-close waves-effect accent-4 green waves-light btn-small">
@@ -93,11 +93,11 @@
                             </div>
                             <div id="modal5{{ loop.index }}" class="modal">
                                 <div class="modal-content">
-                                    <h5>
+                                    <h6>
                                         <strong>
-                                            Confirming This Action Will Complete The Task
+                                            Are You Sure You Want To Complete The Task?
                                         </strong>
-                                    </h5>
+                                    </h6>
                                 </div>
                                 <div class="modal-footer">
                                     <button class="modal-close waves-effect accent-4 red waves-light btn-small">

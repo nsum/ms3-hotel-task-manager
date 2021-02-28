@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 
+    <a href="{{ url_for('add_personal_task') }}" class="btn waves-effect hoverable waves-light purple darken-1">Create New Personal Task</a>
     <div class="row">
         <!-- List of personal tasks -->
         <div class="col s12 m8 offset-m2 task-list">
@@ -8,6 +9,11 @@
                 <h5 class="list-heading center-align purple-text text-darken-1">
                     <strong>{{ session.first_name }}'s Tasks</strong>
                 </h5>
+                <div class="expand-div box-shadow center-align purple darken-1">
+                    <button id="collapse-personal" class="center-align white-text text-shadow purple darken-1">
+                        Show / Hide {{ session.first_name }}'s Tasks
+                    </button>
+                </div>
                 <!-- Looks for tasks assigned to current user and shows only those tasks -->  
                 <ul id="personal-tasks" class="collapsible">
                     {% for task in tasks if task.assigned_to.lower() == session.user.lower() %}
@@ -68,11 +74,11 @@
                             <!-- Modal Structure -->
                             <div id="modal2{{ loop.index }}" class="modal">
                                 <div class="modal-content">
-                                    <h5>
+                                    <h6>
                                         <strong>
-                                        Confirming This Action Will Permanently Delete Task
+                                            Are You Sure You Want To Permanently Delete The Task?
                                         </strong>
-                                    </h5>
+                                    </h6>
                                 </div>
                                 <div class="modal-footer">
                                     <button class="modal-close waves-effect accent-4 green waves-light btn-small">
@@ -86,11 +92,11 @@
                             </div>
                             <div id="modal6{{ loop.index }}" class="modal">
                                 <div class="modal-content">
-                                    <h5>
+                                    <h6>
                                         <strong>
-                                            Confirming This Action Will Complete The Task
+                                            Are You Sure You Want To Complete The Task?
                                         </strong>
-                                    </h5>
+                                    </h6>
                                 </div>
                                 <div class="modal-footer">
                                     <button class="modal-close waves-effect accent-4 red waves-light btn-small">
@@ -106,11 +112,7 @@
                     {% endfor %}
                 </ul>
             </ul>
-            <div class="expand-div box-shadow center-align purple darken-1">
-                <button id="collapse-personal" class="center-align white-text text-shadow purple darken-1">
-                    Show / Hide {{ session.first_name }}'s Tasks
-                </button>
-            </div>
+            
         </div>
     </div>
 

@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <h5 class="title purple-text text-darken-1 center-align">Create New Personal Task</h5>
+    <div class="row">
+        <form class="card-panel grey lighten-5 col s12 m8 offset-m2" method="POST" action="{{url_for('add_personal_task')}}">
+            <!-- Department dropdown -->
+            {% if session.is_admin == "on" or session.is_mgmt == "on" %}
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="prefix fas fa-user purple-text darken-4"></i>
+                        <!-- adapt this select to personal-->
+                        <select id="username" name="username" class="validate" required>
+                            <option value="" disabled selected>Search Names:</option>
+                            {% for user in users %}
+                                <option value="{{ user.username }}">
+                                    {{- user.first_name }} {{ user.last_name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                        <label for="username">Select person to delegate the task to</label>
+                    </div>
+                </div>
+            {% endif %}
+            <!-- Task name -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="prefix fas fa-edit purple-text darken-4"></i>
+                    <input id="task_name" name="task_name" type="text" class="validate" minlength="5" maxlength="30" required>
+                    <label for="task_name">Task Name</label>
+                </div>
+            </div>
+            <!-- Description Area-->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="prefix fas fa-align-left purple-text darken-4"></i>
+                    <textarea id="task_description" name="task_description" class="materialize-textarea validate" 
+                        minlength="5" maxlength="200" required></textarea>
+                    <label for="task_description">Task Description</label>
+                </div>
+            </div>
+            <!-- Calendar picker-->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="prefix fas fa-calendar-alt purple-text darken-4"></i>
+                    <input id="due_date" name="due_date" type="text" class="validate datepicker" required>
+                    <label for="due_date">Due Date</label>
+                </div>
+            </div>
+            <!-- Switches -->
+            <div class="row">
+                <div class="input-filed col s12">
+                    <div class="switch">
+                        <i class="prefix fas fa-exclamation-circle purple-text darken-4"></i>
+                        <label for="is_urgent">
+                            <input type="checkbox" id="is_urgent" name="is_urgent">
+                            <span class="lever"></span>
+                            Is Urgent
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <!-- Submit Button -->
+            <div class="row">
+                <div class="col s12 center-align">
+                    <button type="submit" class="waves-effect waves-light btn-large purple darken-1 text-shadow">
+                        Create Department Task <i class="fas fa-plus right"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

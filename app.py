@@ -85,6 +85,7 @@ def tasks():
 @app.route("/all_tasks")
 @login_required
 @mgmt_access
+@admin_access
 def all_tasks():
     tasks = list(mongo.db.tasks.find())
     # Pull list of departments
@@ -146,11 +147,15 @@ def login():
 @app.route("/control")
 @login_required
 @mgmt_access
+@admin_access
 def control():
     return render_template("control_panel.html")
 
 
 @app.route("/register", methods=["GET", "POST"])
+@login_required
+@mgmt_access
+@admin_access
 def register():
     if request.method == "POST":
         # Check is username exists
@@ -208,6 +213,7 @@ def profile(username):
 @app.route("/add_dept_task", methods=["GET", "POST"])
 @login_required
 @mgmt_access
+@admin_access
 def add_dept_task():
     if request.method == "POST":
         is_urgent = "on" if request.form.get("is_urgent") else "off"
@@ -238,8 +244,46 @@ def add_dept_task():
     return render_template("add_dept_task.html", departments=departments)
 
 
+# Add personal tasks
+@app.route("/add_personal_task", methods=["GET", "POST"])
+@login_required
+def add_personal_task():
+    if request.method == "POST":
+        is_urgent = "on" if request.form.get("is_urgent") else "off"
+        # Grabs and formats current date for "created on"
+        current_date = datetime.date.today().strftime('%d/%b/%Y')
+        # Used to insert task creator's full name in "created by"
+        creator_label = session["first_name"] + " " + session["last_name"]
+        # 
+        delegated = request.form.get("username")
+        if delegated is None:
+            assigned_to = session["user"]
+        else:
+            assigned_to = delegated
+
+        task = {
+            "type": "personal",
+            "assigned_to": assigned_to,
+            "department": "none",
+            "task_name": request.form.get("task_name"),
+            "task_description": request.form.get("task_description"),
+            "is_urgent": is_urgent,
+            "due_date": request.form.get("due_date"),
+            "created_by": session["user"],
+            "creator_label": creator_label,
+            "created_on": current_date
+        }
+
+        mongo.db.tasks.insert_one(task)
+        flash("Personal Task Successfully Added!")
+        return redirect(url_for('control'))
+
+    # Pull list of departments
+    users = mongo.db.users.find()
+    return render_template("add_personal_task.html", users=users)
+
+
 @app.route("/edit_dept_task/<task_id>", methods=["GET", "POST"])
-@mgmt_access
 def edit_dept_task(task_id):
     if request.method == "POST":
         is_urgent = "on" if request.form.get("is_urgent") else "off"

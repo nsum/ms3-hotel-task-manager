@@ -10,6 +10,11 @@
                         <strong>{{ department.department_label}} Tasks</strong>
                     {% endfor %}
                 </h5>
+                <div class="expand-div box-shadow center-align purple darken-1">
+                    <button id="collapse-dept" class="center-align white-text text-shadow purple darken-1">
+                        Show / Hide {{ session.department.capitalize() }}'s Tasks
+                    </button>
+                </div>
                 <!-- Looks for department name in tasks and shows only tasks for department current user belong too -->
                 <ul id="dept-tasks" class="collapsible">
                     {% for task in tasks if task.department.lower() == session.department.lower() %}
@@ -71,11 +76,11 @@
                             <!-- Modal Structure -->
                             <div id="modal3{{ loop.index }}" class="modal">
                                 <div class="modal-content">
-                                    <h5>
+                                    <h6>
                                         <strong>
-                                        Confirming This Action Will Permanently Delete Task
+                                            Are You Sure You Want To Permanently Delete The Task?
                                         </strong>
-                                    </h5>
+                                    </h6>
                                 </div>
                                 <div class="modal-footer">
                                     <button class="modal-close waves-effect accent-4 green waves-light btn-small">
@@ -89,11 +94,11 @@
                             </div>
                             <div id="modal7{{ loop.index }}" class="modal">
                                 <div class="modal-content">
-                                    <h5>
+                                    <h6>
                                         <strong>
-                                            Confirming This Action Will Complete The Task
+                                            Are You Sure You Want To Complete The Task?
                                         </strong>
-                                    </h5>
+                                    </h6>
                                 </div>
                                 <div class="modal-footer">
                                     <button class="modal-close waves-effect accent-4 red waves-light btn-small">
@@ -108,18 +113,18 @@
                         </li>
                     {% endfor %}
                 </ul>  
-            </ul>
-            <div class="expand-div box-shadow center-align purple darken-1">
-                <button id="collapse-dept" class="center-align white-text text-shadow purple darken-1">
-                    Show / Hide {{ session.department.capitalize() }}'s Tasks
-                </button>
-            </div>           
+            </ul>           
         </div>
         <!-- / Session user's department tasks -->
         <!-- Shared tasks -->
         <div class="col s12 m8 offset-m2 task-list">
             <ul>
                 <h5 class="list-heading center-align purple-text darken-4"><strong>Shared Tasks</strong></h5>
+                <div class="expand-div box-shadow center-align purple darken-1">
+                    <button id="collapse-shared" class="center-align white-text text-shadow purple darken-1">
+                        Show / Hide Shared Tasks
+                    </button>
+                </div>
                 <!-- Looks for tasks with "shared" department name -->
                 <ul id="shared-tasks" class="collapsible">
                     {% for task in tasks if task.department.lower() == "shared" %}
@@ -181,11 +186,11 @@
                             <!-- Modal Structure -->
                             <div id="modal4{{ loop.index }}" class="modal">
                                 <div class="modal-content">
-                                    <h5>
+                                    <h6>
                                         <strong>
-                                        Confirming This Action Will Permanently Delete Task
+                                            Are You Sure You Want To Permanently Delete The Task?
                                         </strong>
-                                    </h5>
+                                    </h6>
                                 </div>
                                 <div class="modal-footer">
                                     <button class="modal-close waves-effect accent-4 green waves-light btn-small">
@@ -199,11 +204,11 @@
                             </div>
                             <div id="modal8{{ loop.index }}" class="modal">
                                 <div class="modal-content">
-                                    <h5>
+                                    <h6>
                                         <strong>
-                                            Confirming This Action Will Complete The Task
+                                            Are You Sure You Want To Complete The Task?
                                         </strong>
-                                    </h5>
+                                    </h6>
                                 </div>
                                 <div class="modal-footer">
                                     <button class="modal-close waves-effect accent-4 red waves-light btn-small">
@@ -219,11 +224,6 @@
                     {% endfor %}
                 </ul>  
             </ul>
-            <div class="expand-div box-shadow center-align purple darken-1">
-                <button id="collapse-shared" class="center-align white-text text-shadow purple darken-1">
-                    Show / Hide Shared Tasks
-                </button>
-            </div>
         </div>
     </div>
 
