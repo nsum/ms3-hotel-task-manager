@@ -1,3 +1,31 @@
+## User Stories
+- As someone who would use this task manager regurarly, I want to tasks and lists to be informative and easily understandable.
+    - Task lists contain list items with: task name, due date & urgency status.
+    On opening specific task: task description, created by, created on are visible, under which is complete button. 
+    Additionally if someone edits the task, that is also visible in task body.
+- As a head of department I want to be able to assign a task that will be visible only to staff in my department
+    and can be completed by anyone in my department.
+    - Normal users can see and complete tasks assigned to their department on tasks page.
+- As a manager I want to be able to create a new task that will be visible by all members.
+    - "Shared" tasks list contains all tasks that will be visible to every member.
+- As a head of department I want to be able to assign a personal task that will be visible only to me and staff member I
+    assigned the task to.
+    - Normal users can see and complete their own personal tasks assigned to them by management or themselves.
+- As a head of department I want to be able to keep track of all the tasks I assigned either to department or staff member specifically.
+    - All management members can access all tasks from "control panel" page, and additionaly they have a list of all 
+    tasks assigned by them.
+- As part of management I want to be able to delete any tasks.
+    - Management can delete any task, while normal users can only delete tasks create by themselves (own personal task)
+- As part of management I want to be able to edit and redelegate tasks.
+    - All management members can edit all tasks while normal users can only edit tasks they created. When editing they can 
+    reassign the task to other staff member or department.
+- As normal staff member, I want to be able to add a personal task to myself as a reminder.
+    - Normal users can only create personal tasks for themselves, and those tasks are the only tasks they can edit or delete.
+- As part of management I want to be able to see if someone edited a task I made, and when.
+    - When task is edited new keys (edited by, edited on) are inserted into task and shown in task body after editing so 
+    it's easy to keep track of who edited the task and when.
+- 
+
 ## Bugs & Fixes
 - All html files except base.html throw warning "Doctype must be declared first."
     - It is ignored because all html files are injected into base.html and it's Doctype is declared.
@@ -11,7 +39,8 @@
 - There was a bug on mobile (specifically IOS) where when you click on item in dropdown select list, 
     wrong item gets selected. Also dropdown caret is positioned wrong.
     - Fixed by adding Alvin Wang's select.js file to scripts (full credit in 'Credits')
-
+- Date picker sometimes on click enables manual entry instead of popping up calendar to choose from.
+    - Rarely happens and didn't fix
 - Had to refactor tasks list half-way through the project after adding slideToggle click event to ul.
     Idea was for tasks to be hidden until "show tasks" button was clicked. It would then show 
     collapsable li of tasks, but it didn't work until I reorganized divs and li's a lot to make it work.
@@ -38,7 +67,7 @@
 - Session expiry after set time of inactivity (set time inside set_session_timeout function)
 - Redirects to home page if unlogged user tries to access any of the pages login is required for
 - Redirects to task page if non-admin or non-mgmt user tries to access admin & mgmt pages
-
+- 
 
 ### Front End
 - 
