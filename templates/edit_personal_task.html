@@ -6,7 +6,7 @@
         <form class="card-panel grey lighten-5 col s12 m8 offset-m2" method="POST" 
             action="{{url_for('edit_personal_task', task_id=task._id)}}">
             {% if session.is_admin == "on" or session.is_mgmt == "on" %}
-                <!-- Users list dropdown -->
+                <!-- Users list dropdown if user is admin or mgmt -->
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="prefix fas fa-hotel purple-text darken-4"></i>
