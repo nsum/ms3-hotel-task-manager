@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
 
-    <a href="{{ url_for('add_personal_task') }}" class="btn waves-effect hoverable waves-light purple darken-1">Create New Personal Task</a>
     <div class="row">
         <!-- List of personal tasks -->
         <div class="col s12 m8 offset-m2 task-list">
@@ -116,7 +115,7 @@
                     {% endfor %}
                 </ul>
             </ul>
-            
+            <a href="{{ url_for('add_personal_task') }}" class="btn waves-effect hoverable waves-light purple darken-1">Create New Personal Task</a>
         </div>
     </div>
 

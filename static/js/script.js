@@ -15,6 +15,11 @@ $(document).ready(function(){
         $(`#shared-tasks`).slideToggle("medium", "linear");
     });
 
+    // Initialize floating action button
+    $(document).ready(function(){
+        $('.fixed-action-btn').floatingActionButton();
+    });
+
     // Initialize Modals
     $(document).ready(function () {
         $('.modal').modal();

@@ -4,4 +4,58 @@
     <a href="{{ url_for('add_dept_task') }}" class="btn waves-effect hoverable waves-light purple darken-1">Create New Department Task</a>
     <a href="{{ url_for('all_tasks') }}" class="btn waves-effect hoverable waves-light purple darken-1">Manage All Departments Tasks</a>
     <a href="{{ url_for('add_personal_task') }}" class="btn waves-effect hoverable waves-light purple darken-1">Create New Personal Task</a>
+
+    <div class="row">
+        <div class="col s12 m4">
+            <div class="card blue-grey">
+                <div class="card-content white-text">
+                    <span class="center-align card-title">Register</span>
+                    <p>Register new user</p>
+                </div>
+                <div class="card-action">
+                    <a href="#">This is a link</a>
+                    <a href="#">This is a link</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Floating Action Button-->
+    <div class="fixed-action-btn">
+        <a class="btn-floating btn-large purple">
+            <i class="fas fa-pencil-alt"></i>
+        </a>
+        <ul>
+            <li>
+                <a href="{{ url_for('register') }}"
+                    class="btn-floating brown tooltipped" data-position="left" 
+                    data-tooltip="Register New User">
+                    <i class="fas fa-user-plus"></i>
+                </a>
+            </li>
+            <li>
+                <a class="btn-floating red tooltipped" data-position="left" 
+                    data-tooltip="Track Delegated Tasks">
+                    <i class="fas fa-user-tie"></i>
+                </a>
+            </li>
+            <li>
+                <a href="{{ url_for('all_tasks') }}" class="btn-floating orange tooltipped" 
+                    data-position="left" data-tooltip="Manage Department Tasks">
+                    <i class="fas fa-hotel"></i>
+                </a>
+            </li>
+            <li>
+                <a href="{{ url_for('add_personal_task') }}" class="btn-floating green tooltipped" data-position="left" 
+                    data-tooltip="Create Personal Task">
+                    <i class="fas fa-users"></i>
+                </a>
+            </li>
+            <li>
+                <a href="{{ url_for('add_dept_task') }}" class="btn-floating blue tooltipped" data-position="left" 
+                    data-tooltip="Create Department Task">
+                    <i class="fas fa-tasks"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
 {% endblock %}
