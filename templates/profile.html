@@ -60,7 +60,7 @@
                                 </a>
                                 {% if session.user|lower == task.created_by|lower 
                                     or session.is_admin == "on" or session.is_mgmt == "on" %}
-                                    <a href="" 
+                                    <a href="{{ url_for('edit_personal_task', task_id=task._id) }}" 
                                         class="btn-small waves-effect waves-light blue">
                                         Edit
                                     </a>

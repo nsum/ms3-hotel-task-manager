@@ -1,29 +1,33 @@
 {% extends "base.html" %}
 {% block content %}
 
-    <h5 class="title purple-text text-darken-1 center-align">Edit Department Task</h5>
+    <h5 class="title purple-text text-darken-1 center-align">Edit Personal Task</h5>
     <div class="row">
         <form class="card-panel grey lighten-5 col s12 m8 offset-m2" method="POST" 
-            action="{{url_for('edit_dept_task', task_id=task._id)}}">
-            <!-- Department list dropdown -->
-            <div class="row">
-                <div class="input-field col s12">
-                    <i class="prefix fas fa-hotel purple-text darken-4"></i>
-                    <select id="department_name" name="department_name" class="validate" required>
-                        <option value="" disabled>Select Department</option>
-                        {% for department in departments %}
-                            {% if department.department_name == task.department %}
-                                <option value="{{ department.department_name }}" selected>
-                                    {{- department.department_label }}
-                                </option>
-                            {% else %}
-                                <option value="{{ department.department_name }}">{{ department.department_label }}</option>
-                            {% endif %}
-                        {% endfor %}
-                    </select>
-                    <label for="department_name">Select Department</label>
+            action="{{url_for('edit_personal_task', task_id=task._id)}}">
+            {% if session.is_admin == "on" or session.is_mgmt == "on" %}
+                <!-- Users list dropdown -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="prefix fas fa-hotel purple-text darken-4"></i>
+                        <select id="username" name="username" class="validate" required>
+                            <option value="" disabled>Search Names:</option>
+                            {% for user in users %}
+                                {% if user.username == task.assigned_to %}
+                                    <option value="{{ user.username }}" selected>
+                                        {{- user.first_name }} {{ user.last_name }}
+                                    </option>
+                                {% else %}
+                                    <option value="{{ user.username }}">
+                                        {{- user.first_name }} {{ user.last_name }}
+                                    </option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                        <label for="username">Select person to delegate the task to</label>
+                    </div>
                 </div>
-            </div>
+            {% endif %}
             <!-- Task name -->
             <div class="row">
                 <div class="input-field col s12">
@@ -78,7 +82,7 @@
                         Cancel <i class="fas fa-times-circle right"></i>
                     </a>
                     <button type="submit" class="waves-effect waves-light btn-large purple darken-1 text-shadow">
-                        Edit Department Task <i class="fas fa-edit right"></i>
+                        Edit Personal Task <i class="fas fa-edit right"></i>
                     </button>
                 </div>
             </div>

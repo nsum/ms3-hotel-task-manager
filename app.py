@@ -254,7 +254,8 @@ def add_personal_task():
         current_date = datetime.date.today().strftime('%d/%b/%Y')
         # Used to insert task creator's full name in "created by"
         creator_label = session["first_name"] + " " + session["last_name"]
-        # 
+        # Non admins have name select hidden
+        # So delegated will be None
         delegated = request.form.get("username")
         if delegated is None:
             assigned_to = session["user"]
@@ -278,7 +279,7 @@ def add_personal_task():
         flash("Personal Task Successfully Added!")
         return redirect(url_for('control'))
 
-    # Pull list of departments
+    # Pull list of users
     users = mongo.db.users.find()
     return render_template("add_personal_task.html", users=users)
 
@@ -310,6 +311,45 @@ def edit_dept_task(task_id):
     departments = mongo.db.departments.find()
     return render_template(
         "edit_dept_task.html", task=task, departments=departments)
+
+
+@app.route("/edit_personal_task/<task_id>", methods=["GET", "POST"])
+def edit_personal_task(task_id):
+    if request.method == "POST":
+        is_urgent = "on" if request.form.get("is_urgent") else "off"
+        # Grabs and formats current date for "created on"
+        current_date = datetime.date.today().strftime('%d/%b/%Y')
+        # Create editor's full name label
+        updator_label = session["first_name"] + " " + session["last_name"]
+        # Non admins cant't edit other's tasks and user select is empty
+        # If form.get is None it's non admin and task is assigned to user
+        if request.form.get("username") is None:
+            assigned_to = session["user"]
+        else:
+            assigned_to = request.form.get("username")
+
+        mongo.db.tasks.update({"_id": ObjectId(task_id)}, {"$set": {
+            "assigned_to": assigned_to,
+            "task_name": request.form.get("task_name"),
+            "task_description": request.form.get("task_description"),
+            "is_urgent": is_urgent,
+            "due_date": request.form.get("due_date"),
+            "updated_by": session["user"],
+            "updator_label": updator_label,
+            "updated_on": current_date
+        }})
+        # Remove below two lines and change return as edit_dept_task
+        # When I find solution for refresh page
+        # now it redirects to profile from both control and profile
+        tasks = list(mongo.db.tasks.find())
+        username = session["user"]
+        flash("Personal Task Successfully Updated!")
+        return render_template("profile.html", tasks=tasks, username=username)
+
+    task = mongo.db.tasks.find_one({"_id": ObjectId(task_id)})
+    users = mongo.db.users.find()
+    return render_template(
+        "edit_personal_task.html", task=task, users=users)
 
 
 @app.route("/delete_task/<task_id>")
