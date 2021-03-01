@@ -85,7 +85,6 @@ def tasks():
 @app.route("/all_tasks")
 @login_required
 @mgmt_access
-@admin_access
 def all_tasks():
     tasks = list(mongo.db.tasks.find())
     # Pull list of departments
@@ -147,7 +146,6 @@ def login():
 @app.route("/control")
 @login_required
 @mgmt_access
-@admin_access
 def control():
     return render_template("control_panel.html")
 
@@ -155,7 +153,6 @@ def control():
 @app.route("/register", methods=["GET", "POST"])
 @login_required
 @mgmt_access
-@admin_access
 def register():
     if request.method == "POST":
         # Check is username exists
@@ -168,27 +165,31 @@ def register():
 
         admin = "on" if request.form.get("admin") else "off"
         mgmt = "on" if request.form.get("mgmt") else "off"
+        # Check do inputs for password and repeat password match
+        if request.form.get("password") == request.form.get("repeat_password"):
+            register = {
+                "username": request.form.get("username").lower(),
+                "password": generate_password_hash(
+                    request.form.get("password")),
+                "first_name": request.form.get("first_name").capitalize(),
+                "last_name": request.form.get("last_name").capitalize(),
+                "department": request.form.get("department"),
+                "super_user": "off",
+                "admin": admin,
+                "mgmt": mgmt
+            }
+            mongo.db.users.insert_one(register)
 
-        register = {
-            "username": request.form.get("username").lower(),
-            "password": generate_password_hash(request.form.get("password")),
-            "first_name": request.form.get("first_name").capitalize(),
-            "last_name": request.form.get("last_name").capitalize(),
-            "department": request.form.get("department"),
-            "super_user": "off",
-            "admin": admin,
-            "mgmt": mgmt
-        }
-        mongo.db.users.insert_one(register)
-
-        # Flash username and password
-        flash(
-            "User '{}' Successfully Created!".format(
-                request.form.get("username")))
-        flash(
-            "Please Provide User With The Password: '{}'".format(
-                request.form.get("password")))
-        return redirect(url_for("control"))
+            # Flash username and password
+            flash(
+                "User '{}' Successfully Created!".format(
+                    request.form.get("username")))
+            flash(
+                "Please Provide User With The Password: '{}'".format(
+                    request.form.get("password")))
+            return redirect(url_for("control"))
+        else:
+            flash("Passwords Do Not Match")
 
     # Pull list of departments for dropdown list
     departments = mongo.db.departments.find()
@@ -213,7 +214,6 @@ def profile(username):
 @app.route("/add_dept_task", methods=["GET", "POST"])
 @login_required
 @mgmt_access
-@admin_access
 def add_dept_task():
     if request.method == "POST":
         is_urgent = "on" if request.form.get("is_urgent") else "off"
