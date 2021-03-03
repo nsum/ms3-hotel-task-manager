@@ -54,13 +54,16 @@
     I fixed it by using #modal1{{ loop.index }} for first list, #modal2{{ loop.index }} for second etc.
 - 
 
-## Coding Process / REasoning
+## Coding Process / Reasoning
 - Initially I set up two collections for tasks: 'tasks' for department tasks, and 'personal' 
     for personal tasks, because I wasn't sure will I be able to manage it in one colelction.
     After learning how to manage it, I refactored code to use one collection 'tasks' for 
     both personal and department tasks.
 - I decided to use Materialize as a front-end Framework, because it's a new framework for me,
     and wanted to get more familiar with it.
+- Towards the end of the project I decided to get rid of 'control' view which had it's access limited to admins and mgmt, 
+    and contained links for creating new user, creating new tasks, tracking tasks etc.
+    I decided to put those links in floating action button on dekstop, and on mobile put it in mobile view side nav.
 
 ## Features
 ### Back End

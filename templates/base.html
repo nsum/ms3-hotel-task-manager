@@ -61,6 +61,17 @@
                 <li><a href="{{ url_for('control') }}">Control Panel</a></li>
                 <li><a href="{{ url_for('profile', username=session['user']) }}">Profile</a></li>
                 <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+                <!-- On mobile sizes and if mgmt or admin, show links from floating action button
+                    because on mobile FAB is hidden so link show here -->
+                {% if session.is_admin == "on" or session.is_mgmt == "on" %}
+                    <hr>
+                    <h6 class="center-align purple-text text-darken-1">Control Panel</h6>
+                    <li><a href="{{ url_for('register') }}">Register New User</a></li>
+                    <li><a href="">Track Delegated Tasks</a></li>
+                    <li><a href="{{ url_for('all_tasks') }}">Manage All Department Tasks</a></li>
+                    <li><a href="{{ url_for('add_personal_task') }}">Create New Personal Task</a></li>
+                    <li><a href="{{ url_for('add_dept_task') }}">Create New Department Task</a></li>
+                {% endif %}
             {% else %}
                 <li><a href="{{ url_for('login') }}">Log In</a></li>
             {% endif %}

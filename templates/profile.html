@@ -3,7 +3,7 @@
 
     <div class="row">
         <!-- List of personal tasks -->
-        <div class="col s12 m8 offset-m2 task-list">
+        <div class="col s12 m7 task-list">
             <ul>
                 <h5 class="list-heading center-align purple-text text-darken-1">
                     <strong>{{ session.first_name }}'s Tasks</strong>
@@ -117,6 +117,96 @@
             </ul>
             <a href="{{ url_for('add_personal_task') }}" class="btn waves-effect hoverable waves-light purple darken-1">Create New Personal Task</a>
         </div>
+        {% if session.is_admin == "on" or session.is_mgmt == "on" %}
+            <!-- Admin Cards -->
+            <div class="col s12 m5">
+                <div class="col s12">
+                    <div class="card blue-grey">
+                        <div class="card-content white-text">
+                            <span class="center-align card-title">Manage Personal Tasks</span>
+                            <p>Keep track and check status of tasks you assigned to others or create new personal tasks</p>
+                        </div>
+                        <div class="card-action center-align">
+                            <a href="{{ url_for('add_personal_task') }}" class="btn-small waves-effect hoverable waves-light purple darken-1">
+                                Create Personal Task
+                            </a>
+                            <a href="#" class="btn-small waves-effect hoverable waves-light purple darken-1">
+                                Check Assigned Tasks
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12">
+                    <div class="card blue-grey">
+                        <div class="card-content white-text">
+                            <span class="center-align card-title">Manage Departments</span>
+                            <p>List all tasks by all departments. List, edit or delete department tasks, 
+                                or create new shared or deparmental tasks</p>
+                        </div>
+                        <div class="card-action center-align">
+                            <a href="{{ url_for('add_dept_task') }}" class="btn-small waves-effect hoverable waves-light purple darken-1">
+                                Create Department Task
+                            </a>
+                            <a href="{{ url_for('all_tasks') }}" class="btn-small waves-effect hoverable waves-light purple darken-1">
+                                All Tasks
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12">
+                    <div class="card blue-grey">
+                        <div class="card-content white-text">
+                            <span class="center-align card-title">User Management</span>
+                        </div>
+                        <div class="card-action center-align">
+                            <a href="{{ url_for('register') }}" class="btn-small waves-effect hoverable waves-light purple darken-1">
+                                Register New User
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
     </div>
-
+    {% if session.is_admin == "on" or session.is_mgmt == "on" %}
+        <!-- Floating Action Button-->
+        <div class="fixed-action-btn show-on-large">
+            <a class="btn-floating btn-large light-green accent-3">
+                <i class="fas fa-pencil-alt"></i>
+            </a>
+            <ul>
+                <li>
+                    <a href="{{ url_for('register') }}"
+                        class="btn-floating brown tooltipped" data-position="left" 
+                        data-tooltip="Register New User">
+                        <i class="fas fa-user-plus"></i>
+                    </a>
+                </li>
+                <li>
+                    <a class="btn-floating red tooltipped" data-position="left" 
+                        data-tooltip="Track Delegated Tasks">
+                        <i class="fas fa-user-tie"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('all_tasks') }}" class="btn-floating orange tooltipped" 
+                        data-position="left" data-tooltip="Manage Department Tasks">
+                        <i class="fas fa-hotel"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('add_personal_task') }}" class="btn-floating green tooltipped" data-position="left" 
+                        data-tooltip="Create Personal Task">
+                        <i class="fas fa-users"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('add_dept_task') }}" class="btn-floating blue tooltipped" data-position="left" 
+                        data-tooltip="Create Department Task">
+                        <i class="fas fa-tasks"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    {% endif %}
 {% endblock %}

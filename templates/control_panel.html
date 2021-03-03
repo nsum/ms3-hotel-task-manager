@@ -4,17 +4,50 @@
     <a href="{{ url_for('add_dept_task') }}" class="btn waves-effect hoverable waves-light purple darken-1">Create New Department Task</a>
     <a href="{{ url_for('all_tasks') }}" class="btn waves-effect hoverable waves-light purple darken-1">Manage All Departments Tasks</a>
     <a href="{{ url_for('add_personal_task') }}" class="btn waves-effect hoverable waves-light purple darken-1">Create New Personal Task</a>
-
+    
     <div class="row">
-        <div class="col s12 m4">
+        <div class="col s12">
             <div class="card blue-grey">
                 <div class="card-content white-text">
-                    <span class="center-align card-title">Register</span>
-                    <p>Register new user</p>
+                    <span class="center-align card-title">User Management</span>
                 </div>
-                <div class="card-action">
-                    <a href="#">This is a link</a>
-                    <a href="#">This is a link</a>
+                <div class="card-action center-align">
+                    <a href="{{ url_for('register') }}" class="btn-small waves-effect hoverable waves-light purple darken-1">
+                        Register New User
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col s12">
+            <div class="card blue-grey">
+                <div class="card-content white-text">
+                    <span class="center-align card-title">Manage Personal Tasks</span>
+                    <p>Keep track and check status of tasks you assigned to others or create new personal tasks</p>
+                </div>
+                <div class="card-action center-align">
+                    <a href="{{ url_for('add_personal_task') }}" class="btn-small waves-effect hoverable waves-light purple darken-1">
+                        Create Personal Task
+                    </a>
+                    <a href="#" class="btn-small waves-effect hoverable waves-light purple darken-1">
+                        Check Assigned Tasks
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col s12">
+            <div class="card blue-grey">
+                <div class="card-content white-text">
+                    <span class="center-align card-title">Manage Departments</span>
+                    <p>List all tasks by all departments. List, edit or delete department tasks, 
+                        or create new shared or deparmental tasks</p>
+                </div>
+                <div class="card-action center-align">
+                    <a href="{{ url_for('add_dept_task') }}" class="btn-small waves-effect hoverable waves-light purple darken-1">
+                        Create Department Task
+                    </a>
+                    <a href="{{ url_for('all_tasks') }}" class="btn-small waves-effect hoverable waves-light purple darken-1">
+                        All Tasks
+                    </a>
                 </div>
             </div>
         </div>

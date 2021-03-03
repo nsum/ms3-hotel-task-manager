@@ -16,14 +16,11 @@ $(document).ready(function(){
     });
 
     // Initialize floating action button
-    $(document).ready(function(){
-        $('.fixed-action-btn').floatingActionButton();
-    });
+    $('.fixed-action-btn').floatingActionButton();
 
     // Initialize Modals
-    $(document).ready(function () {
-        $('.modal').modal();
-    });
+    $('.modal').modal();
+
     // Initialize mobile side nav
     $('.sidenav').sidenav({edge: "right"});
 
@@ -37,9 +34,7 @@ $(document).ready(function(){
     $('select').formSelect();
 
     // Initialize Parallax
-    $(document).ready(function () {
-        $('.parallax').parallax();
-    });
+    $('.parallax').parallax();
 
     // Initialize date picker
     $('.datepicker').datepicker({
