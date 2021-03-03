@@ -17,31 +17,33 @@
 </head>
 <body>
     <header>
-        <nav class="nav-extended text-shadow purple darken-1">
-            <!-- Top navbar -->
-            <div class="nav-wrapper">
-                <a href="{{ url_for('home') }}" class="logo">
-                    CIH Task Manager 
-                    <!-- Displays current user's department name next to logo -->
-                    {% if session.user %}
-                        - {{ session.department_label }}
-                    {% endif %}
-                </a>
-                <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="fas fa-bars"></i></a>
-                <ul class="right hide-on-med-and-down">
-                    <li><a href="{{ url_for('home') }}">Home</a></li>
-                    <!-- Hidden for unlogged users-->
-                    {% if session.user %}
-                        <li><a href="{{ url_for('tasks') }}">Tasks</a></li>
-                        <li><a href="{{ url_for('control') }}">Control Panel</a></li>
-                        <li><a href="{{ url_for('profile', username=session['user']) }}">Profile</a></li>
-                        <li><a href="{{ url_for('logout') }}">Log Out</a></li>
-                    {% else %}
-                        <li><a href="{{ url_for('login') }}">Log In</a></li>
-                    {% endif %}
-                </ul>
-            </div>
-        </nav>  
+        <div class="navbar-fixed">
+            <nav class="nav-extended text-shadow purple darken-1">
+                <!-- Top navbar -->
+                <div class="nav-wrapper">
+                    <a href="{{ url_for('home') }}" class="logo">
+                        CIH Task Manager 
+                        <!-- Displays current user's department name next to logo -->
+                        {% if session.user %}
+                            - {{ session.department_label }}
+                        {% endif %}
+                    </a>
+                    <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="fas fa-bars"></i></a>
+                    <ul class="right hide-on-med-and-down">
+                        <li><a href="{{ url_for('home') }}">Home</a></li>
+                        <!-- Hidden for unlogged users-->
+                        {% if session.user %}
+                            <li><a href="{{ url_for('tasks') }}">Tasks</a></li>
+                            <li><a href="{{ url_for('control') }}">Control Panel</a></li>
+                            <li><a href="{{ url_for('profile', username=session['user']) }}">Profile</a></li>
+                            <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+                        {% else %}
+                            <li><a href="{{ url_for('login') }}">Log In</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </nav>
+        </div>  
         <!-- Mobile navbar -->
         <ul class="sidenav" id="mobile-demo">
             <li>
@@ -93,6 +95,47 @@
         <!-- All content from other htmls is injected here -->
         {% block content %}
         {% endblock %}
+            {% if session.is_admin == "on" or session.is_mgmt == "on" %}
+            <!-- Floating Action Button-->
+            <div class="fixed-action-btn show-on-large">
+                <a class="btn-floating btn-large light-green accent-3">
+                    <i class="fas fa-pencil-alt"></i>
+                </a>
+                <ul>
+                    <li>
+                        <a href="{{ url_for('register') }}"
+                            class="btn-floating brown tooltipped" data-position="left" 
+                            data-tooltip="Register New User">
+                            <i class="fas fa-user-plus"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="btn-floating red tooltipped" data-position="left" 
+                            data-tooltip="Track Delegated Tasks">
+                            <i class="fas fa-user-tie"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('all_tasks') }}" class="btn-floating orange tooltipped" 
+                            data-position="left" data-tooltip="Manage Department Tasks">
+                            <i class="fas fa-hotel"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('add_personal_task') }}" class="btn-floating green tooltipped" data-position="left" 
+                            data-tooltip="Create Personal Task">
+                            <i class="fas fa-users"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('add_dept_task') }}" class="btn-floating blue tooltipped" data-position="left" 
+                            data-tooltip="Create Department Task">
+                            <i class="fas fa-tasks"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        {% endif %}
     </main>
     <footer>
         <div class="footer-copyright">

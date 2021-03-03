@@ -3,6 +3,11 @@ html {
     position: relative;
 }
 
+/* Hide by default but it has a class of show-on-large */
+.fixed-action-btn {
+    display: none;
+}
+
 .card-panel .row {
     padding: 0 1rem;
 }
