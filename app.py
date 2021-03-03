@@ -93,6 +93,18 @@ def all_tasks():
         "all_tasks.html", tasks=tasks, departments=departments)
 
 
+@app.route("/track_personl_tasks")
+@login_required
+@mgmt_access
+def track_personal_tasks():
+    users = list(mongo.db.users.find())
+    tasks = list(mongo.db.tasks.find())
+    departments = list(mongo.db.departments.find())
+    return render_template(
+        "track_personal_tasks.html",
+        tasks=tasks, users=users, departments=departments)
+
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
@@ -187,7 +199,7 @@ def register():
             flash(
                 "Please Provide User With The Password: '{}'".format(
                     request.form.get("password")))
-            return redirect(url_for("control"))
+            return profile(session["user"])
         else:
             flash("Passwords Do Not Match")
 
@@ -280,7 +292,7 @@ def add_personal_task():
         return redirect(url_for('control'))
 
     # Pull list of users
-    users = mongo.db.users.find()
+    users = mongo.db.users.find().sort("first_name", 1)
     return render_template("add_personal_task.html", users=users)
 
 
@@ -347,7 +359,7 @@ def edit_personal_task(task_id):
         return render_template("profile.html", tasks=tasks, username=username)
 
     task = mongo.db.tasks.find_one({"_id": ObjectId(task_id)})
-    users = mongo.db.users.find()
+    users = mongo.db.users.find().sort("first_name", 1)
     return render_template(
         "edit_personal_task.html", task=task, users=users)
 

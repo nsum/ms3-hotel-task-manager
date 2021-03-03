@@ -45,13 +45,18 @@
     Idea was for tasks to be hidden until "show tasks" button was clicked. It would then show 
     collapsable li of tasks, but it didn't work until I reorganized divs and li's a lot to make it work.
 - Half-way through the project I noticed created_by & created_on labels changed to editors information 
-    after editing tasks. Fixed by using $set syntax, which enabled to update with just given values. 
+    after editing tasks. Fixed by using $set syntax, which enabled to update just given values. 
     All other non-provided values on editing (like created_by, created_on) stay the same.
 - Had a bug with modals just after implementing them to pop to confirm deletion of a task. 
     Modals would open only for first task which I fixed by moving modal structure outside of collapsible body.
     That fixed modals opening for just first item in the list but still if I try to delete e.g. 5th
     task in the list, first task in the list would be deleted. It was because of modals id's so 
     I fixed it by using #modal1{{ loop.index }} for first list, #modal2{{ loop.index }} for second etc.
+- I decided to use Materialize floating action button to show control view links like 'register new user',
+    'view all tasks', 'assign personal tasks' etc. It worked fine on desktop but there were minor issues on mobile. 
+    Button's tooltips sometime wouldn't dissapear automatically but would stay until refreshed, and it was hard to 
+    intuitively know what buttons do without hovering and seeing tooltips text, so I disabled FAB on mobile and 
+    put links in mobile side nav instead.
 - 
 
 ## Coding Process / Reasoning
@@ -73,6 +78,8 @@
 - 
 
 ### Front End
+- Dropdown with list of names when creating or editing personal tasks is sorted alphabetically
+    by first name but can easily be changed
 - 
 
 
