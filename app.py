@@ -86,11 +86,15 @@ def tasks():
 @login_required
 @mgmt_access
 def all_tasks():
-    tasks = list(mongo.db.tasks.find())
+    # Tasks currently sorted by due date
+    tasks = list(mongo.db.tasks.find().sort("due_date", 1))
     # Pull list of departments
     departments = list(mongo.db.departments.find())
+    # Used to compare due_date to current date to warn if task past due
+    today = datetime.datetime.today()
     return render_template(
-        "all_tasks.html", tasks=tasks, departments=departments)
+        "all_tasks.html", tasks=tasks,
+        departments=departments, today=today)
 
 
 @app.route("/track_personl_tasks")
@@ -230,7 +234,10 @@ def add_dept_task():
     if request.method == "POST":
         is_urgent = "on" if request.form.get("is_urgent") else "off"
         # Grabs and formats current date for "created on"
-        current_date = datetime.date.today().strftime('%d/%b/%Y')
+        today = datetime.datetime.today()
+        # Format due_date string to date type
+        due_date_str = request.form.get("due_date")
+        due_date = datetime.datetime.strptime(due_date_str, '%d/%b/%Y')
         # Used to insert task creator's full name in "created by"
         creator_label = session["first_name"] + " " + session["last_name"]
 
@@ -241,10 +248,10 @@ def add_dept_task():
             "task_name": request.form.get("task_name"),
             "task_description": request.form.get("task_description"),
             "is_urgent": is_urgent,
-            "due_date": request.form.get("due_date"),
+            "due_date": due_date,
             "created_by": session["user"],
             "creator_label": creator_label,
-            "created_on": current_date
+            "created_on": today
         }
 
         mongo.db.tasks.insert_one(task)
@@ -300,8 +307,11 @@ def add_personal_task():
 def edit_dept_task(task_id):
     if request.method == "POST":
         is_urgent = "on" if request.form.get("is_urgent") else "off"
-        # Grabs and formats current date for "created on"
-        current_date = datetime.date.today().strftime('%d/%b/%Y')
+        # Grabs and formats current date for "updated on"
+        today = datetime.datetime.today()
+        # Format due_date string to date type
+        due_date_str = request.form.get("due_date")
+        due_date = datetime.datetime.strptime(due_date_str, '%d/%b/%Y')
         # Create editor's full name label
         updator_label = session["first_name"] + " " + session["last_name"]
 
@@ -310,10 +320,10 @@ def edit_dept_task(task_id):
             "task_name": request.form.get("task_name"),
             "task_description": request.form.get("task_description"),
             "is_urgent": is_urgent,
-            "due_date": request.form.get("due_date"),
+            "due_date": due_date,
             "updated_by": session["user"],
             "updator_label": updator_label,
-            "updated_on": current_date
+            "updated_on": today
         }})
 
         flash("Department Task Successfully Updated!")

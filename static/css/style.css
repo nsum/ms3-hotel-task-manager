@@ -8,6 +8,10 @@ html {
     display: none;
 }
 
+.btn-margin {
+    margin: 0.5rem;
+}
+
 .card-panel .row {
     padding: 0 1rem;
 }

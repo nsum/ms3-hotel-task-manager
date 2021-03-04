@@ -38,7 +38,7 @@ $(document).ready(function(){
 
     // Initialize date picker
     $('.datepicker').datepicker({
-        format: "dd mmmm, yyyy",
+        format: "dd/mmm/yyyy",
         yearRange: 1,
         showClearBtn: true,
         // disables picking days in the past
