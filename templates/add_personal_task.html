@@ -13,9 +13,15 @@
                         <select id="username" name="username" class="validate" required>
                             <option value="" disabled selected>Search Names:</option>
                             {% for user in users %}
-                                <option value="{{ user.username }}">
-                                    {{- user.first_name }} {{ user.last_name }}
-                                </option>
+                                {% if user.username == session.user %}
+                                    <option value="{{ user.username }}" selected>
+                                        {{- user.first_name }} {{ user.last_name }}
+                                    </option>
+                                {% else %}
+                                    <option value="{{ user.username }}">
+                                        {{- user.first_name }} {{ user.last_name }}
+                                    </option>
+                                {% endif %}
                             {% endfor %}
                         </select>
                         <label for="username">Select person to delegate the task to</label>

@@ -1,17 +1,14 @@
 $(document).ready(function(){
     // Collapse tasks lists divs
     $(`#collapse-personal`).click(function () {
-
         $(`#personal-tasks`).slideToggle("medium", "linear");
     });
 
     $(`#collapse-dept`).click(function () {
-
         $(`#dept-tasks`).slideToggle("medium", "linear");
     });
     
     $(`#collapse-shared`).click(function () {
-
         $(`#shared-tasks`).slideToggle("medium", "linear");
     });
 

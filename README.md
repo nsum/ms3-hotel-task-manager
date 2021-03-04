@@ -24,7 +24,9 @@
 - As part of management I want to be able to see if someone edited a task I made, and when.
     - When task is edited new keys (edited by, edited on) are inserted into task and shown in task body after editing so 
     it's easy to keep track of who edited the task and when.
-- 
+- As part of management I want to be able to easily see the tasks that are past due.
+    - All task lists are sorted by due date, and for every task comparison is made to see if due date is in the past.
+    If due date is today or before, red triangle is displayed next to the task name.
 
 ## Bugs & Fixes
 - All html files except base.html throw warning "Doctype must be declared first."
@@ -62,7 +64,6 @@
     compared today to due_date.
 - Above changes brought small issue when editing task. If date wasn't changed when editing, there was a formatting issue,
     as time data didn't match the format. Fixed it by adding '.strftime('%d/%b/%Y')' to date values when editing task.
-
 
 ## Coding Process / Reasoning
 - Initially I set up two collections for tasks: 'tasks' for department tasks, and 'personal' 

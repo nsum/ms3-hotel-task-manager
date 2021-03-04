@@ -99,7 +99,7 @@ def all_tasks():
         departments=departments, today=today)
 
 
-@app.route("/track_personl_tasks")
+@app.route("/track_personal_tasks")
 @login_required
 @mgmt_access
 def track_personal_tasks():
@@ -305,6 +305,7 @@ def add_personal_task():
     return render_template("add_personal_task.html", users=users)
 
 
+# Edit department task
 @app.route("/edit_dept_task/<task_id>", methods=["GET", "POST"])
 def edit_dept_task(task_id):
     if request.method == "POST":
@@ -337,11 +338,12 @@ def edit_dept_task(task_id):
         "edit_dept_task.html", task=task, departments=departments)
 
 
+# Edit personal task
 @app.route("/edit_personal_task/<task_id>", methods=["GET", "POST"])
 def edit_personal_task(task_id):
     if request.method == "POST":
         is_urgent = "on" if request.form.get("is_urgent") else "off"
-        # Grabs and formats current date for "created on"
+        # Grabs and formats current date for "updated on"
         today = datetime.datetime.today()
         # Format due_date string to date type
         due_date_str = request.form.get("due_date")
@@ -374,6 +376,7 @@ def edit_personal_task(task_id):
         "edit_personal_task.html", task=task, users=users)
 
 
+# Delete task
 @app.route("/delete_task/<task_id>")
 def delete_task(task_id):
     mongo.db.tasks.remove({"_id": ObjectId(task_id)})
@@ -381,6 +384,7 @@ def delete_task(task_id):
     return redirect(url_for("tasks"))
 
 
+# Complete task
 @app.route("/complete_task/<task_id>", methods=["GET", "POST"])
 def complete_task(task_id):
     # Grabs and formats current date for "completed on"
@@ -402,6 +406,7 @@ def complete_task(task_id):
     return redirect(url_for("tasks"))
 
 
+# User logout
 @app.route("/logout")
 def logout():
     # Remove session cookies

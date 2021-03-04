@@ -93,7 +93,8 @@
         <!-- All content from other htmls is injected here -->
         {% block content %}
         {% endblock %}
-            {% if session.is_admin == "on" or session.is_mgmt == "on" %}
+        
+        {% if session.is_admin == "on" or session.is_mgmt == "on" %}
             <!-- Floating Action Button-->
             <div class="fixed-action-btn show-on-large">
                 <a class="btn-floating btn-large light-green accent-3">
