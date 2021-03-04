@@ -35,7 +35,7 @@
                                     </span>
                                     <span class="col s12 m6">
                                         <span>Due:&nbsp;</span>
-                                        {{ task.due_date }}
+                                        {{ task.due_date.strftime('%d/%b/%Y') }}
                                         <span> 
                                             &nbsp;&nbsp;&nbsp;&nbsp;
                                             {% if task.is_urgent == "on" %}
@@ -52,13 +52,13 @@
                                 <p>
                                     <em>
                                         Created by: {{ task.creator_label }}&nbsp;&nbsp;
-                                        on: {{ task.created_on }} 
+                                        on: {{ task.created_on.strftime('%d/%b/%Y') }} 
                                     </em>
                                     {% if task.updated_by %}
                                         <em>
                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                             Updated by: {{ task.updator_label }}&nbsp;&nbsp;
-                                            on: {{ task.updated_on }} 
+                                            on: {{ task.updated_on.strftime('%d/%b/%Y') }} 
                                         </em>
                                     {% endif %}
                                 </p>
@@ -155,7 +155,7 @@
                                     </span>
                                     <span class="col s12 m6">
                                         <span>Due:&nbsp;</span>
-                                        {{ task.due_date }}
+                                        {{ task.due_date.strftime('%d/%b/%Y') }}
                                         <span> 
                                             &nbsp;&nbsp;&nbsp;&nbsp;
                                             {% if task.is_urgent == "on" %}
@@ -172,13 +172,13 @@
                                 <p>
                                     <em>
                                         Created by: {{ task.creator_label }}&nbsp;&nbsp; 
-                                        on: {{ task.created_on }}
+                                        on: {{ task.created_on.strftime('%d/%b/%Y') }}
                                     </em>
                                     {% if task.updated_by %}
                                         <em>
                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                             Updated by: {{ task.updator_label }}&nbsp;&nbsp;
-                                            on: {{ task.updated_on }}
+                                            on: {{ task.updated_on.strftime('%d/%b/%Y') }}
                                         </em>
                                     {% endif %}
                                 </p>

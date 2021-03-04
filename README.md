@@ -57,7 +57,11 @@
     Button's tooltips sometime wouldn't dissapear automatically but would stay until refreshed, and it was hard to 
     intuitively know what buttons do without hovering and seeing tooltips text, so I disabled FAB on mobile and 
     put links in mobile side nav instead.
-- 
+- Near the end of the project I wanted to compare today's date to due_date in order to mark all tasks past due.
+    Up until then, dates were saved in string format, so I refactored views to save in date format, and then using jinja
+    compared today to due_date.
+- Above changes brought small issue when editing task. If date wasn't changed when editing, there was a formatting issue,
+    as time data didn't match the format.
 
 ## Coding Process / Reasoning
 - Initially I set up two collections for tasks: 'tasks' for department tasks, and 'personal' 
