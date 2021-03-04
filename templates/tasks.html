@@ -26,6 +26,12 @@
                                 <div class="col s11">
                                     <span class="col s12 m6">
                                         <strong>{{ task.task_name.capitalize() }}</strong>
+                                        {% if today > task.due_date %}
+                                            &nbsp;
+                                            <i class="fas fa-exclamation-triangle red-text tooltipped" 
+                                                data-position="right" data-tooltip="Task Due!">
+                                            </i>
+                                        {% endif %}
                                     </span>
                                     <span class="col s12 m6">
                                         <span>Due:&nbsp;</span>
@@ -140,6 +146,12 @@
                                 <div class="col s11">
                                     <span class="col s12 m6">
                                         <strong>{{ task.task_name.capitalize() }}</strong>
+                                        {% if today > task.due_date %}
+                                            &nbsp;
+                                            <i class="fas fa-exclamation-triangle red-text tooltipped" 
+                                                data-position="right" data-tooltip="Task Due!">
+                                            </i>
+                                        {% endif %}
                                     </span>
                                     <span class="col s12 m6">
                                         <span>Due:&nbsp;</span>

@@ -75,11 +75,13 @@ def home():
 @login_required
 def tasks():
     # We need list(x) to iterate multiple times through tasks
-    tasks = list(mongo.db.tasks.find())
+    tasks = list(mongo.db.tasks.find().sort("due_date", 1))
+    # Compares dates to see if task due
+    today = datetime.datetime.today()
     # Grab users department
     departments = list(mongo.db.departments.find())
     return render_template(
-        "tasks.html", tasks=tasks, departments=departments)
+        "tasks.html", tasks=tasks, departments=departments, today=today)
 
 
 @app.route("/all_tasks")
@@ -102,11 +104,13 @@ def all_tasks():
 @mgmt_access
 def track_personal_tasks():
     users = list(mongo.db.users.find())
-    tasks = list(mongo.db.tasks.find())
+    tasks = list(mongo.db.tasks.find().sort("due_date", 1))
+    # Used to compare due_date to current date to warn if task past due
+    today = datetime.datetime.today()
     departments = list(mongo.db.departments.find())
     return render_template(
         "track_personal_tasks.html",
-        tasks=tasks, users=users, departments=departments)
+        tasks=tasks, users=users, departments=departments, today=today)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -218,10 +222,13 @@ def profile(username):
     # Grab session's username from db
     username = mongo.db.users.find_one(
         {"username": session["user"]})["username"]
-    tasks = list(mongo.db.tasks.find())
+    # Used to compare due_date to current date to warn if task past due
+    today = datetime.datetime.today()
+    tasks = list(mongo.db.tasks.find().sort("due_date", 1))
 
     if session["user"]:
-        return render_template("profile.html", tasks=tasks, username=username)
+        return render_template(
+            "profile.html", tasks=tasks, username=username, today=today)
 
     return redirect(url_for("login"))
 
@@ -270,7 +277,10 @@ def add_personal_task():
     if request.method == "POST":
         is_urgent = "on" if request.form.get("is_urgent") else "off"
         # Grabs and formats current date for "created on"
-        current_date = datetime.date.today().strftime('%d/%b/%Y')
+        today = datetime.datetime.today()
+        # Format due_date string to date type
+        due_date_str = request.form.get("due_date")
+        due_date = datetime.datetime.strptime(due_date_str, '%d/%b/%Y')
         # Used to insert task creator's full name in "created by"
         creator_label = session["first_name"] + " " + session["last_name"]
         # Non admins have name select hidden
@@ -288,10 +298,10 @@ def add_personal_task():
             "task_name": request.form.get("task_name"),
             "task_description": request.form.get("task_description"),
             "is_urgent": is_urgent,
-            "due_date": request.form.get("due_date"),
+            "due_date": due_date,
             "created_by": session["user"],
             "creator_label": creator_label,
-            "created_on": current_date
+            "created_on": today
         }
 
         mongo.db.tasks.insert_one(task)
@@ -340,7 +350,10 @@ def edit_personal_task(task_id):
     if request.method == "POST":
         is_urgent = "on" if request.form.get("is_urgent") else "off"
         # Grabs and formats current date for "created on"
-        current_date = datetime.date.today().strftime('%d/%b/%Y')
+        today = datetime.datetime.today()
+        # Format due_date string to date type
+        due_date_str = request.form.get("due_date")
+        due_date = datetime.datetime.strptime(due_date_str, '%d/%b/%Y')
         # Create editor's full name label
         updator_label = session["first_name"] + " " + session["last_name"]
         # Non admins cant't edit other's tasks and user select is empty
@@ -355,10 +368,10 @@ def edit_personal_task(task_id):
             "task_name": request.form.get("task_name"),
             "task_description": request.form.get("task_description"),
             "is_urgent": is_urgent,
-            "due_date": request.form.get("due_date"),
+            "due_date": due_date,
             "updated_by": session["user"],
             "updator_label": updator_label,
-            "updated_on": current_date
+            "updated_on": today
         }})
         # Remove below two lines and change return as edit_dept_task
         # When I find solution for refresh page
@@ -366,7 +379,8 @@ def edit_personal_task(task_id):
         tasks = list(mongo.db.tasks.find())
         username = session["user"]
         flash("Personal Task Successfully Updated!")
-        return render_template("profile.html", tasks=tasks, username=username)
+        return render_template(
+            "profile.html", tasks=tasks, username=username, today=today)
 
     task = mongo.db.tasks.find_one({"_id": ObjectId(task_id)})
     users = mongo.db.users.find().sort("first_name", 1)
@@ -383,8 +397,8 @@ def delete_task(task_id):
 
 @app.route("/complete_task/<task_id>", methods=["GET", "POST"])
 def complete_task(task_id):
-    # Grabs and formats current date for "created on"
-    current_date = datetime.date.today().strftime('%d/%b/%Y')
+    # Grabs and formats current date for "completed on"
+    today = datetime.datetime.today()
     # Finds the task in db
     completed_task = mongo.db.tasks.find_one(
         {"_id": ObjectId(task_id)})
@@ -393,7 +407,7 @@ def complete_task(task_id):
     # Updates it to keep track on who and when completed it
     mongo.db.completed_tasks.update({"_id": ObjectId(task_id)}, {"$set": {
             "completed_by": session["user"],
-            "completed_on": current_date
+            "completed_on": today
         }})
     # Removes completed_task from active tasks collection
     mongo.db.tasks.remove(completed_task)

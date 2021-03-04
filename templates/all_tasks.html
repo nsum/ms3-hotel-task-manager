@@ -25,9 +25,9 @@
                                         &nbsp;-&nbsp;
                                     </strong>
                                     <strong>{{ task.task_name.capitalize() }}</strong>
-                                    {% if task.due_date < today %}
+                                    {% if today > task.due_date %}
                                         <i class="fas fa-exclamation-triangle red-text tooltipped" 
-                                            data-position="right" data-tooltip="Task Past Due!">
+                                            data-position="right" data-tooltip="Task Due!">
                                         </i>
                                     {% endif %}
                                 </span>
