@@ -373,14 +373,8 @@ def edit_personal_task(task_id):
             "updator_label": updator_label,
             "updated_on": today
         }})
-        # Remove below two lines and change return as edit_dept_task
-        # When I find solution for refresh page
-        # now it redirects to profile from both control and profile
-        tasks = list(mongo.db.tasks.find())
-        username = session["user"]
         flash("Personal Task Successfully Updated!")
-        return render_template(
-            "profile.html", tasks=tasks, username=username, today=today)
+        return redirect(url_for('tasks'))
 
     task = mongo.db.tasks.find_one({"_id": ObjectId(task_id)})
     users = mongo.db.users.find().sort("first_name", 1)

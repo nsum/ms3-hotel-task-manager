@@ -48,7 +48,7 @@
             <div class="row">
                 <div class="input-field col s12">
                     <i class="prefix fas fa-calendar-alt purple-text darken-4"></i>
-                    <input id="due_date" name="due_date" value="{{ task.due_date }}" 
+                    <input id="due_date" name="due_date" value="{{ task.due_date.strftime('%d/%b/%Y') }}" 
                         type="text" class="validate datepicker" required>
                     <label for="due_date">Due Date</label>
                 </div>

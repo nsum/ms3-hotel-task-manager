@@ -61,7 +61,8 @@
     Up until then, dates were saved in string format, so I refactored views to save in date format, and then using jinja
     compared today to due_date.
 - Above changes brought small issue when editing task. If date wasn't changed when editing, there was a formatting issue,
-    as time data didn't match the format.
+    as time data didn't match the format. Fixed it by adding '.strftime('%d/%b/%Y')' to date values when editing task.
+
 
 ## Coding Process / Reasoning
 - Initially I set up two collections for tasks: 'tasks' for department tasks, and 'personal' 
