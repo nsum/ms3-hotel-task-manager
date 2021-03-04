@@ -162,14 +162,6 @@ def login():
     return render_template("login.html")
 
 
-# Admin & mgmt control panel
-@app.route("/control")
-@login_required
-@mgmt_access
-def control():
-    return render_template("control_panel.html")
-
-
 @app.route("/register", methods=["GET", "POST"])
 @login_required
 @mgmt_access
@@ -263,7 +255,7 @@ def add_dept_task():
 
         mongo.db.tasks.insert_one(task)
         flash("Department Task Successfully Added!")
-        return redirect(url_for('control'))
+        return redirect(url_for('tasks'))
 
     # Pull list of departments
     departments = mongo.db.departments.find()
@@ -306,7 +298,7 @@ def add_personal_task():
 
         mongo.db.tasks.insert_one(task)
         flash("Personal Task Successfully Added!")
-        return redirect(url_for('control'))
+        return redirect(url_for('tasks'))
 
     # Pull list of users
     users = mongo.db.users.find().sort("first_name", 1)
