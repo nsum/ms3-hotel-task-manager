@@ -15,7 +15,7 @@
                 </div>
                 <!-- Looks for tasks assigned to current user and shows only those tasks -->  
                 <ul id="personal-tasks" class="collapsible">
-                    {% for task in tasks if task.assigned_to.lower() == session.user.lower() %}
+                    {% for task in tasks if task.assigned_to.lower() == session.user.lower() and task.completed != True %}
                         <li>
                             <div class="collapsible-header white-text text-shadow purple darken-1">
                                 <div class="col s1">

@@ -7,7 +7,7 @@
             <ul class="collapsible">
                 <h5 class="center-align purple-text darken-4">List of All Departmental Tasks</h5>
                 <!-- Looks for all departmental tasks -->
-                {% for task in tasks if task.type == "departmental" %}
+                {% for task in tasks if task.type == "departmental" and task.completed != True %}
                     <li>
                         <div class="collapsible-header white-text text-shadow purple darken-1">
                             <div class="col s1">

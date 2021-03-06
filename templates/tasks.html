@@ -17,7 +17,7 @@
                 </div>
                 <!-- Looks for department name in tasks and shows only tasks for department current user belong too -->
                 <ul id="dept-tasks" class="collapsible">
-                    {% for task in tasks if task.department.lower() == session.department.lower() %}
+                    {% for task in tasks if task.department.lower() == session.department.lower() and task.completed != True %}
                         <li>
                             <div class="collapsible-header white-text text-shadow purple darken-1">
                                 <div class="col s1">
@@ -137,7 +137,7 @@
                 </div>
                 <!-- Looks for tasks with "shared" department name -->
                 <ul id="shared-tasks" class="collapsible">
-                    {% for task in tasks if task.department.lower() == "shared" %}
+                    {% for task in tasks if task.department.lower() == "shared" and task.completed != True %}
                         <li>
                             <div class="collapsible-header white-text text-shadow purple darken-1">
                                 <div class="col s1">

@@ -131,23 +131,11 @@ def login():
                 session["last_name"] = logged_user["last_name"].capitalize()
                 session["is_admin"] = logged_user["admin"]
                 session["is_mgmt"] = logged_user["mgmt"]
-                # Insert user's department
-                if session["department"] == "shared":
-                    session["department_label"] = "Shared"
-                elif session["department"] == "mgmt":
-                    session["department_label"] = "Management"
-                elif session["department"] == "fo":
-                    session["department_label"] = "Front Office"
-                elif session["department"] == "kitchen":
-                    session["department_label"] = "Kitchen"
-                elif session["department"] == "night":
-                    session["department_label"] = "Nights"
-                elif session["department"] == "hsk":
-                    session["department_label"] = "Housekeeping"
-                elif session["department"] == "fb":
-                    session["department_label"] = "Food & Beverage"
-                elif session["department"] == "maintenance":
-                    session["department_label"] = "Maintenance"
+                # Grab user's department label
+                department = mongo.db.departments.find_one(
+                    {"department_name": session["department"]})
+                session["department_label"] = department["department_label"]
+
                 flash("Welcome, {}".format(session["first_name"]))
                 return redirect(url_for("profile", username=session["user"]))
             else:
@@ -395,12 +383,12 @@ def complete_task(task_id):
     # Inserts it into collection of completed tasks
     mongo.db.completed_tasks.insert_one(completed_task)
     # Updates it to keep track on who and when completed it
-    mongo.db.completed_tasks.update({"_id": ObjectId(task_id)}, {"$set": {
+    mongo.db.tasks.update({"_id": ObjectId(task_id)}, {"$set": {
+            "completed": True,
             "completed_by": session["user"],
             "completed_on": today
         }})
     # Removes completed_task from active tasks collection
-    mongo.db.tasks.remove(completed_task)
 
     flash("Task Successfully Completed")
     return redirect(url_for("tasks"))
