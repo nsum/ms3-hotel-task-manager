@@ -8,6 +8,10 @@ html {
     display: none;
 }
 
+.search-bar {
+    margin-top: 1rem;
+}
+
 .btn-margin {
     margin: 0.5rem;
 }

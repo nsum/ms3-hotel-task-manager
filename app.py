@@ -372,23 +372,27 @@ def delete_task(task_id):
     return redirect(url_for("tasks"))
 
 
+@app.route("/search", methods=["GET", "POST"])
+def search():
+    query = request.form.get("query")
+    tasks = list(mongo.db.tasks.find({"$text": {"$search": query}}))
+    today = datetime.datetime.today()
+    departments = list(mongo.db.departments.find())
+    return render_template(
+        'all_tasks.html', tasks=tasks, today=today, departments=departments)
+
+
 # Complete task
 @app.route("/complete_task/<task_id>", methods=["GET", "POST"])
 def complete_task(task_id):
     # Grabs and formats current date for "completed on"
     today = datetime.datetime.today()
-    # Finds the task in db
-    completed_task = mongo.db.tasks.find_one(
-        {"_id": ObjectId(task_id)})
-    # Inserts it into collection of completed tasks
-    mongo.db.completed_tasks.insert_one(completed_task)
     # Updates it to keep track on who and when completed it
     mongo.db.tasks.update({"_id": ObjectId(task_id)}, {"$set": {
             "completed": True,
             "completed_by": session["user"],
             "completed_on": today
         }})
-    # Removes completed_task from active tasks collection
 
     flash("Task Successfully Completed")
     return redirect(url_for("tasks"))

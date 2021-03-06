@@ -7,125 +7,127 @@
             <ul class="collapsible">
                 <h5 class="center-align purple-text darken-4">Track Delegated Tasks</h5>
                 <!-- Looks for all tasks created or edited by session user -->
-                {% for task in tasks if task.created_by == session.user or task.updated_by == session.user and task.completed != True %}
-                    <li>
-                        <div class="collapsible-header white-text text-shadow purple darken-1">
-                            <div class="col s1">
-                                <i class="fas fa-caret-down"></i>
-                            </div>
-                            <div class="col s11">
-                                <span class="col s12 m6">
-                                    <strong>
-                                        <!-- If it's a department task it'll show name of department
-                                            else it will look for user the task is assigned to and show his full name -->
-                                        {% for department in departments if task.type == "departmental"
-                                            and department.department_name == task.department %}
-                                                {{ department.department_label }}
-                                        {% else %}
-                                            {% for user in users if task.assigned_to == user.username %}
-                                                {{ user.first_name }} {{ user.last_name }}
+                {% for task in tasks if task.created_by == session.user or task.updated_by == session.user %}
+                    {% if task.completed != True %}
+                        <li>
+                            <div class="collapsible-header white-text text-shadow purple darken-1">
+                                <div class="col s1">
+                                    <i class="fas fa-caret-down"></i>
+                                </div>
+                                <div class="col s11">
+                                    <span class="col s12 m6">
+                                        <strong>
+                                            <!-- If it's a department task it'll show name of department
+                                                else it will look for user the task is assigned to and show his full name -->
+                                            {% for department in departments if task.type == "departmental"
+                                                and department.department_name == task.department %}
+                                                    {{ department.department_label }}
+                                            {% else %}
+                                                {% for user in users if task.assigned_to == user.username %}
+                                                    {{ user.first_name }} {{ user.last_name }}
+                                                {% endfor %}
                                             {% endfor %}
-                                        {% endfor %}
-                                        &nbsp;-&nbsp;
-                                    </strong>
-                                    <strong>{{ task.task_name.capitalize() }}</strong>
-                                    {% if today > task.due_date %}
-                                        &nbsp;
-                                        <i class="fas fa-exclamation-triangle red-text tooltipped" 
-                                            data-position="right" data-tooltip="Task Due!">
-                                        </i>
-                                    {% endif %}
-                                </span>
-                                <span class="col s12 m6">
-                                    <span>Due:&nbsp;</span>
-                                    {{ task.due_date.strftime('%d/%b/%Y') }}
-                                    <span> &nbsp;&nbsp;&nbsp;&nbsp;
-                                        {% if task.is_urgent == "on" %}
-                                            <i class="fas fa-exclamation-circle yellow-text text-darken-3 tooltipped" 
-                                                data-position="right" data-tooltip="Urgent Task!">
+                                            &nbsp;-&nbsp;
+                                        </strong>
+                                        <strong>{{ task.task_name.capitalize() }}</strong>
+                                        {% if today > task.due_date %}
+                                            &nbsp;
+                                            <i class="fas fa-exclamation-triangle red-text tooltipped" 
+                                                data-position="right" data-tooltip="Task Due!">
                                             </i>
                                         {% endif %}
                                     </span>
-                                </span>
+                                    <span class="col s12 m6">
+                                        <span>Due:&nbsp;</span>
+                                        {{ task.due_date.strftime('%d/%b/%Y') }}
+                                        <span> &nbsp;&nbsp;&nbsp;&nbsp;
+                                            {% if task.is_urgent == "on" %}
+                                                <i class="fas fa-exclamation-circle yellow-text text-darken-3 tooltipped" 
+                                                    data-position="right" data-tooltip="Urgent Task!">
+                                                </i>
+                                            {% endif %}
+                                        </span>
+                                    </span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="collapsible-body">
-                            <p>{{ task.task_description.capitalize() }}</p>
-                            <p>
-                                <em>
-                                    Created by: {{ task.creator_label }}&nbsp;&nbsp;
-                                    on: {{ task.created_on.strftime('%d/%b/%Y') }} 
-                                </em>
-                                {% if task.updated_by %}
+                            <div class="collapsible-body">
+                                <p>{{ task.task_description.capitalize() }}</p>
+                                <p>
                                     <em>
-                                        &nbsp;&nbsp;&nbsp;&nbsp;
-                                        Updated by: {{ task.updator_label }}&nbsp;&nbsp;
-                                        on: {{ task.updated_on.strftime('%d/%b/%Y') }} 
+                                        Created by: {{ task.creator_label }}&nbsp;&nbsp;
+                                        on: {{ task.created_on.strftime('%d/%b/%Y') }} 
                                     </em>
-                                {% endif %}                    
-                            </p>
-                            <a href="#modal5{{ loop.index }}" 
-                                class="btn-small waves-effect waves-light accent-4 modal-trigger green">
-                                Done
-                            </a>
-                            {% if session.user|lower == task.created_by|lower 
-                                or session.is_admin == "on" or session.is_mgmt == "on" %}
-                                {% if task.type == "departmental" %}
-                                    <a href="{{ url_for('edit_dept_task', task_id=task._id) }}" 
-                                        class="btn-small waves-effect waves-light blue">
-                                        Edit
-                                    </a>
-                                {% else %}
-                                    <a href="{{ url_for('edit_personal_task', task_id=task._id) }}" 
-                                        class="btn-small waves-effect waves-light blue">
-                                        Edit
+                                    {% if task.updated_by %}
+                                        <em>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;
+                                            Updated by: {{ task.updator_label }}&nbsp;&nbsp;
+                                            on: {{ task.updated_on.strftime('%d/%b/%Y') }} 
+                                        </em>
+                                    {% endif %}                    
+                                </p>
+                                <a href="#modal5{{ loop.index }}" 
+                                    class="btn-small waves-effect waves-light accent-4 modal-trigger green">
+                                    Done
+                                </a>
+                                {% if session.user|lower == task.created_by|lower 
+                                    or session.is_admin == "on" or session.is_mgmt == "on" %}
+                                    {% if task.type == "departmental" %}
+                                        <a href="{{ url_for('edit_dept_task', task_id=task._id) }}" 
+                                            class="btn-small waves-effect waves-light blue">
+                                            Edit
+                                        </a>
+                                    {% else %}
+                                        <a href="{{ url_for('edit_personal_task', task_id=task._id) }}" 
+                                            class="btn-small waves-effect waves-light blue">
+                                            Edit
+                                        </a>
+                                    {% endif %}
+                                    <!-- Delete button triggers modal to confirm for defensive purposes -->
+                                    <a href="#modal1{{ loop.index }}" 
+                                        class="btn-small waves-effect waves-light accent-4 modal-trigger red">
+                                        Delete
                                     </a>
                                 {% endif %}
-                                <!-- Delete button triggers modal to confirm for defensive purposes -->
-                                <a href="#modal1{{ loop.index }}" 
-                                    class="btn-small waves-effect waves-light accent-4 modal-trigger red">
-                                    Delete
-                                </a>
-                            {% endif %}
-                        </div>
-                        <!-- Modal Structure -->
-                        <div id="modal1{{ loop.index }}" class="modal">
-                            <div class="modal-content">
-                                <h6>
-                                    <strong>
-                                        Are You Sure You Want To Permanently Delete The Task?
-                                    </strong>
-                                </h6>
                             </div>
-                            <div class="modal-footer">
-                                <button class="modal-close waves-effect accent-4 green waves-light btn-small">
-                                    Cancel
-                                </button>
-                                <a href="{{ url_for('delete_task', task_id=task._id) }}"
-                                    class="modal-close waves-effect accent-4 red waves-light btn-small">
-                                    Delete Task
-                                </a>
+                            <!-- Modal Structure -->
+                            <div id="modal1{{ loop.index }}" class="modal">
+                                <div class="modal-content">
+                                    <h6>
+                                        <strong>
+                                            Are You Sure You Want To Permanently Delete The Task?
+                                        </strong>
+                                    </h6>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="modal-close waves-effect accent-4 green waves-light btn-small">
+                                        Cancel
+                                    </button>
+                                    <a href="{{ url_for('delete_task', task_id=task._id) }}"
+                                        class="modal-close waves-effect accent-4 red waves-light btn-small">
+                                        Delete Task
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                        <div id="modal5{{ loop.index }}" class="modal">
-                            <div class="modal-content">
-                                <h6>
-                                    <strong>
-                                        Are You Sure You Want To Complete The Task?
-                                    </strong>
-                                </h6>
+                            <div id="modal5{{ loop.index }}" class="modal">
+                                <div class="modal-content">
+                                    <h6>
+                                        <strong>
+                                            Are You Sure You Want To Complete The Task?
+                                        </strong>
+                                    </h6>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="modal-close waves-effect accent-4 red waves-light btn-small">
+                                        Cancel
+                                    </button>
+                                    <a href="{{ url_for('complete_task', task_id=task._id) }}" 
+                                        class="btn-small waves-effect waves-light accent-4 green">
+                                        Complete Task
+                                    </a>
+                                </div>
                             </div>
-                            <div class="modal-footer">
-                                <button class="modal-close waves-effect accent-4 red waves-light btn-small">
-                                    Cancel
-                                </button>
-                                <a href="{{ url_for('complete_task', task_id=task._id) }}" 
-                                    class="btn-small waves-effect waves-light accent-4 green">
-                                    Complete Task
-                                </a>
-                            </div>
-                        </div>
-                    </li>
+                        </li>
+                    {% endif %}
                 {% else %}
                     <div class="box-shadow white-text text-shadow center-align purple darken-1">
                         All Tasks You Delegated Have Been Completed

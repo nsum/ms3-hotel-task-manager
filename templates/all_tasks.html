@@ -1,13 +1,32 @@
 {% extends "base.html" %}
 {% block content %}
 
+    <div class="row search-bar">
+        <div class="row col s12 m8 offset-m2 card-panel grey lighten-5">
+            <form action="{{url_for('search')}}" method="POST" class="col s12">
+                <div class="row valign-wrapper center-align">
+                    <div class="input-field col s12 m7">
+                        <i class="fas fa-search prefix purple-text"></i>
+                        <input type="text" class="validate" id="query" name="query" minlength="3" required>
+                        <label for="query">Search Tasks by Task Name or Description</label>
+                    </div>
+                    <div class="col s12 m5">
+                        <a href="{{url_for('all_tasks')}}" class="red btn text-shadow">Reset Query</a>
+                        <button type="submit" class="purple btn text-shadow">
+                            <i class="fas fa-search left"></i>Search
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
     <div class="row">
         <!-- List of all departmental tasks -->
         <div class="col s12 m10 offset-m1 task-list">
             <ul class="collapsible">
                 <h5 class="center-align purple-text darken-4">List of All Departmental Tasks</h5>
                 <!-- Looks for all departmental tasks -->
-                {% for task in tasks if task.type == "departmental" and task.completed != True %}
+                {% for task in tasks if task.type == "departmental" %}
                     <li>
                         <div class="collapsible-header white-text text-shadow purple darken-1">
                             <div class="col s1">
@@ -25,7 +44,12 @@
                                         &nbsp;-&nbsp;
                                     </strong>
                                     <strong>{{ task.task_name.capitalize() }}</strong>
-                                    {% if today > task.due_date %}
+                                    {% if task.completed == True %}
+                                        <i class="fas fa-check-circle light-green-text text-accent-3 tooltipped" 
+                                            data-position="right" data-tooltip="Task Completed">
+                                        </i>
+                                    {% endif %}
+                                    {% if today > task.due_date and task.completed != True %}
                                         <i class="fas fa-exclamation-triangle red-text tooltipped" 
                                             data-position="right" data-tooltip="Task Due!">
                                         </i>
@@ -57,23 +81,32 @@
                                         Updated by: {{ task.updator_label }}&nbsp;&nbsp;
                                         on: {{ task.updated_on.strftime('%d/%b/%Y') }} 
                                     </em>
-                                {% endif %}                    
+                                {% endif %} 
+                                {% if task.completed == true %}
+                                    <em>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        Completed by: {{ task.completed_by }}&nbsp;&nbsp;
+                                        on: {{ task.completed_on.strftime('%d/%b/%Y') }} 
+                                    </em>
+                                {% endif %}                   
                             </p>
-                            <a href="#modal5{{ loop.index }}" 
-                                class="btn-small waves-effect waves-light accent-4 modal-trigger green">
-                                Done
-                            </a>
-                            {% if session.user|lower == task.created_by|lower 
-                                or session.is_admin == "on" or session.is_mgmt == "on" %}
-                                <a href="{{ url_for('edit_dept_task', task_id=task._id) }}" 
-                                    class="btn-small waves-effect waves-light blue">
-                                    Edit
+                            {% if task.completed != true %}
+                                <a href="#modal5{{ loop.index }}" 
+                                    class="btn-small waves-effect waves-light accent-4 modal-trigger green">
+                                    Done
                                 </a>
-                                <!-- Delete button triggers modal to confirm for defensive purposes -->
-                                <a href="#modal1{{ loop.index }}" 
-                                    class="btn-small waves-effect waves-light accent-4 modal-trigger red">
-                                    Delete
-                                </a>
+                                {% if session.user|lower == task.created_by|lower 
+                                    or session.is_admin == "on" or session.is_mgmt == "on" %}
+                                    <a href="{{ url_for('edit_dept_task', task_id=task._id) }}" 
+                                        class="btn-small waves-effect waves-light blue">
+                                        Edit
+                                    </a>
+                                    <!-- Delete button triggers modal to confirm for defensive purposes -->
+                                    <a href="#modal1{{ loop.index }}" 
+                                        class="btn-small waves-effect waves-light accent-4 modal-trigger red">
+                                        Delete
+                                    </a>
+                                {% endif %}
                             {% endif %}
                         </div>
                         <!-- Modal Structure -->
@@ -116,7 +149,7 @@
                     </li>
                 {% else %}
                     <div class="box-shadow white-text text-shadow center-align purple darken-1">
-                        No Active Tasks
+                        No Tasks Found
                     </div>
                 {% endfor %}
             </ul>
