@@ -1,5 +1,54 @@
-## User Stories
-- As someone who would use this task manager regurarly, I want to tasks and lists to be informative and easily understandable.
+[![Website shields.io](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](http://shields.io/)
+
+![logo](/static/readme-files/nsum.png "nsum logo")
+
+#### Code Institute - Milestone Project 3 
+## Cork International Hotel Task Manager
+![Am I Responsive](/static/readme-files/responsive.png)
+
+## Introduction
+Welcome,
+This web app is made as 3rd Milestone Project with Code Institute.
+I decided to make a task manager app because hotel I work in showed interest and need for an app such as this.
+Before submission this project will be copied to another repo and then used throughout the hotel group I work in. 
+Some of the features included are: full CRUD functionality, specific department tasks, personal tasks, shared tasks,
+management control and task editing...
+
+# User Experience (UX)
+
++   ### User stories
+1. As someone who would use this task manager regurarly, I want tasks and lists to be informative and easily understandable.
+2. As a head of department I want to be able to assign a task that will be visible only to staff in my department and can be completed by anyone in my department.
+3. As a manager I want to be able to create a new task that will be visible by all members.
+4. As a head of department I want to be able to assign a personal task that will be visible only to me and staff member I assigned the task to.
+5. As a head of department I want to be able to keep track of all the tasks I assigned either to department or staff member specifically.
+6. As part of management I want to be able to delete any tasks.
+7. As a part of management I want to be able to edit and redelegate tasks.
+8. As a normal staff member, I want to be able to add a personal task to myself as a reminder.
+9. As a part of management I want to be able to see if someone edited a task I made, and when.
+10. As a part of management I want to be able to easily see the tasks that are past due.
+11. As management I want to be able to search through deparment tasks and see completed tasks too.
+
++   ### Wireframes  
+    + [Index Page - Desktop](/static/readme-files/base-prelogin.png) 
+    + [Admin Control Panel - Desktop](/static/readme-files/admin-cp.png) 
+    + [User Tasks Page - Desktop](/static/readme-files/normal-user-home.png) 
+    + [Task Creation - Desktop](/static/readme-files/task-creation.png)
+    + [Task List - Desktop](/static/readme-files/tasks.png)
+    + [User Profile - Desktop](/static/readme-files/user-profile.png)
+
+
+
+
+
+
+
+
+
+_____________________________
+### Testing User Stories from User Experience (UX) Section
+
+- As someone who would use this task manager regurarly, I want tasks and lists to be informative and easily understandable.
     - Task lists contain list items with: task name, due date & urgency status.
     On opening specific task: task description, created by, created on are visible, under which is complete button. 
     Additionally if someone edits the task, that is also visible in task body.
@@ -16,17 +65,19 @@
     tasks assigned by them.
 - As part of management I want to be able to delete any tasks.
     - Management can delete any task, while normal users can only delete tasks create by themselves (own personal task)
-- As part of management I want to be able to edit and redelegate tasks.
+- As a part of management I want to be able to edit and redelegate tasks.
     - All management members can edit all tasks while normal users can only edit tasks they created. When editing they can 
     reassign the task to other staff member or department.
-- As normal staff member, I want to be able to add a personal task to myself as a reminder.
+- As a normal staff member, I want to be able to add a personal task to myself as a reminder.
     - Normal users can only create personal tasks for themselves, and those tasks are the only tasks they can edit or delete.
-- As part of management I want to be able to see if someone edited a task I made, and when.
+- As a part of management I want to be able to see if someone edited a task I made, and when.
     - When task is edited new keys (edited by, edited on) are inserted into task and shown in task body after editing so 
     it's easy to keep track of who edited the task and when.
-- As part of management I want to be able to easily see the tasks that are past due.
+- As a part of management I want to be able to easily see the tasks that are past due.
     - All task lists are sorted by due date, and for every task comparison is made to see if due date is in the past.
-    If due date is today or before, red triangle is displayed next to the task name.
+    If due date is today or before, red triangle "Task Due!" is displayed next to the task name.
+- As management I want to be able to search through deparment tasks and see completed tasks too.
+    - all_tasks view has search function and it's list contains all department tasks both completed and uncompleted.
 
 ## Bugs & Fixes
 - All html files except base.html throw warning "Doctype must be declared first."
