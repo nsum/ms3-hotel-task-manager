@@ -99,17 +99,17 @@ def all_tasks():
         departments=departments, today=today)
 
 
-@app.route("/track_personal_tasks")
+@app.route("/track_delegated_tasks")
 @login_required
 @mgmt_access
-def track_personal_tasks():
+def track_delegated_tasks():
     users = list(mongo.db.users.find())
     tasks = list(mongo.db.tasks.find().sort("due_date", 1))
     # Used to compare due_date to current date to warn if task past due
     today = datetime.datetime.today()
     departments = list(mongo.db.departments.find())
     return render_template(
-        "track_personal_tasks.html",
+        "track_delegated_tasks.html",
         tasks=tasks, users=users, departments=departments, today=today)
 
 
@@ -206,11 +206,8 @@ def profile(username):
     today = datetime.datetime.today()
     tasks = list(mongo.db.tasks.find().sort("due_date", 1))
 
-    if session["user"]:
-        return render_template(
-            "profile.html", tasks=tasks, username=username, today=today)
-
-    return redirect(url_for("login"))
+    return render_template(
+        "profile.html", tasks=tasks, username=username, today=today)
 
 
 # Add department and shared tasks
@@ -387,10 +384,13 @@ def search():
 def complete_task(task_id):
     # Grabs and formats current date for "completed on"
     today = datetime.datetime.today()
+    # Puts users full name for display purposes
+    completed_by_label = session["first_name"] + " " + session["last_name"]
     # Updates it to keep track on who and when completed it
     mongo.db.tasks.update({"_id": ObjectId(task_id)}, {"$set": {
             "completed": True,
             "completed_by": session["user"],
+            "completed_by_label": completed_by_label,
             "completed_on": today
         }})
 

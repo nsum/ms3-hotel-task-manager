@@ -12,11 +12,11 @@ This web app is made as 3rd Milestone Project with Code Institute.
 I decided to make a task manager app because hotel I work in showed interest and need for an app such as this.
 Before submission this project will be copied to another repo and then used throughout the hotel group I work in. 
 Some of the features included are: full CRUD functionality, specific department tasks, personal tasks, shared tasks,
-management control and task editing...
+management control, search and task editing...
 
 # User Experience (UX)
 
-+   ### User stories
++   ### User stories:
 1. As someone who would use this task manager regurarly, I want tasks and lists to be informative and easily understandable.
 2. As a head of department I want to be able to assign a task that will be visible only to staff in my department and can be completed by anyone in my department.
 3. As a manager I want to be able to create a new task that will be visible by all members.
@@ -29,7 +29,7 @@ management control and task editing...
 10. As a part of management I want to be able to easily see the tasks that are past due.
 11. As management I want to be able to search through deparment tasks and see completed tasks too.
 
-+   ### Wireframes  
++   ### Wireframes:
     + [Index Page - Desktop](/static/readme-files/base-prelogin.png) 
     + [Admin Control Panel - Desktop](/static/readme-files/admin-cp.png) 
     + [User Tasks Page - Desktop](/static/readme-files/normal-user-home.png) 
@@ -37,17 +37,131 @@ management control and task editing...
     + [Task List - Desktop](/static/readme-files/tasks.png)
     + [User Profile - Desktop](/static/readme-files/user-profile.png)
 
++   ### Design:
+    + Colour Scheme: Main colour is purple which is the signature colour of the hotel this app will be used in.
+    + MaterializeCSS classes and custom css were used to make app fully responsive on all screen sizes.
 
 
 
+# Technologies Used
+
+### Languages Used:
++   [HTML5](https://en.wikipedia.org/wiki/HTML5)
++   [CSS3](https://en.wikipedia.org/wiki/Cascading_Style_Sheets)
++   [JavaScript](https://en.wikipedia.org/wiki/JavaScript)
++   [Python](https://en.wikipedia.org/wiki/Python_(programming_language))
+
+### Frameworks, Libraries & Programs Used:
++ [Materializecss:](https://materializecss.com/) was used to assist with the responsiveness and styling of the website.
++ [jQuery:](https://jquery.com/) was used to initialize most of Materializecss's features and few custom on click & hover events 
++ [Flask:](https://flask.palletsprojects.com/en/1.1.x/) Flask micro framework was used for it's tools, libraries, and mechanics.
++ [MongoDB:](https://www.mongodb.com/3) was used as a database program.
++ [Heroku:](https://www.heroku.com/) was used as deployment platform
++ [requirements.txt:](requirements.txt) contains list off all dependancies
++ [Randomkeygen:](https://randomkeygen.com/) was used for encrypting vars.
++ [Git:](https://git-scm.com/) was used for version control by utilizing the Gitpod terminal to commit to Git and Push to GitHub.
++ [GitHub:](https://github.com/) is used to store the projects code after being pushed from Git.
++ [Font Awesome:](https://fontawesome.com/) was used on all pages throughout the website to add icons for aesthetic and UX purposes.
++ [Imagecompressor.com:](https://imagecompressor.com/) was used to compress images
++ [Am I Responsive:](http://ami.responsivedesign.is/) was used to create image at the top of README.md
 
 
+# Features
+
+### Back End:
+- Session expiry after set time of inactivity (set time inside set_session_timeout function) - currently at 15 mins.
+- Redirects to login page if unlogged user tries to access any of the pages login is required for by typing directly in URL bar.
+- Redirects to home page if non-admin or non-mgmt user tries to access admin & mgmt pages by typing directly in URL bar.
+- At the moment admin and mgmt have same privileges but that will change when app is put to use and more users and features are added.
+- Registering new user asks to confirm the password for defensive purposes.
+- When logging in, first check performed is to see if the user exists, and if it does it then checks does the password match the one in db.
+    - If either username or password are incorrect, flash message will display saying that username AND/OR password is wrong, to prevent brute forcing.
+- Registering new user first checks does the user already exist in db, then it checks do the two passwod inputs match.
+    - Flash message is displayed if any of the checks fail, notifying the user (e.g. 'Passwords do not match')
+
+### Front End:
+#### Navigating The Page:
+- After logging in, flash message is displayed greeting user by name
+- User's department is displayed in nav next to site name
+- admin & mgmt have floating action button with links to all important controls 
+    (create new user, create department task, track delegated tasks, etc..)
+    - For mobile users FAB is hidden and the links are in the side nav 
+    - For non mgmt users FAB is hidden
+- Tasks view contains two separate lists. One for shared tasks and one for user's department tasks.
+    Both lists are titled accordingly and are click to expand
+- Profile view for normal users contains only tasks assigned to that user, while if the user is mgmt
+    profile view will have cards will all the links from floating action button with explanations.
+#### Creating & Editing Tasks:
+- When creating personal task, non mgmt user doesn't have the option to choose who to assign the task to, 
+    and the task is assigned to user in session.
+- mgmt users and admins can choose the name of the person to assign the personal task to.
+- Department tasks can only be created by mgmt & admins. Form is the same as personal tasks, only difference being 
+    choosing department instead of person.
+- Date picker makes it easier and nicer to chose date and then format it properly
+- When task is created, flash message appears confirming task creation.
+- If "is urgent" switch is on, there will be yellow triangle displayed next to due date to indicate that task is urgent.
+- Editing task opens form and sets default values same as the ones task already had so only value we wish to change needs to be altered.
+- After editing the task new keys/values are inserted logging who and when updated the task
+#### Completing & Deleting a Task:
+- Both Complete & Delete task buttons have modals as defensive programming, asking user to confirm action.
+- Completing the task doesn't delete it but rather updates it with new key/value pairs indicating the task was completed
+- Deleting the task deletes the record completely
+- On all actions (edit, delete, complete, create) flash message is displayed confirming that user's action was completed
+#### Viewing Task List:
+- Every list contains:
+    - task name
+    - task description
+    - created by
+    - created on
+    - urgency status
+- If the task has been edited, additionaly there will be:
+    - updated by
+    - updated on
+- Completed tasks will be shown only on all_tasks view which will list all departmental tasks, ongoing and completed.
+    Completed tasks will have green check mark next to task name and will have completed by and completed on values.
+- If the ongoing task due date is today or in the past, red triangle will display next to the task name to indicate that task is due.
+#### Registering New User:
+- Admin and mgmt users can register new user. Username field uses .lower() while first and last name uses .capitalize().
+    Repeat password feat is there to confirm inputed password, and then password is displayed as flash message after registering.
+#### Personal Tasks:
+- Admins & mgmt are able to assign personal tasks to other users, while normal users can only assign to themselves.
+    Personal tasks are visible only to users who assign the task and to user that task is assigned to.
+#### Tracking Delegated Tasks:
+- track_delegated_tasks is available to admin & mgmt users and it contains a list of both personal and departmental 
+    tasks either created or edited by current user. 
+#### Search bar:
+- Search bar is available on all_tasks view the all completed and uncompleted departmental tasks are.
+    It searches for task name or task description, and any result will show in the task list below the search bar.
 
 
+# Credits
 
-_____________________________
-### Testing User Stories from User Experience (UX) Section
+### Code:
++	[Alvin Wang](https://github.com/Dogfalo) - select.js which solves the issue with form select on mobile
++   [Code Institute Sample README](https://github.com/Code-Institute-Solutions/SampleREADME) - Readme Template
 
+### Acknowledgements:
++ [Spencer Barriball](http://www.5pence.net/) - Huge thank you to my mentor Spencer for all his help and guidance
++ [codeinstitute.net](https://codeinstitute.net/) - Lessons, videos, tutoring & support
++ [Cork International Hotel](https://www.corkinternationalairporthotel.com/) - For showing interest in using this app 
+
+### Media:
++	[Parallax Image 1](https://cf.bstatic.com/images/hotel/max1024x768/653/65346226.jpg)
++	[Parallax Image 2](https://www.corkinternationalairporthotel.com/wp-content/uploads/2019/07/lobby-003.jpg)
+
+# Testing
+
+### Number of validators and services were used to validate pages to ensure there were no syntax errors:
+-   [Extend Class - Python Syntax Schecker](https://extendsclass.com/python-tester.html) - [Results](/static/readme-files/validate-python.png)
+-   [W3C CSS Validator](https://jigsaw.w3.org/css-validator/#validate_by_input) - [Results](/static/readme-files/validate-css.png)
+-   [Esprima jQuery Validator](https://esprima.org/demo/validate.html) - [Results](/static/readme-files/validate-jquery.png)
+-   [Lighhouse Tool](https://developers.google.com/web/tools/lighthouse) - [Results](/static/readme-files/lighthouse-report.png)
+
+### Manual Testing:
+# insert testing here
+=====================
+
+### Testing User Stories from User Experience (UX) Section:
 - As someone who would use this task manager regurarly, I want tasks and lists to be informative and easily understandable.
     - Task lists contain list items with: task name, due date & urgency status.
     On opening specific task: task description, created by, created on are visible, under which is complete button. 
@@ -79,7 +193,7 @@ _____________________________
 - As management I want to be able to search through deparment tasks and see completed tasks too.
     - all_tasks view has search function and it's list contains all department tasks both completed and uncompleted.
 
-## Bugs & Fixes
+## Bugs & Fixes:
 - All html files except base.html throw warning "Doctype must be declared first."
     - It is ignored because all html files are injected into base.html and it's Doctype is declared.
 - edit_dept_task has to identical id's in switches.
@@ -116,7 +230,7 @@ _____________________________
 - Above changes brought small issue when editing task. If date wasn't changed when editing, there was a formatting issue,
     as time data didn't match the format. Fixed it by adding '.strftime('%d/%b/%Y')' to date values when editing task.
 
-## Coding Process / Reasoning
+## Coding Process / Reasoning:
 - Initially I set up two collections for tasks: 'tasks' for department tasks, and 'personal' 
     for personal tasks, because I wasn't sure will I be able to manage it in one colelction.
     After learning how to manage it, I refactored code to use one collection 'tasks' for 
@@ -126,74 +240,6 @@ _____________________________
 - Towards the end of the project I decided to get rid of 'control' view which had it's access limited to admins and mgmt, 
     and contained links for creating new user, creating new tasks, tracking tasks etc.
     I decided to put those links in floating action button on dekstop, and on mobile put it in mobile view side nav.
+- Also towards the end of the project, after consulting with my mentor, I decided to use just one collection for tasks. 
+    Until then I had tasks & completed_tasks which I then merged into one collection.
 
-## Features
-### Back End
-- Session expiry after set time of inactivity (set time inside set_session_timeout function)
-- Redirects to home page if unlogged user tries to access any of the pages login is required for
-- Redirects to task page if non-admin or non-mgmt user tries to access admin & mgmt pages
-- 
-
-### Front End
-- Dropdown with list of names when creating or editing personal tasks is sorted alphabetically
-    by first name but can easily be changed
-- 
-
-
-
-## Credits
-- https://randomkeygen.com/ - for generating SECRET_KEY
-- https://materializecss.com/ - framework
-- jQuery
-- font awesome
-- Alvin Wang - https://github.com/Dogfalo - select.js fix for select dropdown
-
-
-# PRESET README
-
-
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
-
-Welcome nsum,
-
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. You can safely delete this README.md file, or change it for your own project. Please do read it at least once, though! It contains some important information about Gitpod and the extensions we use.
-
-## Gitpod Reminders
-
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
-
-`python3 -m http.server`
-
-A blue button should appear to click: *Make Public*,
-
-Another blue button should appear to click: *Open Browser*.
-
-To run a backend Python file, type `python3 app.py`, if your Python file is named `app.py` of course.
-
-A blue button should appear to click: *Make Public*,
-
-Another blue button should appear to click: *Open Browser*.
-
-In Gitpod you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
-
-## Updates Since The Instructional Video
-
-We continually tweak and adjust this template to help give you the best experience. Here is the version history:
-
-**October 21 2020:** Versions of the HTMLHint, Prettier, Bootstrap4 CDN and Auto Close extensions updated. The Python extension needs to stay the same version for now.
-
-**October 08 2020:** Additional large Gitpod files (`core.mongo*` and `core.python*`) are now hidden in the Explorer, and have been added to the `.gitignore` by default.
-
-**September 22 2020:** Gitpod occasionally creates large `core.Microsoft` files. These are now hidden in the Explorer. A `.gitignore` file has been created to make sure these files will not be committed, along with other common files.
-
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
-
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
-
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
-
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
-
---------
-
-Happy coding!

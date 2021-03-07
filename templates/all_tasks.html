@@ -2,17 +2,17 @@
 {% block content %}
 
     <div class="row search-bar">
-        <div class="row col s12 m8 offset-m2 card-panel grey lighten-5">
-            <form action="{{url_for('search')}}" method="POST" class="col s12">
-                <div class="row valign-wrapper center-align">
-                    <div class="input-field col s12 m7">
+        <div class="col s12 m6 offset-m3 card-panel grey lighten-5">
+            <form action="{{url_for('search')}}" method="POST" class="">
+                <div class="row center-align">
+                    <div class="input-field col s12">
                         <i class="fas fa-search prefix purple-text"></i>
                         <input type="text" class="validate" id="query" name="query" minlength="3" required>
-                        <label for="query">Search Tasks by Task Name or Description</label>
+                        <label for="query">Search by task name or description</label>
                     </div>
-                    <div class="col s12 m5">
-                        <a href="{{url_for('all_tasks')}}" class="red btn text-shadow">Reset Query</a>
-                        <button type="submit" class="purple btn text-shadow">
+                    <div class="col s12">
+                        <a href="{{url_for('all_tasks')}}" class="red btn-margin btn-small text-shadow">Reset Query</a>
+                        <button type="submit" class="purple btn-margin btn-small text-shadow">
                             <i class="fas fa-search left"></i>Search
                         </button>
                     </div>
@@ -85,7 +85,7 @@
                                 {% if task.completed == true %}
                                     <em>
                                         &nbsp;&nbsp;&nbsp;&nbsp;
-                                        Completed by: {{ task.completed_by }}&nbsp;&nbsp;
+                                        Completed by: {{ task.completed_by_label }}&nbsp;&nbsp;
                                         on: {{ task.completed_on.strftime('%d/%b/%Y') }} 
                                     </em>
                                 {% endif %}                   
