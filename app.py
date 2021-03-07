@@ -240,7 +240,7 @@ def add_dept_task():
 
         mongo.db.tasks.insert_one(task)
         flash("Department Task Successfully Added!")
-        return redirect(url_for('tasks'))
+        return profile(session["user"])
 
     # Pull list of departments
     departments = mongo.db.departments.find()
@@ -283,7 +283,7 @@ def add_personal_task():
 
         mongo.db.tasks.insert_one(task)
         flash("Personal Task Successfully Added!")
-        return redirect(url_for('tasks'))
+        return profile(session["user"])
 
     # Pull list of users
     users = mongo.db.users.find().sort("first_name", 1)
@@ -315,7 +315,7 @@ def edit_dept_task(task_id):
         }})
 
         flash("Department Task Successfully Updated!")
-        return redirect(url_for('tasks'))
+        return profile(session["user"])
 
     task = mongo.db.tasks.find_one({"_id": ObjectId(task_id)})
     departments = mongo.db.departments.find()
@@ -353,7 +353,7 @@ def edit_personal_task(task_id):
             "updated_on": today
         }})
         flash("Personal Task Successfully Updated!")
-        return redirect(url_for('tasks'))
+        return profile(session["user"])
 
     task = mongo.db.tasks.find_one({"_id": ObjectId(task_id)})
     users = mongo.db.users.find().sort("first_name", 1)
@@ -366,7 +366,7 @@ def edit_personal_task(task_id):
 def delete_task(task_id):
     mongo.db.tasks.remove({"_id": ObjectId(task_id)})
     flash("Task Successfully Deleted")
-    return redirect(url_for("tasks"))
+    return redirect(request.referrer)
 
 
 @app.route("/search", methods=["GET", "POST"])
@@ -395,7 +395,7 @@ def complete_task(task_id):
         }})
 
     flash("Task Successfully Completed")
-    return redirect(url_for("tasks"))
+    return redirect(request.referrer)
 
 
 # User logout

@@ -133,6 +133,13 @@ management control, search and task editing...
 - Search bar is available on all_tasks view the all completed and uncompleted departmental tasks are.
     It searches for task name or task description, and any result will show in the task list below the search bar.
 
+### To be included in upcoming versions:
+- More extensive search option where admin & mgmt users will be able to filter tasks completed by specific user.
+- Table showing "Monthly targets" will be included and visible to front office members to keep track of current months targets.
+- Optional extra key of "complete_note" (text type) will be inserted on completing the task. Users will be prompted to optionally
+    write a note before completing the task.
+- At the moment after creating or editing a task users are redirected to profile view instead of back where they were.
+    I plan to fix that as soon as I find a viable solution. (more info in issues section)
 
 # Credits
 
@@ -161,39 +168,17 @@ management control, search and task editing...
 # insert testing here
 =====================
 
-### Testing User Stories from User Experience (UX) Section:
-- As someone who would use this task manager regurarly, I want tasks and lists to be informative and easily understandable.
-    - Task lists contain list items with: task name, due date & urgency status.
-    On opening specific task: task description, created by, created on are visible, under which is complete button. 
-    Additionally if someone edits the task, that is also visible in task body.
-- As a head of department I want to be able to assign a task that will be visible only to staff in my department
-    and can be completed by anyone in my department.
-    - Normal users can see and complete tasks assigned to their department on tasks page.
-- As a manager I want to be able to create a new task that will be visible by all members.
-    - "Shared" tasks list contains all tasks that will be visible to every member.
-- As a head of department I want to be able to assign a personal task that will be visible only to me and staff member I
-    assigned the task to.
-    - Normal users can see and complete their own personal tasks assigned to them by management or themselves.
-- As a head of department I want to be able to keep track of all the tasks I assigned either to department or staff member specifically.
-    - All management members can access all tasks from "control panel" page, and additionaly they have a list of all 
-    tasks assigned by them.
-- As part of management I want to be able to delete any tasks.
-    - Management can delete any task, while normal users can only delete tasks create by themselves (own personal task)
-- As a part of management I want to be able to edit and redelegate tasks.
-    - All management members can edit all tasks while normal users can only edit tasks they created. When editing they can 
-    reassign the task to other staff member or department.
-- As a normal staff member, I want to be able to add a personal task to myself as a reminder.
-    - Normal users can only create personal tasks for themselves, and those tasks are the only tasks they can edit or delete.
-- As a part of management I want to be able to see if someone edited a task I made, and when.
-    - When task is edited new keys (edited by, edited on) are inserted into task and shown in task body after editing so 
-    it's easy to keep track of who edited the task and when.
-- As a part of management I want to be able to easily see the tasks that are past due.
-    - All task lists are sorted by due date, and for every task comparison is made to see if due date is in the past.
-    If due date is today or before, red triangle "Task Due!" is displayed next to the task name.
-- As management I want to be able to search through deparment tasks and see completed tasks too.
-    - all_tasks view has search function and it's list contains all department tasks both completed and uncompleted.
 
-## Bugs & Fixes:
+### Unresolved Issues:
+- When creating new task there is a very small area of date picker which if clicked does not trigger date picker but rather 
+    enables user to manually input values. due_date used to be text format so it would save the input, but I changed due_date
+    to save as date format so if by any chance wrong format is inputted page throws an error and the task is not saved.
+- After creating or editing a task user is redirected to view set by a return of performed function instead of being redirected 
+    back where he was. It tried including 'onclick="history.go(-1); return false;"' in buttons which worked as far as redirect 
+    go, but didn't create or update a task. I also tried returning redirect('request.referrer') which did save the task and it
+    did in fact redirect but back to task creation or task editing, instead of page before it. 
+
+### Bugs & Fixes:
 - All html files except base.html throw warning "Doctype must be declared first."
     - It is ignored because all html files are injected into base.html and it's Doctype is declared.
 - edit_dept_task has to identical id's in switches.
@@ -230,7 +215,7 @@ management control, search and task editing...
 - Above changes brought small issue when editing task. If date wasn't changed when editing, there was a formatting issue,
     as time data didn't match the format. Fixed it by adding '.strftime('%d/%b/%Y')' to date values when editing task.
 
-## Coding Process / Reasoning:
+### Coding Process / Reasoning:
 - Initially I set up two collections for tasks: 'tasks' for department tasks, and 'personal' 
     for personal tasks, because I wasn't sure will I be able to manage it in one colelction.
     After learning how to manage it, I refactored code to use one collection 'tasks' for 
@@ -243,3 +228,40 @@ management control, search and task editing...
 - Also towards the end of the project, after consulting with my mentor, I decided to use just one collection for tasks. 
     Until then I had tasks & completed_tasks which I then merged into one collection.
 
+### Testing User Stories from User Experience (UX) Section:
+- As someone who would use this task manager regurarly, I want tasks and lists to be informative and easily understandable.
+    - Task lists contain list items with: task name, due date & urgency status.
+    On opening specific task: task description, created by, created on are visible, under which is complete button. 
+    Additionally if someone edits the task, that is also visible in task body.
+- As a head of department I want to be able to assign a task that will be visible only to staff in my department
+    and can be completed by anyone in my department.
+    - Normal users can see and complete tasks assigned to their department on tasks page.
+- As a manager I want to be able to create a new task that will be visible by all members.
+    - "Shared" tasks list contains all tasks that will be visible to every member.
+- As a head of department I want to be able to assign a personal task that will be visible only to me and staff member I
+    assigned the task to.
+    - Normal users can see and complete their own personal tasks assigned to them by management or themselves.
+- As a head of department I want to be able to keep track of all the tasks I assigned either to department or staff member specifically.
+    - All management members can access all tasks from "control panel" page, and additionaly they have a list of all 
+    tasks assigned by them.
+- As part of management I want to be able to delete any tasks.
+    - Management can delete any task, while normal users can only delete tasks create by themselves (own personal task)
+- As a part of management I want to be able to edit and redelegate tasks.
+    - All management members can edit all tasks while normal users can only edit tasks they created. When editing they can 
+    reassign the task to other staff member or department.
+- As a normal staff member, I want to be able to add a personal task to myself as a reminder.
+    - Normal users can only create personal tasks for themselves, and those tasks are the only tasks they can edit or delete.
+- As a part of management I want to be able to see if someone edited a task I made, and when.
+    - When task is edited new keys (edited by, edited on) are inserted into task and shown in task body after editing so 
+    it's easy to keep track of who edited the task and when.
+- As a part of management I want to be able to easily see the tasks that are past due.
+    - All task lists are sorted by due date, and for every task comparison is made to see if due date is in the past.
+    If due date is today or before, red triangle "Task Due!" is displayed next to the task name.
+- As management I want to be able to search through deparment tasks and see completed tasks too.
+    - all_tasks view has search function and it's list contains all department tasks both completed and uncompleted.
+
+
+# INSERT DEPLOYMENT TO HEROKU
+# INSERT DEPLOYMENT TO HEROKU
+# INSERT DEPLOYMENT TO HEROKU
+# INSERT DEPLOYMENT TO HEROKU
