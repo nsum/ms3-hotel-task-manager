@@ -9,10 +9,15 @@
 ## Introduction
 Welcome,
 This web app is made as 3rd Milestone Project with Code Institute.
-I decided to make a task manager app because hotel I work in showed interest and need for an app such as this.
-Before submission this project will be copied to another repo and then used throughout the hotel group I work in. 
+Initially my idea for MS3 was job directory for IT jobs, where job seekers would input programming languages they use,
+yrs of experience with each one, links to projects, desired job positions etc. Then recruiters would be able to search and
+filter candidates by certain criterias. But after talking to my colleagues from hotel where I work,
+I decided to make a task manager app because hotel showed interest and need for an app such as this.
+Before project submission this project was copied to another repo and will be used throughout the hotel group I work in. 
 Some of the features included are: full CRUD functionality, specific department tasks, personal tasks, shared tasks,
 management control, search and task editing...
+
+Research, design, development & testing of this project took total of 85 hrs.
 
 # User Experience (UX)
 
@@ -165,7 +170,105 @@ management control, search and task editing...
 -   [Lighhouse Tool](https://developers.google.com/web/tools/lighthouse) - [Results](/static/readme-files/lighthouse-report.png)
 
 ### Manual Testing Procedures:
-# insert testing here
+
+    - TEST:
+        - Expected: 
+        - Testing: 
+        - Result: 
+
+- #### Navigating The Site:
+    - Browsing  as unlogged user:
+        - Expected: only home & login links available 
+        - Testing: visited site as unlogged user
+        - Result: expected results
+    - Typing directly in URL bar as unlogged or 'normal' user:
+        - Expected: before user is logged in, if he tries to type in views directly in URL bar, he is redirected
+            to login page. If user is logged in but not part of mgmt or admin and tries to do the same, he will
+            be redirected to home page
+        - Testing: Tried to type in directly in URL bar as both logged in and logged out.
+        - Result: Expected results on all views except 'search' which returns pymongo error for both logged and unlogged users.
+    - Browsing as 'normal' user:
+        - Expected: floating action buttons, admin controls, and admin mobile controls to be hidden and inaccessible
+        - Testing: logged in as normal user and browsed the site 
+        - Result: got expected results. None of the controls are visible to normal user
+    - Browsing as 'admin' or 'mgmt':
+        - Expected: Profile page to have cards with admin controls, desktop size to have floating action buttons, 
+            mobile to have those buttons in side nav and FAB hidden.
+        - Testing: Logged in as admin on both desktop & mobile and browsed the site
+        - Result: got expected results
+
+- #### Login:
+    - If either username or password are incorrect:
+        - Expected: redirect back to login and flash message "Incorrect Username and/or Password"
+        - Testing: tried inputing just wrong username, just wrong password, and tried both wrong password and username
+        - Result: got expected results on all tries
+    - If both username and password are correct:
+        - Expected: store a session cookie, redirect to user's profile page and 
+            flash message displayed "Welcome, 'user's first name'"
+        - Testing: inputted correct username & password
+        - Result: got expected results
+- #### Log out:
+    - Log the user out by clicking 'Log Out' button:
+        - Expected: redirect back to login page and delete current session cookie
+        - Testing: while logged in, clicking on 'Log Out' button
+        - Result: expected result
+    - Log out after set time of inactivity:
+        - Expected: redirect back to login page and delete current session cookie, if user
+            comes back after set time of inactivity (15 minutes)
+        - Testing: logged in and left the page for 15 minutes. After that tried to navigate the page.
+        - Result: Got expected result, redirected back to login page.
+
+- #### Register New User:
+    - Create new user:
+        - Expected: if all inputs are valid, insert new record in 'users' collection in db, and flash message 
+            that user was created successfully and flash message new user's password
+        - Testing: input valid information and click register
+        - Result: got expected results
+    - Passwords do not match:
+        - Expected: If 'password' and 'repeat password' do not match exactly, flash 'Passwords Do Not Match'
+            and return to registration page
+        - Testing: Input all correct values except input two different passwords and click submit
+        - Result: got expected results
+    - Any of the fields left blank:
+        - Expected: form to warn that field is required and to please fill it in
+        - Testing: tried leaving just one field empty at a time, tried leaving all fields empty, tried leaving empty pairs
+        - Result: got expected results on each try
+    - Min / max chars:
+        - Expected: If any of the inputs are to short or too long, form should warn the user
+        - Testing: tried inputting less than min chars, tried inputting more than max, on all the fields
+        - Result: If user reaches max number of chars set for each field, no more input will be registered.
+            If user types less than min number of chars set for each field, form warn the user to match the requested format.
+    - Mobile View Icon:
+        - Expected: for hidden font awesome icon for last name to appear on mobile devices and stay hidden on large
+        - Testing: tried creating new user on both mobile & desktop
+        - Result: got expected results
+    - Capitalization:
+        - Expected: username to be saved in all smaller letters & first and last name to be capitalized
+        - Testing: input may different variations for all username, first & last name while creating new user
+        - Result: got expected result on every try
+- #### Creating new task:
+    - Successful creation of task:
+        - Expected: If all fields are inputted correctly, task should be inserted into db, 
+            user should be redirected and flash message displayed confirming that task was created
+        - Testing: Tried creating both personal & departmental tasks on both mobile & desktop 
+        - Result: got expected results
+    - If any of the criteria for task creation is not met:
+        - Expected: user to be notified and redirected and task not inserted in db
+        - Testing: tried inputting less than min char, more than max, leaving fields blank, inputting text/numbers
+            into date field
+        - Results: got expected results on all tries except when user tabs from task description to date picker. 
+            Date picker doesn't trigger and user can input anything he want's. I've fixed it by checking if the format is 
+            correct, and if it isn't user will be redirected a step back and flash message will warn him to format the date properly.
+
+
+
+
+
+
+- TEST:
+        - Expected: 
+        - Testing: 
+        - Result: 
 =====================
 - changed to redirects after seeing that on refresh it pops form resubmit
 
