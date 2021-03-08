@@ -164,15 +164,16 @@ management control, search and task editing...
 -   [Esprima jQuery Validator](https://esprima.org/demo/validate.html) - [Results](/static/readme-files/validate-jquery.png)
 -   [Lighhouse Tool](https://developers.google.com/web/tools/lighthouse) - [Results](/static/readme-files/lighthouse-report.png)
 
-### Manual Testing:
+### Manual Testing Procedures:
 # insert testing here
 =====================
-
+- changed to redirects after seeing that on refresh it pops form resubmit
 
 ### Unresolved Issues:
-- When creating new task there is a very small area of date picker which if clicked does not trigger date picker but rather 
-    enables user to manually input values. due_date used to be text format so it would save the input, but I changed due_date
-    to save as date format so if by any chance wrong format is inputted page throws an error and the task is not saved.
+- When creating or editing task sometimes date picker doesn't trigger on click but rather 
+    enables user to manually input values. It also happens every time user tabs from task description to due_date. 
+    due_date used to be text format so it would save the input, but I changed due_date
+    to save as date format so if by any chance wrong format is inputted, user is redirected back and flash message is displayed.
 - After creating or editing a task user is redirected to view set by a return of performed function instead of being redirected 
     back where he was. It tried including 'onclick="history.go(-1); return false;"' in buttons which worked as far as redirect 
     go, but didn't create or update a task. I also tried returning redirect('request.referrer') which did save the task and it
@@ -191,8 +192,11 @@ management control, search and task editing...
 - There was a bug on mobile (specifically IOS) where when you click on item in dropdown select list, 
     wrong item gets selected. Also dropdown caret is positioned wrong.
     - Fixed by adding Alvin Wang's select.js file to scripts (full credit in 'Credits')
-- Date picker sometimes on click enables manual entry instead of popping up calendar to choose from.
-    - Rarely happens and didn't fix
+- Date picker sometimes on click doesn't trigger date picker and allows manual entry.
+    It also happens every time user tabs from task description to date picker.
+    - Didn't find a way to fix it, but I added try/except where try tries to format input as date, and 
+    if it fails user is redirected back to task create/edit and flash message is displayed warning that
+    date format was wrong.
 - Had to refactor tasks list half-way through the project after adding slideToggle click event to ul.
     Idea was for tasks to be hidden until "show tasks" button was clicked. It would then show 
     collapsable li of tasks, but it didn't work until I reorganized divs and li's a lot to make it work.

@@ -7,8 +7,8 @@
             <ul class="collapsible">
                 <h5 class="center-align purple-text darken-4">Track Delegated Tasks</h5>
                 <!-- Looks for all tasks created or edited by session user -->
-                {% for task in tasks if task.created_by == session.user or task.updated_by == session.user %}
-                    {% if task.completed != True %}
+                {% for task in tasks if task.completed != True %}
+                    {% if task.created_by == session.user or task.updated_by == session.user %}
                         <li>
                             <div class="collapsible-header white-text text-shadow purple darken-1">
                                 <div class="col s1">

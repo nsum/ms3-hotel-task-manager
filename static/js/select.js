@@ -1,3 +1,4 @@
+// Fix for dropdown select on mobile (full info & credits in README.md)
 (function($) {
   'use strict';
 

@@ -221,7 +221,11 @@ def add_dept_task():
         today = datetime.datetime.today()
         # Format due_date string to date type
         due_date_str = request.form.get("due_date")
-        due_date = datetime.datetime.strptime(due_date_str, '%d/%b/%Y')
+        try:
+            due_date = datetime.datetime.strptime(due_date_str, '%d/%b/%Y')
+        except ValueError:
+            flash("Unable to create task. Please choose correct date format")
+            return redirect(request.referrer)
         # Used to insert task creator's full name in "created by"
         creator_label = session["first_name"] + " " + session["last_name"]
 
@@ -240,7 +244,7 @@ def add_dept_task():
 
         mongo.db.tasks.insert_one(task)
         flash("Department Task Successfully Added!")
-        return profile(session["user"])
+        return redirect(url_for('tasks'))
 
     # Pull list of departments
     departments = mongo.db.departments.find()
@@ -283,7 +287,7 @@ def add_personal_task():
 
         mongo.db.tasks.insert_one(task)
         flash("Personal Task Successfully Added!")
-        return profile(session["user"])
+        return redirect(url_for('tasks'))
 
     # Pull list of users
     users = mongo.db.users.find().sort("first_name", 1)
@@ -315,7 +319,7 @@ def edit_dept_task(task_id):
         }})
 
         flash("Department Task Successfully Updated!")
-        return profile(session["user"])
+        return redirect(url_for('tasks'))
 
     task = mongo.db.tasks.find_one({"_id": ObjectId(task_id)})
     departments = mongo.db.departments.find()
@@ -353,7 +357,7 @@ def edit_personal_task(task_id):
             "updated_on": today
         }})
         flash("Personal Task Successfully Updated!")
-        return profile(session["user"])
+        return redirect(url_for('tasks'))
 
     task = mongo.db.tasks.find_one({"_id": ObjectId(task_id)})
     users = mongo.db.users.find().sort("first_name", 1)
