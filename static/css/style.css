@@ -12,6 +12,7 @@ html {
     margin-top: 1rem;
 }
 
+ /* Bit of additional margin for some buttons */
 .btn-margin {
     margin: 0.5rem;
 }
@@ -51,24 +52,27 @@ footer {
     bottom: 0;
 	width: 100%;
 }
-/* Style for collapsable lists and collapse buttons */
 
+/* Style for collapsable lists and collapse buttons */
 .click-collapse {
     border: none;
     width: 100%;
     height: 100%;
 }
 
+/* Div containing button to show/hide task lists */
 .expand-div {
     height: 3rem;
 }
 
+/* Hidden until button inside .expand-div is clicked */
 #dept-tasks, 
 #personal-tasks,
 #shared-tasks {
     display: none;
 }
 
+/* Buttons inside .expand-div to expand entire div */
 #collapse-personal,
 #collapse-dept,
 #collapse-shared {
@@ -82,6 +86,12 @@ footer {
     box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.2)
 }
 
+/* Slight shadow around divs */
 .box-shadow {
     box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.2)
+}
+
+/* Hides FA icon for last name field on register new user & materializecss class shows it only on mobile */
+.show-on-small {
+    display: none;
 }

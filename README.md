@@ -169,6 +169,8 @@ management control, search and task editing...
 =====================
 - changed to redirects after seeing that on refresh it pops form resubmit
 
+
+
 ### Unresolved Issues:
 - When creating or editing task sometimes date picker doesn't trigger on click but rather 
     enables user to manually input values. It also happens every time user tabs from task description to due_date. 

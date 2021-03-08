@@ -56,12 +56,13 @@
                                     </em>
                                     {% if task.updated_by %}
                                         <em>
-                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            &nbsp;&nbsp;&nbsp;&nbsp;
                                             Updated by: {{ task.updator_label }}&nbsp;&nbsp;
                                             on: {{ task.updated_on.strftime('%d/%b/%Y') }} 
                                         </em>
                                     {% endif %}
                                 </p>
+                                <!-- Done button triggers modal to confirm for defensive purposes -->
                                 <a href="#modal7{{ loop.index }}" 
                                     class="btn-small waves-effect waves-light accent-4 modal-trigger green">
                                     Done
@@ -176,12 +177,13 @@
                                     </em>
                                     {% if task.updated_by %}
                                         <em>
-                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            &nbsp;&nbsp;&nbsp;&nbsp;
                                             Updated by: {{ task.updator_label }}&nbsp;&nbsp;
                                             on: {{ task.updated_on.strftime('%d/%b/%Y') }}
                                         </em>
                                     {% endif %}
                                 </p>
+                                <!-- Done button triggers modal to confirm for defensive purposes -->
                                 <a href="#modal8{{ loop.index }}" 
                                     class="btn-small waves-effect waves-light accent-4 modal-trigger green">
                                     Done

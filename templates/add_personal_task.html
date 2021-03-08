@@ -4,12 +4,11 @@
     <h5 class="title purple-text text-darken-1 center-align">Create New Personal Task</h5>
     <div class="row">
         <form class="card-panel grey lighten-5 col s12 m8 offset-m2" method="POST" action="{{url_for('add_personal_task')}}">
-            <!-- Department dropdown -->
+            <!-- Name list dropdown -->
             {% if session.is_admin == "on" or session.is_mgmt == "on" %}
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="prefix fas fa-user purple-text darken-4"></i>
-                        <!-- adapt this select to personal-->
                         <select id="username" name="username" class="validate" required>
                             <option value="" disabled selected>Search Names:</option>
                             {% for user in users %}
@@ -53,7 +52,7 @@
                     <label for="due_date">Due Date</label>
                 </div>
             </div>
-            <!-- Switches -->
+            <!-- Switch -->
             <div class="row">
                 <div class="input-filed col s12">
                     <div class="switch">

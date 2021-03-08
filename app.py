@@ -64,6 +64,7 @@ def mgmt_access(f):
     return decorated_function
 
 
+# Home page
 @app.route("/")
 @app.route("/home")
 def home():
@@ -84,11 +85,12 @@ def tasks():
         "tasks.html", tasks=tasks, departments=departments, today=today)
 
 
+# Lists all departmental tasks & has search function
 @app.route("/all_tasks")
 @login_required
 @mgmt_access
 def all_tasks():
-    # Tasks currently sorted by due date
+    # Tasks sorted by due date
     tasks = list(mongo.db.tasks.find().sort("due_date", 1))
     # Pull list of departments
     departments = list(mongo.db.departments.find())
@@ -99,6 +101,7 @@ def all_tasks():
         departments=departments, today=today)
 
 
+# Shows list of tasks user assigned or edited
 @app.route("/track_delegated_tasks")
 @login_required
 @mgmt_access
@@ -113,6 +116,7 @@ def track_delegated_tasks():
         tasks=tasks, users=users, departments=departments, today=today)
 
 
+# Log in page
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
@@ -145,11 +149,10 @@ def login():
             # Username doesn't exist
             flash("Incorrect Username and/or Password")
             return redirect(url_for("login"))
-
-    # Change to profile or tasks when created
     return render_template("login.html")
 
 
+# Register new user
 @app.route("/register", methods=["GET", "POST"])
 @login_required
 @mgmt_access
@@ -196,6 +199,7 @@ def register():
     return render_template("register.html", departments=departments)
 
 
+# User's profile page
 @app.route("/profile/<username>", methods=["POST", "GET"])
 @login_required
 def profile(username):
@@ -210,7 +214,7 @@ def profile(username):
         "profile.html", tasks=tasks, username=username, today=today)
 
 
-# Add department and shared tasks
+# Add department & shared task
 @app.route("/add_dept_task", methods=["GET", "POST"])
 @login_required
 @mgmt_access
@@ -261,7 +265,11 @@ def add_personal_task():
         today = datetime.datetime.today()
         # Format due_date string to date type
         due_date_str = request.form.get("due_date")
-        due_date = datetime.datetime.strptime(due_date_str, '%d/%b/%Y')
+        try:
+            due_date = datetime.datetime.strptime(due_date_str, '%d/%b/%Y')
+        except ValueError:
+            flash("Unable to create task. Please choose correct date format")
+            return redirect(request.referrer)
         # Used to insert task creator's full name in "created by"
         creator_label = session["first_name"] + " " + session["last_name"]
         # Non admins have name select hidden
@@ -303,7 +311,11 @@ def edit_dept_task(task_id):
         today = datetime.datetime.today()
         # Format due_date string to date type
         due_date_str = request.form.get("due_date")
-        due_date = datetime.datetime.strptime(due_date_str, '%d/%b/%Y')
+        try:
+            due_date = datetime.datetime.strptime(due_date_str, '%d/%b/%Y')
+        except ValueError:
+            flash("Unable to create task. Please choose correct date format")
+            return redirect(request.referrer)
         # Create editor's full name label
         updator_label = session["first_name"] + " " + session["last_name"]
 
@@ -336,7 +348,11 @@ def edit_personal_task(task_id):
         today = datetime.datetime.today()
         # Format due_date string to date type
         due_date_str = request.form.get("due_date")
-        due_date = datetime.datetime.strptime(due_date_str, '%d/%b/%Y')
+        try:
+            due_date = datetime.datetime.strptime(due_date_str, '%d/%b/%Y')
+        except ValueError:
+            flash("Unable to create task. Please choose correct date format")
+            return redirect(request.referrer)
         # Create editor's full name label
         updator_label = session["first_name"] + " " + session["last_name"]
         # Non admins cant't edit other's tasks and user select is empty
@@ -373,6 +389,7 @@ def delete_task(task_id):
     return redirect(request.referrer)
 
 
+# Search feature
 @app.route("/search", methods=["GET", "POST"])
 def search():
     query = request.form.get("query")

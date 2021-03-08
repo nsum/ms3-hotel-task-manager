@@ -36,8 +36,8 @@
                                         {{ task.due_date.strftime('%d/%b/%Y') }}
                                         <span> &nbsp;&nbsp;&nbsp;&nbsp;
                                             {% if task.is_urgent == "on" %}
-                                                <i class="fas fa-exclamation-circle yellow-text text-darken-3 tooltipped" data-position="right"
-                                                    data-tooltip="Urgent Task!">
+                                                <i class="fas fa-exclamation-circle yellow-text text-darken-3 tooltipped" 
+                                                    data-position="right" data-tooltip="Urgent Task!">
                                                 </i>
                                             {% endif %}
                                     </span>
@@ -53,12 +53,13 @@
                                     </em>
                                     {% if task.updated_by %}
                                         <em>
-                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            &nbsp;&nbsp;&nbsp;&nbsp;
                                             Updated by: {{ task.updator_label }}&nbsp;&nbsp;
                                             on: {{ task.updated_on.strftime('%d/%b/%Y') }} 
                                         </em>
                                     {% endif %}
                                 </p>
+                                <!-- Done button triggers modal to confirm for defensive purposes -->
                                 <a href="#modal6{{ loop.index }}" 
                                     class="btn-small waves-effect waves-light accent-4 modal-trigger green">
                                     Done
@@ -132,10 +133,12 @@
                             <p>Keep track and check status of tasks you assigned to others or create new personal tasks</p>
                         </div>
                         <div class="card-action center-align">
-                            <a href="{{ url_for('add_personal_task') }}" class="btn-small btn-margin waves-effect hoverable waves-light purple darken-1">
+                            <a href="{{ url_for('add_personal_task') }}" 
+                                class="btn-small btn-margin waves-effect hoverable waves-light purple darken-1">
                                 Create Personal Task
                             </a>
-                            <a href="{{ url_for('track_delegated_tasks') }}" class="btn-small btn-margin waves-effect hoverable waves-light purple darken-1">
+                            <a href="{{ url_for('track_delegated_tasks') }}" 
+                                class="btn-small btn-margin waves-effect hoverable waves-light purple darken-1">
                                 Track Assigned Tasks
                             </a>
                         </div>
@@ -149,10 +152,12 @@
                                 or create new shared or deparmental tasks</p>
                         </div>
                         <div class="card-action center-align">
-                            <a href="{{ url_for('add_dept_task') }}" class="btn-small btn-margin waves-effect hoverable waves-light purple darken-1">
+                            <a href="{{ url_for('add_dept_task') }}" 
+                                class="btn-small btn-margin waves-effect hoverable waves-light purple darken-1">
                                 Create Department Task
                             </a>
-                            <a href="{{ url_for('all_tasks') }}" class="btn-small btn-margin waves-effect hoverable waves-light purple darken-1">
+                            <a href="{{ url_for('all_tasks') }}" 
+                                class="btn-small btn-margin waves-effect hoverable waves-light purple darken-1">
                                 See All Departmental Tasks
                             </a>
                         </div>
@@ -164,7 +169,8 @@
                             <span class="center-align card-title">User Management</span>
                         </div>
                         <div class="card-action center-align">
-                            <a href="{{ url_for('register') }}" class="btn-small btn-margin waves-effect hoverable waves-light purple darken-1">
+                            <a href="{{ url_for('register') }}" 
+                                class="btn-small btn-margin waves-effect hoverable waves-light purple darken-1">
                                 Register New User
                             </a>
                         </div>
@@ -172,6 +178,7 @@
                 </div>
             </div>
         {% else %}
+            <!-- If user is not admin/mgmt he will have option to create personal task, but assign it only to himself -->
             <div class="col s12 m5">
                     <div class="card blue-grey">
                         <div class="card-content white-text">
@@ -179,7 +186,8 @@
                             <p>Set a Reminder For Yourself by Creating a Personal Task</p>
                         </div>
                         <div class="card-action center-align">
-                            <a href="{{ url_for('add_personal_task') }}" class="btn-small btn-margin waves-effect hoverable waves-light purple darken-1">
+                            <a href="{{ url_for('add_personal_task') }}" 
+                                class="btn-small btn-margin waves-effect hoverable waves-light purple darken-1">
                                 Create Personal Task
                             </a>
                         </div>

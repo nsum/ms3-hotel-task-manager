@@ -61,8 +61,8 @@
                 <li><a href="{{ url_for('tasks') }}">Tasks</a></li>
                 <li><a href="{{ url_for('profile', username=session['user']) }}">Profile</a></li>
                 <li><a href="{{ url_for('logout') }}">Log Out</a></li>
-                <!-- On mobile sizes and if mgmt or admin, show links from floating action button
-                    because on mobile FAB is hidden so link show here -->
+                <!-- On mobile sizes and if user is mgmt or admin, show links from floating action button
+                    because on mobile FAB is hidden so links show here -->
                 {% if session.is_admin == "on" or session.is_mgmt == "on" %}
                     <hr>
                     <h6 class="center-align purple-text text-darken-1">Control Panel</h6>
@@ -95,7 +95,9 @@
         {% endblock %}
         
         {% if session.is_admin == "on" or session.is_mgmt == "on" %}
-            <!-- Floating Action Button-->
+            <!-- Floating Action Button
+                Visible only on large because touch devices can't hover btns for tooltipped
+                info on what do each of the buttons do -->
             <div class="fixed-action-btn show-on-large">
                 <a class="btn-floating btn-large light-green accent-3">
                     <i class="fas fa-pencil-alt"></i>

@@ -65,10 +65,12 @@
                                         </em>
                                     {% endif %}                    
                                 </p>
+                                <!-- Done button triggers modal to confirm for defensive purposes -->
                                 <a href="#modal5{{ loop.index }}" 
                                     class="btn-small waves-effect waves-light accent-4 modal-trigger green">
                                     Done
                                 </a>
+                                <!-- If task is personal it will open edit_personal_task, and same for departmental -->
                                 {% if session.user|lower == task.created_by|lower 
                                     or session.is_admin == "on" or session.is_mgmt == "on" %}
                                     {% if task.type == "departmental" %}

@@ -1,4 +1,5 @@
 $(document).ready(function(){
+
     // Collapse tasks lists
     $(`#collapse-personal`).click(function () {
         $(`#personal-tasks`).slideToggle("medium", "linear");
@@ -12,7 +13,7 @@ $(document).ready(function(){
         $(`#shared-tasks`).slideToggle("medium", "linear");
     });
 
-    // All below is MaterializeCSS's code and is used to initialize it's features
+    // All below is MaterializeCSS's code and is used to initialize its features
     // Initialize floating action button
     $('.fixed-action-btn').floatingActionButton();
 
