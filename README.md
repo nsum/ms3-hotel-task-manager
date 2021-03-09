@@ -16,12 +16,26 @@ I decided to make a task manager app because hotel showed interest and need for 
 Before project submission this project was copied to another repo and will be used throughout the hotel group I work in. 
 Some of the features included are: full CRUD functionality, specific department tasks, personal tasks, shared tasks,
 management control, search and task editing...
+I really tried to use minimum outside help with this project, and for every issue or new feature, I tried and managed to find solution myself.
 
 Research, design, development & testing of this project took total of 85 hrs.
 
-# User Experience (UX)
 
-+   ### User stories:
+## Table of Contents
+1. [User Experience (UX)](#user-experience)
+    - [User Stories](#user-stories)
+    - [Wireframes](#wireframes)
+        
+
+2. [Techonologies Used](#technologies-used)
+    - [Existing Features](#existing-features)
+        - [Elements on every Page](#elements-on-every-page)
+
+
+
+# User Experience
+
++   ### User stories
 1. As someone who would use this task manager regurarly, I want tasks and lists to be informative and easily understandable.
 2. As a head of department I want to be able to assign a task that will be visible only to staff in my department and can be completed by anyone in my department.
 3. As a manager I want to be able to create a new task that will be visible by all members.
@@ -34,7 +48,7 @@ Research, design, development & testing of this project took total of 85 hrs.
 10. As a part of management I want to be able to easily see the tasks that are past due.
 11. As management I want to be able to search through deparment tasks and see completed tasks too.
 
-+   ### Wireframes:
++   ### Wireframes
     + [Index Page - Desktop](/static/readme-files/base-prelogin.png) 
     + [Admin Control Panel - Desktop](/static/readme-files/admin-cp.png) 
     + [User Tasks Page - Desktop](/static/readme-files/normal-user-home.png) 
@@ -42,7 +56,7 @@ Research, design, development & testing of this project took total of 85 hrs.
     + [Task List - Desktop](/static/readme-files/tasks.png)
     + [User Profile - Desktop](/static/readme-files/user-profile.png)
 
-+   ### Design:
++   ### Design
     + Colour Scheme: Main colour is purple which is the signature colour of the hotel this app will be used in.
     + MaterializeCSS classes and custom css were used to make app fully responsive on all screen sizes.
 
@@ -50,13 +64,13 @@ Research, design, development & testing of this project took total of 85 hrs.
 
 # Technologies Used
 
-### Languages Used:
+### Languages Used
 +   [HTML5](https://en.wikipedia.org/wiki/HTML5)
 +   [CSS3](https://en.wikipedia.org/wiki/Cascading_Style_Sheets)
 +   [JavaScript](https://en.wikipedia.org/wiki/JavaScript)
 +   [Python](https://en.wikipedia.org/wiki/Python_(programming_language))
 
-### Frameworks, Libraries & Programs Used:
+### Frameworks, Libraries & Programs Used
 + [Materializecss:](https://materializecss.com/) was used to assist with the responsiveness and styling of the website.
 + [jQuery:](https://jquery.com/) was used to initialize most of Materializecss's features and few custom on click & hover events 
 + [Flask:](https://flask.palletsprojects.com/en/1.1.x/) Flask micro framework was used for it's tools, libraries, and mechanics.
@@ -73,7 +87,7 @@ Research, design, development & testing of this project took total of 85 hrs.
 
 # Features
 
-### Back End:
+### Back End
 - Session expiry after set time of inactivity (set time inside set_session_timeout function) - currently at 15 mins.
 - Redirects to login page if unlogged user tries to access any of the pages login is required for by typing directly in URL bar.
 - Redirects to home page if non-admin or non-mgmt user tries to access admin & mgmt pages by typing directly in URL bar.
@@ -84,8 +98,8 @@ Research, design, development & testing of this project took total of 85 hrs.
 - Registering new user first checks does the user already exist in db, then it checks do the two passwod inputs match.
     - Flash message is displayed if any of the checks fail, notifying the user (e.g. 'Passwords do not match')
 
-### Front End:
-#### Navigating The Page:
+### Front End
+#### Navigating The Page
 - After logging in, flash message is displayed greeting user by name
 - User's department is displayed in nav next to site name
 - admin & mgmt have floating action button with links to all important controls 
@@ -96,7 +110,7 @@ Research, design, development & testing of this project took total of 85 hrs.
     Both lists are titled accordingly and are click to expand
 - Profile view for normal users contains only tasks assigned to that user, while if the user is mgmt
     profile view will have cards will all the links from floating action button with explanations.
-#### Creating & Editing Tasks:
+#### Creating & Editing Tasks
 - When creating personal task, non mgmt user doesn't have the option to choose who to assign the task to, 
     and the task is assigned to user in session.
 - mgmt users and admins can choose the name of the person to assign the personal task to.
@@ -107,12 +121,12 @@ Research, design, development & testing of this project took total of 85 hrs.
 - If "is urgent" switch is on, there will be yellow triangle displayed next to due date to indicate that task is urgent.
 - Editing task opens form and sets default values same as the ones task already had so only value we wish to change needs to be altered.
 - After editing the task new keys/values are inserted logging who and when updated the task
-#### Completing & Deleting a Task:
+#### Completing & Deleting a Task
 - Both Complete & Delete task buttons have modals as defensive programming, asking user to confirm action.
 - Completing the task doesn't delete it but rather updates it with new key/value pairs indicating the task was completed
 - Deleting the task deletes the record completely
 - On all actions (edit, delete, complete, create) flash message is displayed confirming that user's action was completed
-#### Viewing Task List:
+#### Viewing Task List
 - Every list contains:
     - task name
     - task description
@@ -125,20 +139,20 @@ Research, design, development & testing of this project took total of 85 hrs.
 - Completed tasks will be shown only on all_tasks view which will list all departmental tasks, ongoing and completed.
     Completed tasks will have green check mark next to task name and will have completed by and completed on values.
 - If the ongoing task due date is today or in the past, red triangle will display next to the task name to indicate that task is due.
-#### Registering New User:
+#### Registering New User
 - Admin and mgmt users can register new user. Username field uses .lower() while first and last name uses .capitalize().
     Repeat password feat is there to confirm inputed password, and then password is displayed as flash message after registering.
-#### Personal Tasks:
+#### Personal Tasks
 - Admins & mgmt are able to assign personal tasks to other users, while normal users can only assign to themselves.
     Personal tasks are visible only to users who assign the task and to user that task is assigned to.
-#### Tracking Delegated Tasks:
+#### Tracking Delegated Tasks
 - track_delegated_tasks is available to admin & mgmt users and it contains a list of both personal and departmental 
     tasks either created or edited by current user. 
-#### Search bar:
+#### Search bar
 - Search bar is available on all_tasks view the all completed and uncompleted departmental tasks are.
     It searches for task name or task description, and any result will show in the task list below the search bar.
 
-### To be included in upcoming versions:
+### To be included in upcoming versions
 - More extensive search option where admin & mgmt users will be able to filter tasks completed by specific user.
 - Table showing "Monthly targets" will be included and visible to front office members to keep track of current months targets.
 - Optional extra key of "complete_note" (text type) will be inserted on completing the task. Users will be prompted to optionally
@@ -148,16 +162,18 @@ Research, design, development & testing of this project took total of 85 hrs.
 
 # Credits
 
-### Code:
+### Code
 +	[Alvin Wang](https://github.com/Dogfalo) - select.js which solves the issue with form select on mobile
+
+### Acknowledgements
++   [Spencer Barriball](http://www.5pence.net/) - Huge thank you to my mentor Spencer for all his help and guidance
++   [codeinstitute.net](https://codeinstitute.net/) - Lessons, videos, tutoring & support
++   [Cork International Hotel](https://www.corkinternationalairporthotel.com/) - For showing interest in using this app
++   [Anna Greaves](https://github.com/AJGreaves) - For README.md Heroku deployment section
 +   [Code Institute Sample README](https://github.com/Code-Institute-Solutions/SampleREADME) - Readme Template
 
-### Acknowledgements:
-+ [Spencer Barriball](http://www.5pence.net/) - Huge thank you to my mentor Spencer for all his help and guidance
-+ [codeinstitute.net](https://codeinstitute.net/) - Lessons, videos, tutoring & support
-+ [Cork International Hotel](https://www.corkinternationalairporthotel.com/) - For showing interest in using this app 
 
-### Media:
+### Media
 +	[Parallax Image 1](https://cf.bstatic.com/images/hotel/max1024x768/653/65346226.jpg)
 +	[Parallax Image 2](https://www.corkinternationalairporthotel.com/wp-content/uploads/2019/07/lobby-003.jpg)
 
@@ -169,14 +185,14 @@ Research, design, development & testing of this project took total of 85 hrs.
 -   [Esprima jQuery Validator](https://esprima.org/demo/validate.html) - [Results](/static/readme-files/validate-jquery.png)
 -   [Lighhouse Tool](https://developers.google.com/web/tools/lighthouse) - [Results](/static/readme-files/lighthouse-report.png)
 
-### Manual Testing Procedures:
+### Manual Testing Procedures
 
     - TEST:
         - Expected: 
         - Testing: 
         - Result: 
 
-- #### Navigating The Site:
+- #### Navigating The Site
     - Browsing  as unlogged user:
         - Expected: only home & login links available 
         - Testing: visited site as unlogged user
@@ -196,8 +212,7 @@ Research, design, development & testing of this project took total of 85 hrs.
             mobile to have those buttons in side nav and FAB hidden.
         - Testing: Logged in as admin on both desktop & mobile and browsed the site
         - Result: got expected results
-
-- #### Login:
+- #### Login
     - If either username or password are incorrect:
         - Expected: redirect back to login and flash message "Incorrect Username and/or Password"
         - Testing: tried inputing just wrong username, just wrong password, and tried both wrong password and username
@@ -207,7 +222,7 @@ Research, design, development & testing of this project took total of 85 hrs.
             flash message displayed "Welcome, 'user's first name'"
         - Testing: inputted correct username & password
         - Result: got expected results
-- #### Log out:
+- #### Log out
     - Log the user out by clicking 'Log Out' button:
         - Expected: redirect back to login page and delete current session cookie
         - Testing: while logged in, clicking on 'Log Out' button
@@ -217,8 +232,7 @@ Research, design, development & testing of this project took total of 85 hrs.
             comes back after set time of inactivity (15 minutes)
         - Testing: logged in and left the page for 15 minutes. After that tried to navigate the page.
         - Result: Got expected result, redirected back to login page.
-
-- #### Register New User:
+- #### Register New User
     - Create new user:
         - Expected: if all inputs are valid, insert new record in 'users' collection in db, and flash message 
             that user was created successfully and flash message new user's password
@@ -239,14 +253,14 @@ Research, design, development & testing of this project took total of 85 hrs.
         - Result: If user reaches max number of chars set for each field, no more input will be registered.
             If user types less than min number of chars set for each field, form warn the user to match the requested format.
     - Mobile View Icon:
-        - Expected: for hidden font awesome icon for last name to appear on mobile devices and stay hidden on large
+        - Expected: font awesome icon next to last name field to appear on mobile devices but stay hidden on large
         - Testing: tried creating new user on both mobile & desktop
         - Result: got expected results
     - Capitalization:
         - Expected: username to be saved in all smaller letters & first and last name to be capitalized
         - Testing: input may different variations for all username, first & last name while creating new user
         - Result: got expected result on every try
-- #### Creating new task:
+- #### Creating new task
     - Successful creation of task:
         - Expected: If all fields are inputted correctly, task should be inserted into db, 
             user should be redirected and flash message displayed confirming that task was created
@@ -259,7 +273,11 @@ Research, design, development & testing of this project took total of 85 hrs.
         - Results: got expected results on all tries except when user tabs from task description to date picker. 
             Date picker doesn't trigger and user can input anything he want's. I've fixed it by checking if the format is 
             correct, and if it isn't user will be redirected a step back and flash message will warn him to format the date properly.
-
+    - Refreshing the page after creating or editing task:
+        - Expected: page to refresh normally
+        - Testing: created a task and then refreshed the page
+        - Result: at first I was returning users to profile page which prompted browser to resubmit the form.
+            Fixed it by redirecting to tasks view instead of 'return profile(session["user"])'
 
 
 
@@ -270,21 +288,18 @@ Research, design, development & testing of this project took total of 85 hrs.
         - Testing: 
         - Result: 
 =====================
-- changed to redirects after seeing that on refresh it pops form resubmit
 
-
-
-### Unresolved Issues:
+### Unresolved Issues
 - When creating or editing task sometimes date picker doesn't trigger on click but rather 
     enables user to manually input values. It also happens every time user tabs from task description to due_date. 
     due_date used to be text format so it would save the input, but I changed due_date
     to save as date format so if by any chance wrong format is inputted, user is redirected back and flash message is displayed.
 - After creating or editing a task user is redirected to view set by a return of performed function instead of being redirected 
     back where he was. It tried including 'onclick="history.go(-1); return false;"' in buttons which worked as far as redirect 
-    go, but didn't create or update a task. I also tried returning redirect('request.referrer') which did save the task and it
+    goes, but didn't create or update a task. I also tried returning redirect('request.referrer') which did save the task and it
     did in fact redirect but back to task creation or task editing, instead of page before it. 
 
-### Bugs & Fixes:
+### Bugs & Fixes
 - All html files except base.html throw warning "Doctype must be declared first."
     - It is ignored because all html files are injected into base.html and it's Doctype is declared.
 - edit_dept_task has to identical id's in switches.
@@ -324,7 +339,7 @@ Research, design, development & testing of this project took total of 85 hrs.
 - Above changes brought small issue when editing task. If date wasn't changed when editing, there was a formatting issue,
     as time data didn't match the format. Fixed it by adding '.strftime('%d/%b/%Y')' to date values when editing task.
 
-### Coding Process / Reasoning:
+### Coding Process
 - Initially I set up two collections for tasks: 'tasks' for department tasks, and 'personal' 
     for personal tasks, because I wasn't sure will I be able to manage it in one colelction.
     After learning how to manage it, I refactored code to use one collection 'tasks' for 
@@ -337,7 +352,7 @@ Research, design, development & testing of this project took total of 85 hrs.
 - Also towards the end of the project, after consulting with my mentor, I decided to use just one collection for tasks. 
     Until then I had tasks & completed_tasks which I then merged into one collection.
 
-### Testing User Stories from User Experience (UX) Section:
+### Testing User Stories from User Experience (UX) Section
 - As someone who would use this task manager regurarly, I want tasks and lists to be informative and easily understandable.
     - Task lists contain list items with: task name, due date & urgency status.
     On opening specific task: task description, created by, created on are visible, under which is complete button. 
@@ -369,8 +384,76 @@ Research, design, development & testing of this project took total of 85 hrs.
 - As management I want to be able to search through deparment tasks and see completed tasks too.
     - all_tasks view has search function and it's list contains all department tasks both completed and uncompleted.
 
+# Style and complete deployment
 
-# INSERT DEPLOYMENT TO HEROKU
-# INSERT DEPLOYMENT TO HEROKU
-# INSERT DEPLOYMENT TO HEROKU
-# INSERT DEPLOYMENT TO HEROKU
+Deployment
+How to run this project locally
+To run this project on your own IDE follow the instructions below:
+
+Ensure you have the following tools:
+
+An IDE such as Visual Studio Code
+The following must be installed on your machine:
+
+PIP
+Python 3
+Git
+An account at MongoDB Atlas or MongoDB running locally on your machine.
+How to set up your Mongo Atlas account here.
+Instructions
+Save a copy of the github repository located at https://github.com/AJGreaves/familyhub by clicking the "download zip" button at the top of the page and extracting the zip file to your chosen folder. If you have Git installed on your system, you can clone the repository with the following command.
+git clone https://github.com/AJGreaves/familyhub
+If possible open a terminal session in the unzip folder or cd to the correct location.
+
+A virtual environment is recommended for the Python interpreter, I recommend using Pythons built in virtual environment. Enter the command:
+
+python -m .venv venv
+NOTE: Your Python command may differ, such as python3 or py
+
+Activate the .venv with the command:
+.venv\Scripts\activate 
+Again this command may differ depending on your operating system, please check the Python Documentation on virtual environments for further instructions.
+
+If needed, Upgrade pip locally with
+pip install --upgrade pip.
+Install all required modules with the command
+pip -r requirements.txt.
+In your local IDE create a file called .flaskenv.
+
+Inside the .flaskenv file, create a SECRET_KEY variable and a MONGO_URI to link to your own database. Please make sure to call your database familyHub, with 2 collections called users and activities. You will find example json structures for these collections in the schemas folder.
+
+You can now run the application with the command
+
+python app.py
+You can visit the website at http://127.0.0.1:5000
+Heroku Deployment
+To deploy Family Hub to heroku, take the following steps:
+
+Create a requirements.txt file using the terminal command pip freeze > requirements.txt.
+
+Create a Procfile with the terminal command echo web: python app.py > Procfile.
+
+git add and git commit the new requirements and Procfile and then git push the project to GitHub.
+
+Create a new app on the Heroku website by clicking the "New" button in your dashboard. Give it a name and set the region to Europe.
+
+From the heroku dashboard of your newly created application, click on "Deploy" > "Deployment method" and select GitHub.
+
+Confirm the linking of the heroku app to the correct GitHub repository.
+
+In the heroku dashboard for the application, click on "Settings" > "Reveal Config Vars".
+
+Set the following config vars:
+
+Key	Value
+DEBUG	FALSE
+IP	0.0.0.0
+MONGO_URI	mongodb+srv://<username>:<password>@<cluster_name>-qtxun.mongodb.net/<database_name>?retryWrites=true&w=majority
+PORT	5000
+SECRET_KEY	<your_secret_key>
+To get you MONGO_URI read the MongoDB Atlas documentation here
+In the heroku dashboard, click "Deploy".
+
+In the "Manual Deployment" section of this page, made sure the master branch is selected and then click "Deploy Branch".
+
+The site is now successfully deployed.
