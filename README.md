@@ -17,6 +17,10 @@ Before project submission this project was copied to another repo and will be us
 Some of the features included are: full CRUD functionality, specific department tasks, personal tasks, shared tasks,
 management control, search and task editing...
 I really tried to use minimum outside help with this project, and for every issue or new feature, I tried and managed to find solution myself.
+Code Institute's task manager mini project was used as a sort of "base" for this project, and beside that, select.js & materializecss 
+jQuery snippets are the only outside code I used. My code is far from perfect but it serves the purpose, and is best I could do given
+my experience and this being my first contact with Python, Flask & MongoDB.
+
 
 Research, design, development & testing of this project took total of 85 hrs.
 
@@ -159,6 +163,10 @@ Research, design, development & testing of this project took total of 85 hrs.
     write a note before completing the task.
 - At the moment after creating or editing a task users are redirected to profile view instead of back where they were.
     I plan to fix that as soon as I find a viable solution. (more info in issues section)
+- Recurring tasks functionality, where there will be option for daily, weekly & monthly tasks. e.g. after daily task is completed,
+    when user clicks on complete, that task will be marked as finished and new copy of the task will be created with same values
+    except new due date which would be set to day after (weekly would be set to week from now etc..)
+
 
 # Credits
 
@@ -276,14 +284,73 @@ Research, design, development & testing of this project took total of 85 hrs.
     - Refreshing the page after creating or editing task:
         - Expected: page to refresh normally
         - Testing: created a task and then refreshed the page
-        - Result: at first I was returning users to profile page which prompted browser to resubmit the form.
+        - Result: at first I was returning users to profile page which prompted browser to resubmit the form on refresh.
             Fixed it by redirecting to tasks view instead of 'return profile(session["user"])'
+- #### Editing tasks
+    - Task successfully edited:
+        - Expected: flash the message that task was successfully edited, update the task in db, show 'updated_by' & 'updated_on' under task description
+        - Testing: tried editing both personal and department task
+        - Result: got expected results
+    - If any of the criteria for task creation is not met:
+        - Expected: user to be notified and redirected and task not inserted in db
+        - Testing: tried inputting less than min char, more than max, leaving fields blank, inputting text/numbers
+            into date field
+        - Results: got expected results on all tries except when user tabs from task description to date picker. 
+            Date picker doesn't trigger and user can input anything he want's. I've fixed it by checking if the format is 
+            correct, and if it isn't user will be redirected a step back and flash message will warn him to format the date properly.
+- #### Completing the task
+    - Clicking complete the task:
+        - Expected: Modal to pop and ask the user to confirm the action. If cancel is clicked, close the modal, but if complete 
+            is clicked then flash that task was completed & update the task with new keys/values 
+            (completed_on, completed_by, completed_by_label & completed(true))
+        - Testing: Tried both cancel and complete task on both personal tasks and department tasks in all views
+        - Result: got expected results
+    - Refreshing the page before clicking:
+        - Expected: Modal to close and page to be refreshed
+        - Testing: clicked on 'Done' for modal to open then refreshed the page
+        - Result: got expected result
+    - Clicking outside modal area:
+        - Expected: Modal to be closed as 'cancel' button was pressed
+        - Testing: clicked 'done' to open modal then clicked outside modal area
+        - Result: got expected results
+- #### Deleting the task
+     - Clicking delete the task:
+        - Expected: modal to open asking user to confirm the action. If canceled close the modal, but if confirmed then 
+            flash message that task was deleted and delete the task from db
+        - Testing: tried both cancel and delete buttons on personal & department tasks in all views
+        - Result: got expected results
+- ### Testing lists
+    - Viewing empty task lists:
+        - Expected: If any of the lists are empty, display small heading under the task list 
+            informing the user that there are no active tasks
+        - Testing: Tried completing & deleting tasks to empty the lists
+        - Result: Had issues on 'track_delegated_tasks' view because of jinja was comparing 'task.completed != True',
+            but none of the tasks had 'false' because task.completed was created and inserted on task completion. 
+            Fixed by setting completed and giving it the value of 'false' when task is created.
+    - Viewing lists as non-admin user:
+        - Expected: 
+            - Three lists to be visible to users (department, shared, personal). 
+            - All lists to be hidden by default until 'Show/Hide' button is clicked
+            - If user didn't create the task, then 'edit' & 'delete' buttons for each task should not be visible
+            - Lists to contain task name, due date, urgency status (fa icon) & lateness status(fa icon)
+            - When clicking on any of the tasks, to expand and show additional information about the task
+                (description, created by, created on, etc..)
+            - Completed tasks, tasks created for other departments or other people should not be visible
+        - Testing: Tested extensively all three lists with multiple usernames
+        - Result: got expected results
+    - Viewing delegated tasks lists & all departments tasks list as admin:
+        - Expected: 
+            - To be able to complete, edit, and delete any of the tasks on any of the lists
+            - On lists that have mixed personal and department tasks to be able to distinguish between the two
+            - On lists that contain completed tasks, fa icon to indicate that task is completed, and to be able to see
+                when it was completed and by who.
+        - Testing: tested both lists with multiple usernames
+        - Result: got expected results
 
 
 
 
-
-- TEST:
+    - TEST:
         - Expected: 
         - Testing: 
         - Result: 
@@ -307,8 +374,8 @@ Research, design, development & testing of this project took total of 85 hrs.
 - login_required decorator was throwing an error instead of 
     redirecting when unlogged users tried to access restricted pages,
     because I used 'if session["user"] is None'.
-    - Fixed by using: is_logged = session.get("user") in:
-        if is_logged is None: ...
+    - Fixed by using: 'is_logged = session.get("user")' in:
+        'if is_logged is None: ...'
 - There was a bug on mobile (specifically IOS) where when you click on item in dropdown select list, 
     wrong item gets selected. Also dropdown caret is positioned wrong.
     - Fixed by adding Alvin Wang's select.js file to scripts (full credit in 'Credits')
@@ -317,11 +384,11 @@ Research, design, development & testing of this project took total of 85 hrs.
     - Didn't find a way to fix it, but I added try/except where try tries to format input as date, and 
     if it fails user is redirected back to task create/edit and flash message is displayed warning that
     date format was wrong.
-- Had to refactor tasks list half-way through the project after adding slideToggle click event to ul.
+- Had to refactor tasks list half-way through the project after adding 'slideToggle' click event to ul.
     Idea was for tasks to be hidden until "show tasks" button was clicked. It would then show 
     collapsable li of tasks, but it didn't work until I reorganized divs and li's a lot to make it work.
 - Half-way through the project I noticed created_by & created_on labels changed to editors information 
-    after editing tasks. Fixed by using $set syntax, which enabled to update just given values. 
+    after editing tasks. Fixed by using '$set' syntax, which enabled to update just given values. 
     All other non-provided values on editing (like created_by, created_on) stay the same.
 - Had a bug with modals just after implementing them to pop to confirm deletion of a task. 
     Modals would open only for first task which I fixed by moving modal structure outside of collapsible body.
@@ -338,6 +405,10 @@ Research, design, development & testing of this project took total of 85 hrs.
     compared today to due_date.
 - Above changes brought small issue when editing task. If date wasn't changed when editing, there was a formatting issue,
     as time data didn't match the format. Fixed it by adding '.strftime('%d/%b/%Y')' to date values when editing task.
+- Had issues on 'track_delegated_tasks' view because of jinja was comparing 'task.completed != True',
+    but none of the tasks had 'false' because task.completed was created and inserted on task completion. 
+    So if the list was empty it should show "All Tasks You Delegated Have Been Completed" div, but it didn't.
+    Fixed by adding 'completed' key and giving it the value of 'false' when task is created.
 
 ### Coding Process
 - Initially I set up two collections for tasks: 'tasks' for department tasks, and 'personal' 

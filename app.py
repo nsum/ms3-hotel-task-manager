@@ -243,7 +243,8 @@ def add_dept_task():
             "due_date": due_date,
             "created_by": session["user"],
             "creator_label": creator_label,
-            "created_on": today
+            "created_on": today,
+            "completed": False
         }
 
         mongo.db.tasks.insert_one(task)
@@ -290,7 +291,8 @@ def add_personal_task():
             "due_date": due_date,
             "created_by": session["user"],
             "creator_label": creator_label,
-            "created_on": today
+            "created_on": today,
+            "completed": False
         }
 
         mongo.db.tasks.insert_one(task)
