@@ -167,6 +167,50 @@ Research, design, development & testing of this project took total of 85 hrs.
     when user clicks on complete, that task will be marked as finished and new copy of the task will be created with same values
     except new due date which would be set to day after (weekly would be set to week from now etc..)
 
+# Data Schema 
+
+- #### Tasks Collection
+    {
+        "_id": ID,
+        "type":"personal" or "departmental" depending on the task type
+        "assigned_to":"username" if task is personal, or "none" if it's departmental
+        "department":"none" if task is personal, 'department name' if task is departmental
+        "task_name":"task name",
+        "task_description":" task description",
+        "is_urgent":"off" or "on" depending on input
+        "due_date":{"$date":{"$numberLong":"1616716800000"}},
+        "created_by":"username",
+        "creator_label":"full name",
+        "created_on":{"$date":{"$numberLong":"1615351083289"}},
+        "completed":true or false boolean depending on whether is the task completed or not
+        "updated_by":"username",
+        "updated_on":{"$date":{"$numberLong":"1615351131768"}},
+        "updator_label":"full name",
+        "completed_by":"username",
+        "completed_by_label":"full name",
+        "completed_on":{"$date":{"$numberLong":"1615351139524"}}
+    }
+
+- #### Departments Collection
+    {
+        "_id": ID,
+        "department_name": "department name", e.g. "fo"
+        "department_label": "full department name" e.g. "Front Office"
+    }
+
+- #### Users Collection
+    {
+        "_id": ID,
+        "username": "username",
+        "password": "pbkdf2:sha256:xxx",
+        "first_name": "Name",
+        "last_name": "Last name",
+        "department": "department name",
+        "super_user": "on" or "off" depending on user privileges,
+        "admin": "on" or "off" depending on user privileges,
+        "mgmt": "on" or "off" depending on user privileges,
+    }
+
 
 # Credits
 
@@ -192,6 +236,16 @@ Research, design, development & testing of this project took total of 85 hrs.
 -   [W3C CSS Validator](https://jigsaw.w3.org/css-validator/#validate_by_input) - [Results](/static/readme-files/validate-css.png)
 -   [Esprima jQuery Validator](https://esprima.org/demo/validate.html) - [Results](/static/readme-files/validate-jquery.png)
 -   [Lighhouse Tool](https://developers.google.com/web/tools/lighthouse) - [Results](/static/readme-files/lighthouse-report.png)
+-   [W3C HTML Validator](https://validator.w3.org/nu/):
+        - [Home](/static/readme-files/home.png)
+        - [Login](/static/readme-files/login.png)
+        - [All Tasks](/static/readme-files/all-tasks.png)
+        - [Create Task](/static/readme-files/create-task.png)
+        - [Profile](/static/readme-files/profile.png)
+        - [Register](/static/readme-files/register.png)
+        - [Tasks](/static/readme-files/tasks.png)
+        - [Track Assigned Tasks](/static/readme-files/track-tasks.png)
+        - [Edit Task](/static/readme-files/edit-task.png)
 
 ### Manual Testing Procedures
 
