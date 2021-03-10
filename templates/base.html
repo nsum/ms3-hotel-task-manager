@@ -51,6 +51,7 @@
             <li>
                 <h6 class="center-align purple-text text-darken-1">
                     <!-- Displays current user's department name under the logo -->
+                    &nbsp;
                     {% if session.user %}
                         {{ session.department_label }}
                     {% endif %}
@@ -77,18 +78,18 @@
             {% endif %}
         </ul>
     </header>
-    <section>
+    <div>
         <!-- Flash messages -->
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 {% for message in messages %}
                     <div class="row flashes">
-                        <h5 class="brown lighten-5 orange-text center-align"><strong>{{message}}</strong></h5>
+                        <h5 class="brown lighten-5 orange-text center-align"><strong>{{message}} </strong></h5>
                     </div>
                 {% endfor %}
             {% endif %}
         {% endwith %}
-    </section>
+    </div>
     <main>
         <!-- All content from other htmls is injected here -->
         {% block content %}
