@@ -319,14 +319,14 @@ Research, design, development & testing of this project took total of 85 hrs.
             flash message that task was deleted and delete the task from db
         - Testing: tried both cancel and delete buttons on personal & department tasks in all views
         - Result: got expected results
-- ### Testing lists
+- #### Testing the lists
     - Viewing empty task lists:
         - Expected: If any of the lists are empty, display small heading under the task list 
             informing the user that there are no active tasks
         - Testing: Tried completing & deleting tasks to empty the lists
-        - Result: Had issues on 'track_delegated_tasks' view because of jinja was comparing 'task.completed != True',
-            but none of the tasks had 'false' because task.completed was created and inserted on task completion. 
-            Fixed by setting completed and giving it the value of 'false' when task is created.
+        - Result: Had issues on 'track_delegated_tasks' view so I 
+            removed that 'else' jinja statement, and nothing will show if the list is empty
+
     - Viewing lists as non-admin user:
         - Expected: 
             - Three lists to be visible to users (department, shared, personal). 
@@ -345,16 +345,7 @@ Research, design, development & testing of this project took total of 85 hrs.
             - On lists that contain completed tasks, fa icon to indicate that task is completed, and to be able to see
                 when it was completed and by who.
         - Testing: tested both lists with multiple usernames
-        - Result: got expected results
-
-
-
-
-    - TEST:
-        - Expected: 
-        - Testing: 
-        - Result: 
-=====================
+        - Result: got expected results 
 
 ### Unresolved Issues
 - When creating or editing task sometimes date picker doesn't trigger on click but rather 
