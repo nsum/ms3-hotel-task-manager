@@ -158,7 +158,7 @@ def login():
 @mgmt_access
 def register():
     if request.method == "POST":
-        # Check is username exists
+        # Check if username exists
         existing_user = mongo.db.users.find_one(
             {"username": request.form.get("username").lower()})
 

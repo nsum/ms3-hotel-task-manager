@@ -5,7 +5,7 @@
 #### Code Institute - Milestone Project 3 
 ## Cork International Hotel Task Manager
 ![Am I Responsive](/static/readme-files/responsive.png)
-
+[View the project live here](https://ms3-taskman.herokuapp.com/)
 ## Introduction
 Welcome,
 This web app is made as a 3rd Milestone Project with Code Institute.
@@ -51,12 +51,7 @@ Research, design, development & testing of this project took a total of 85 hrs.
         - [Search Bar](#search-bar)
     - [To be included in upcoming versions](#to-be-included-in-upcoming-versions)
 
-5. [Credits](#credits)
-    - [Code](#code)
-    - [Acknowledgements](#acknowledgements)
-    - [Media](#media)
-
-6. [Testing](#testing)
+5. [Testing](#testing)
     - [Valdators](#validators)
     - [Manual Testing Procedures](#manual-testing-procedures):
         - [Navigating The Site](#navigating-the-site)
@@ -68,16 +63,20 @@ Research, design, development & testing of this project took a total of 85 hrs.
         - [Completing the task](#completing-the-task)
         - [Deleting the task](#deleting-the-task)
         - [Testing the lists](#testing-the-lists)
-        - [Completing the task](#completing-the-task)
     - [Unresolved Issues](#unresolved-issues)
     - [Bugs & Fixes](#bugs-and-fixes)
     - [Coding Process](#coding-process)
     - [Testing User Stories from User Experience (UX) Section](#testing-user-stories):
 
-7. [Data Schema](#data-schema)
+6. [Data Schema](#data-schema)
     - [Tasks Collection](#tasks-collection)
     - [Departments Collection](#departments-collection)
     - [Users Collection](#users-collection)
+
+7. [Credits](#credits)
+    - [Code](#code)
+    - [Acknowledgements](#acknowledgements)
+    - [Media](#media)
 
 8. [Deployment](#deployment)
     - [Forking the GitHub Repository](#forking-the-github-repository)
@@ -105,7 +104,7 @@ Research, design, development & testing of this project took a total of 85 hrs.
     + [Admin Control Panel - Desktop](/static/readme-files/admin-cp.png) 
     + [User Tasks Page - Desktop](/static/readme-files/normal-user-home.png) 
     + [Task Creation - Desktop](/static/readme-files/task-creation.png)
-    + [Task List - Desktop](/static/readme-files/tasks.png)
+    + [Task List - Desktop](/static/readme-files/tasks-list.png)
     + [User Profile - Desktop](/static/readme-files/user-profile.png)
 
 +   ### Design
