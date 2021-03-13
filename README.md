@@ -84,6 +84,7 @@ Research, design, development & testing of this project took a total of 85 hrs.
     - [How to run this project locally](#how-to-run-this-project-locally)
     - [Heroku Deployment](#heroku-deployment)
 
+9. [Contact](#contact)
 
 # User Experience
 +   ### User stories
@@ -104,7 +105,7 @@ Research, design, development & testing of this project took a total of 85 hrs.
     + [Admin Control Panel - Desktop](/static/readme-files/admin-cp.png) 
     + [User Tasks Page - Desktop](/static/readme-files/normal-user-home.png) 
     + [Task Creation - Desktop](/static/readme-files/task-creation.png)
-    + [Task List - Desktop](/static/readme-files/tasks-list.png)
+    + [Task List - Desktop](/static/readme-files/tasks-lists.png)
     + [User Profile - Desktop](/static/readme-files/user-profile.png)
 
 +   ### Design
@@ -656,3 +657,7 @@ SECRET_KEY | `<your_secret_key>`
 9. In the "Manual Deployment" section of this page, made sure the master branch is selected and then click "Deploy Branch".
 
 10. The site is now successfully deployed.
+
+### Contact
+
+your.marketer1303@gmail.com
