@@ -21,36 +21,84 @@ Code Institute's task manager mini project was used as a sort of "base" for this
 jQuery snippets are the only outside code I used. My code is far from perfect but it serves the purpose, and is best I could do given
 my experience and this being my first contact with Python, Flask & MongoDB.
 
-
 Research, design, development & testing of this project took total of 85 hrs.
 
-
 ## Table of Contents
+
 1. [User Experience (UX)](#user-experience)
     - [User Stories](#user-stories)
     - [Wireframes](#wireframes)
-        
+    - [Design](#design)
 
 2. [Techonologies Used](#technologies-used)
-    - [Existing Features](#existing-features)
-        - [Elements on every Page](#elements-on-every-page)
+    - [Languages](#languages-used)
+    - [Frameworks, Libraries & Tools Used](#frameworks-libraries-tools-used)
 
+3. [Techonologies Used](#technologies-used)
+    - [Languages](#languages-used)
+    - [Frameworks, Libraries & Tools Used](#frameworks-libraries-tools-used)
+
+4. [Features](#features)
+    - [Back-end](#back-end)
+    - [Front-end](#front-end):
+        - [Navigating The Page](#navigating-the-page)
+        - [Creating & Editing Tasks](#creating-and-editing-tasks)
+        - [Completing & Deleting a Task](#completing-and-deleting-a-task)
+        - [Viewing Task List](#viewing-task-list)
+        - [Registering New User](#registering-new-user)
+        - [Personal Tasks](#personal-tasks)
+        - [Tracking Delegated Tasks](#tracking-delegated-tasks)
+        - [Search Bar](#search-bar)
+    - [To be included in upcoming versions](#to-be-included-in-upcoming-versions)
+
+5. [Credits](#credits)
+    - [Code](#code)
+    - [Acknowledgements](#acknowledgements)
+    - [Media](#media)
+
+6. [Testing](#testing)
+    - [Valdators](#validators)
+    - [Manual Testing Procedures](#manual-testing-procedures):
+        - [Navigating The Site](#navigating-the-site)
+        - [Login](#login)
+        - [Logout](#log-out)
+        - [Register New User](#register-new-user)
+        - [Creating new task](#creating-new-task)
+        - [Editing tasks](#editing-tasks)
+        - [Completing the task](#completing-the-task)
+        - [Deleting the task](#deleting-the-task)
+        - [Testing the lists](#testing-the-lists)
+        - [Completing the task](#completing-the-task)
+    - [Unresolved Issues](#unresolved-issues)
+    - [Bugs & Fixes](#bugs-and-fixes)
+    - [Coding Process](#coding-process)
+    - [Testing User Stories from User Experience (UX) Section](#testing-user-stories):
+
+7. [Data Schema](#data-schema)
+    - [Tasks Collection](#tasks-collection)
+    - [Departments Collection](#departments-collection)
+    - [Users Collection](#users-collection)
+
+8. [Deployment](#deployment)
+    - [Forking the GitHub Repository](#forking-the-github-repository)
+    - [Making a Local Clone](#making-a-local-clone)
+    - [How to run this project locally](#how-to-run-this-project-locally)
+    - [Heroku Deployment](#heroku-deployment)
 
 
 # User Experience
-
 +   ### User stories
-1. As someone who would use this task manager regurarly, I want tasks and lists to be informative and easily understandable.
-2. As a head of department I want to be able to assign a task that will be visible only to staff in my department and can be completed by anyone in my department.
-3. As a manager I want to be able to create a new task that will be visible by all members.
-4. As a head of department I want to be able to assign a personal task that will be visible only to me and staff member I assigned the task to.
-5. As a head of department I want to be able to keep track of all the tasks I assigned either to department or staff member specifically.
-6. As part of management I want to be able to delete any tasks.
-7. As a part of management I want to be able to edit and redelegate tasks.
-8. As a normal staff member, I want to be able to add a personal task to myself as a reminder.
-9. As a part of management I want to be able to see if someone edited a task I made, and when.
-10. As a part of management I want to be able to easily see the tasks that are past due.
-11. As management I want to be able to search through deparment tasks and see completed tasks too.
+    1. As someone who would use this task manager regurarly, I want tasks and lists to be informative and easily understandable.
+    2. As a head of department I want to be able to assign a task that will be visible only to staff in my department and can be completed by anyone in my department.
+    3. As a manager I want to be able to create a new task that will be visible by all members.
+    4. As a head of department I want to be able to assign a personal task that will be visible only to me and staff member I assigned the task to.
+    5. As a head of department I want to be able to keep track of all the tasks I assigned either to department or staff member specifically.
+    6. As part of management I want to be able to delete any tasks.
+    7. As a part of management I want to be able to edit and redelegate tasks.
+    8. As a normal staff member, I want to be able to add a personal task to myself as a reminder.
+    9. As a part of management I want to be able to see if someone edited a task I made, and when.
+    10. As a part of management I want to be able to easily see the tasks that are past due.
+    11. As management I want to be able to search through deparment tasks and see completed tasks too.
 
 +   ### Wireframes
     + [Index Page - Desktop](/static/readme-files/base-prelogin.png) 
@@ -64,8 +112,6 @@ Research, design, development & testing of this project took total of 85 hrs.
     + Colour Scheme: Main colour is purple which is the signature colour of the hotel this app will be used in.
     + MaterializeCSS classes and custom css were used to make app fully responsive on all screen sizes.
 
-
-
 # Technologies Used
 
 ### Languages Used
@@ -74,11 +120,15 @@ Research, design, development & testing of this project took total of 85 hrs.
 +   [JavaScript](https://en.wikipedia.org/wiki/JavaScript)
 +   [Python](https://en.wikipedia.org/wiki/Python_(programming_language))
 
-### Frameworks, Libraries & Programs Used
+### Frameworks Libraries Tools Used
 + [Materializecss:](https://materializecss.com/) was used to assist with the responsiveness and styling of the website.
 + [jQuery:](https://jquery.com/) was used to initialize most of Materializecss's features and few custom on click & hover events 
 + [Flask:](https://flask.palletsprojects.com/en/1.1.x/) Flask micro framework was used for it's tools, libraries, and mechanics.
 + [MongoDB:](https://www.mongodb.com/3) was used as a database program.
++ [PIP](https://pip.pypa.io/en/stable/installing/) for installation of tools needed in this project.
++ [PyMongo](https://api.mongodb.com/python/current/) to make communication between Python and MongoDB possible.
++ [Flask](https://flask.palletsprojects.com/en/1.0.x/) to construct and render pages.
++ [Jinja](http://jinja.pocoo.org/docs/2.10/) to simplify displaying data from the backend of this project smoothly and effectively in html.
 + [Heroku:](https://www.heroku.com/) was used as deployment platform
 + [requirements.txt:](requirements.txt) contains list off all dependancies
 + [Randomkeygen:](https://randomkeygen.com/) was used for encrypting vars.
@@ -89,9 +139,10 @@ Research, design, development & testing of this project took total of 85 hrs.
 + [Am I Responsive:](http://ami.responsivedesign.is/) was used to create image at the top of README.md
 
 
+
 # Features
 
-### Back End
+### Back-end
 - Session expiry after set time of inactivity (set time inside set_session_timeout function) - currently at 15 mins.
 - Redirects to login page if unlogged user tries to access any of the pages login is required for by typing directly in URL bar.
 - Redirects to home page if non-admin or non-mgmt user tries to access admin & mgmt pages by typing directly in URL bar.
@@ -102,7 +153,7 @@ Research, design, development & testing of this project took total of 85 hrs.
 - Registering new user first checks does the user already exist in db, then it checks do the two passwod inputs match.
     - Flash message is displayed if any of the checks fail, notifying the user (e.g. 'Passwords do not match')
 
-### Front End
+### Front-end
 #### Navigating The Page
 - After logging in, flash message is displayed greeting user by name
 - User's department is displayed in nav next to site name
@@ -114,7 +165,7 @@ Research, design, development & testing of this project took total of 85 hrs.
     Both lists are titled accordingly and are click to expand
 - Profile view for normal users contains only tasks assigned to that user, while if the user is mgmt
     profile view will have cards will all the links from floating action button with explanations.
-#### Creating & Editing Tasks
+#### Creating and Editing Tasks
 - When creating personal task, non mgmt user doesn't have the option to choose who to assign the task to, 
     and the task is assigned to user in session.
 - mgmt users and admins can choose the name of the person to assign the personal task to.
@@ -125,7 +176,7 @@ Research, design, development & testing of this project took total of 85 hrs.
 - If "is urgent" switch is on, there will be yellow triangle displayed next to due date to indicate that task is urgent.
 - Editing task opens form and sets default values same as the ones task already had so only value we wish to change needs to be altered.
 - After editing the task new keys/values are inserted logging who and when updated the task
-#### Completing & Deleting a Task
+#### Completing and Deleting a Task
 - Both Complete & Delete task buttons have modals as defensive programming, asking user to confirm action.
 - Completing the task doesn't delete it but rather updates it with new key/value pairs indicating the task was completed
 - Deleting the task deletes the record completely
@@ -167,105 +218,39 @@ Research, design, development & testing of this project took total of 85 hrs.
     when user clicks on complete, that task will be marked as finished and new copy of the task will be created with same values
     except new due date which would be set to day after (weekly would be set to week from now etc..)
 
-# Data Schema 
-
-- #### Tasks Collection
-    {
-        "_id": ID,
-        "type":"personal" or "departmental" depending on the task type
-        "assigned_to":"username" if task is personal, or "none" if it's departmental
-        "department":"none" if task is personal, 'department name' if task is departmental
-        "task_name":"task name",
-        "task_description":" task description",
-        "is_urgent":"off" or "on" depending on input
-        "due_date":{"$date":{"$numberLong":"1616716800000"}},
-        "created_by":"username",
-        "creator_label":"full name",
-        "created_on":{"$date":{"$numberLong":"1615351083289"}},
-        "completed":true or false boolean depending on whether is the task completed or not
-        "updated_by":"username",
-        "updated_on":{"$date":{"$numberLong":"1615351131768"}},
-        "updator_label":"full name",
-        "completed_by":"username",
-        "completed_by_label":"full name",
-        "completed_on":{"$date":{"$numberLong":"1615351139524"}}
-    }
-
-- #### Departments Collection
-    {
-        "_id": ID,
-        "department_name": "department name", e.g. "fo"
-        "department_label": "full department name" e.g. "Front Office"
-    }
-
-- #### Users Collection
-    {
-        "_id": ID,
-        "username": "username",
-        "password": "pbkdf2:sha256:xxx",
-        "first_name": "Name",
-        "last_name": "Last name",
-        "department": "department name",
-        "super_user": "on" or "off" depending on user privileges,
-        "admin": "on" or "off" depending on user privileges,
-        "mgmt": "on" or "off" depending on user privileges,
-    }
-
-
-# Credits
-
-### Code
-+	[Alvin Wang](https://github.com/Dogfalo) - select.js which solves the issue with form select on mobile
-
-### Acknowledgements
-+   [Spencer Barriball](http://www.5pence.net/) - Huge thank you to my mentor Spencer for all his help and guidance
-+   [codeinstitute.net](https://codeinstitute.net/) - Lessons, videos, tutoring & support
-+   [Cork International Hotel](https://www.corkinternationalairporthotel.com/) - For showing interest in using this app
-+   [Anna Greaves](https://github.com/AJGreaves) - For README.md Heroku deployment section
-+   [Code Institute Sample README](https://github.com/Code-Institute-Solutions/SampleREADME) - Readme Template
-
-
-### Media
-+	[Parallax Image 1](https://cf.bstatic.com/images/hotel/max1024x768/653/65346226.jpg)
-+	[Parallax Image 2](https://www.corkinternationalairporthotel.com/wp-content/uploads/2019/07/lobby-003.jpg)
-
 # Testing
 
-### Number of validators and services were used to validate pages to ensure there were no syntax errors:
+### Validators
+#### Number of validators and services were used to validate pages to ensure there were no syntax errors:
 -   [Extend Class - Python Syntax Schecker](https://extendsclass.com/python-tester.html) - [Results](/static/readme-files/validate-python.png)
 -   [W3C CSS Validator](https://jigsaw.w3.org/css-validator/#validate_by_input) - [Results](/static/readme-files/validate-css.png)
 -   [Esprima jQuery Validator](https://esprima.org/demo/validate.html) - [Results](/static/readme-files/validate-jquery.png)
 -   [Lighhouse Tool](https://developers.google.com/web/tools/lighthouse) - [Results](/static/readme-files/lighthouse-report.png)
--   [W3C HTML Validator](https://validator.w3.org/nu/):
-        - [Home](/static/readme-files/home.png)
-        - [Login](/static/readme-files/login.png)
-        - [All Tasks](/static/readme-files/all-tasks.png)
-        - [Create Task](/static/readme-files/create-task.png)
-        - [Profile](/static/readme-files/profile.png)
-        - [Register](/static/readme-files/register.png)
-        - [Tasks](/static/readme-files/tasks.png)
-        - [Track Assigned Tasks](/static/readme-files/track-tasks.png)
-        - [Edit Task](/static/readme-files/edit-task.png)
+-   [W3C HTML Validator](https://validator.w3.org/nu/):  
+        - [Home](/static/readme-files/home.png)  
+        - [Login](/static/readme-files/login.png)  
+        - [All Tasks](/static/readme-files/all-tasks.png)  
+        - [Create Task](/static/readme-files/create-task.png)  
+        - [Profile](/static/readme-files/profile.png)  
+        - [Register](/static/readme-files/register.png)  
+        - [Tasks](/static/readme-files/tasks.png)  
+        - [Track Assigned Tasks](/static/readme-files/track-tasks.png)  
+        - [Edit Task](/static/readme-files/edit-task.png)  
 
 ### Manual Testing Procedures
-
-    - TEST:
-        - Expected: 
-        - Testing: 
-        - Result: 
 
 - #### Navigating The Site
     - Browsing  as unlogged user:
         - Expected: only home & login links available 
         - Testing: visited site as unlogged user
         - Result: expected results
-    - Typing directly in URL bar as unlogged or 'normal' user:
+    - Typing directly in URL bar as unlogged or non-admin user:
         - Expected: before user is logged in, if he tries to type in views directly in URL bar, he is redirected
             to login page. If user is logged in but not part of mgmt or admin and tries to do the same, he will
             be redirected to home page
         - Testing: Tried to type in directly in URL bar as both logged in and logged out.
-        - Result: Expected results on all views except 'search' which returns pymongo error for both logged and unlogged users.
-    - Browsing as 'normal' user:
+        - Result: Expected results on all views except 'search'which returns pymongo error for both logged and unlogged users.
+    - Browsing as non-admin user:
         - Expected: floating action buttons, admin controls, and admin mobile controls to be hidden and inaccessible
         - Testing: logged in as normal user and browsed the site 
         - Result: got expected results. None of the controls are visible to normal user
@@ -411,7 +396,7 @@ Research, design, development & testing of this project took total of 85 hrs.
     goes, but didn't create or update a task. I also tried returning redirect('request.referrer') which did save the task and it
     did in fact redirect but back to task creation or task editing, instead of page before it. 
 
-### Bugs & Fixes
+### Bugs and Fixes
 - All html files except base.html throw warning "Doctype must be declared first."
     - It is ignored because all html files are injected into base.html and it's Doctype is declared.
 - edit_dept_task has to identical id's in switches.
@@ -468,108 +453,210 @@ Research, design, development & testing of this project took total of 85 hrs.
 - Also towards the end of the project, after consulting with my mentor, I decided to use just one collection for tasks. 
     Until then I had tasks & completed_tasks which I then merged into one collection.
 
-### Testing User Stories from User Experience (UX) Section
-- As someone who would use this task manager regurarly, I want tasks and lists to be informative and easily understandable.
+
+
+### Testing User Stories
+- #### As someone who would use this task manager regurarly, I want tasks and lists to be informative and easily understandable.
     - Task lists contain list items with: task name, due date & urgency status.
-    On opening specific task: task description, created by, created on are visible, under which is complete button. 
-    Additionally if someone edits the task, that is also visible in task body.
-- As a head of department I want to be able to assign a task that will be visible only to staff in my department
-    and can be completed by anyone in my department.
+On opening specific task: task description, created by, created on are visible, under which is complete button. 
+Additionally if someone edits the task, that is also visible in task body.
+- #### As a head of department I want to be able to assign a task that will be visible only to staff in my department and can be completed by anyone in my department.
     - Normal users can see and complete tasks assigned to their department on tasks page.
-- As a manager I want to be able to create a new task that will be visible by all members.
+- #### As a manager I want to be able to create a new task that will be visible by all members.
     - "Shared" tasks list contains all tasks that will be visible to every member.
-- As a head of department I want to be able to assign a personal task that will be visible only to me and staff member I
-    assigned the task to.
+- #### As a head of department I want to be able to assign a personal task that will be visible only to me and staff member I assigned the task to.
     - Normal users can see and complete their own personal tasks assigned to them by management or themselves.
-- As a head of department I want to be able to keep track of all the tasks I assigned either to department or staff member specifically.
+- #### As a head of department I want to be able to keep track of all the tasks I assigned either to department or staff member specifically.
     - All management members can access all tasks from "control panel" page, and additionaly they have a list of all 
-    tasks assigned by them.
-- As part of management I want to be able to delete any tasks.
+tasks assigned by them.
+- #### As part of management I want to be able to delete any tasks.
     - Management can delete any task, while normal users can only delete tasks create by themselves (own personal task)
-- As a part of management I want to be able to edit and redelegate tasks.
-    - All management members can edit all tasks while normal users can only edit tasks they created. When editing they can 
-    reassign the task to other staff member or department.
-- As a normal staff member, I want to be able to add a personal task to myself as a reminder.
+- #### As a part of management I want to be able to edit and redelegate tasks.
+    - All management members can edit all tasks while normal users can only edit tasks they created. When editing they can reassign the task to other staff member or department.
+- #### As a normal staff member, I want to be able to add a personal task to myself as a reminder.
     - Normal users can only create personal tasks for themselves, and those tasks are the only tasks they can edit or delete.
-- As a part of management I want to be able to see if someone edited a task I made, and when.
-    - When task is edited new keys (edited by, edited on) are inserted into task and shown in task body after editing so 
-    it's easy to keep track of who edited the task and when.
-- As a part of management I want to be able to easily see the tasks that are past due.
-    - All task lists are sorted by due date, and for every task comparison is made to see if due date is in the past.
-    If due date is today or before, red triangle "Task Due!" is displayed next to the task name.
-- As management I want to be able to search through deparment tasks and see completed tasks too.
+- #### As a part of management I want to be able to see if someone edited a task I made, and when.
+    - When task is edited new keys (edited by, edited on) are inserted into task and shown in task body after editing so it's easy to keep track of who edited the task and when.
+- #### As a part of management I want to be able to easily see the tasks that are past due.
+    - All task lists are sorted by due date, and for every task comparison is made to see if due date is in the past. If due date is today or before, red triangle "Task Due!" is displayed next to the task name.
+- #### As management I want to be able to search through deparment tasks and see completed tasks too.
     - all_tasks view has search function and it's list contains all department tasks both completed and uncompleted.
 
-# Style and complete deployment
+# Data Schema 
 
-Deployment
-How to run this project locally
+- #### Tasks Collection
+    `_id`: ID,  
+    `type`:"personal" or "departmental" depending on the task type  
+    `assigned_to`:"username" if task is personal, or "none" if it's departmental  
+    `department`:"none" if task is personal, 'department name' if task is departmental  
+    `task_name`:"task name",  
+    `task_description`:" task description",  
+    `is_urgent`:"off" or "on" depending on input,  
+    `due_date`:{"$date":{"$numberLong":"1616716800000"}},  
+    `created_by`:"username",  
+    `creator_label`:"full name",  
+    `created_on`:{"$date":{"$numberLong":"1615351083289"}},  
+    `completed`:true or false boolean depending on whether is the task completed or not,  
+    `updated_by`:"username",  
+    `updated_on`:{"$date":{"$numberLong":"1615351131768"}},  
+    `updator_label`:"full name",  
+    `completed_by`:"username",  
+    `completed_by_label`:"full name",  
+    `completed_on`:{"$date":{"$numberLong":"1615351139524"}}  
+
+- #### Departments Collection
+    `_id`: ID,  
+    `department_name`: "department name", e.g. "fo"  
+    `department_label`: "full department name" e.g. "Front Office"  
+
+- #### Users Collection
+    `_id`: ID,  
+    `username`: "username",  
+    `password`: "pbkdf2:sha256:password",  
+    `first_name`: "Name",  
+    `last_name`: "Last name",  
+    `department`: "department name",  
+    `super_user`: "on" or "off" depending on user privileges,  
+    `admin`: "on" or "off" depending on user privileges,  
+    `mgmt`: "on" or "off" depending on user privileges,  
+
+# Credits
+
+### Code
++	[Alvin Wang](https://github.com/Dogfalo) - select.js which solves the issue with form select on mobile
+
+### Acknowledgements
++   [Spencer Barriball](http://www.5pence.net/) - Huge thank you to my mentor Spencer for all his help and guidance
++   [codeinstitute.net](https://codeinstitute.net/) - Lessons, videos, tutoring & support
++   [Cork International Hotel](https://www.corkinternationalairporthotel.com/) - For showing interest in using this app
++   [Anna Greaves](https://github.com/AJGreaves) - For README.md Heroku deployment section
++   [Code Institute Sample README](https://github.com/Code-Institute-Solutions/SampleREADME) - Readme Template
+
+### Media
++	[Parallax Image 1](https://cf.bstatic.com/images/hotel/max1024x768/653/65346226.jpg)
++	[Parallax Image 2](https://www.corkinternationalairporthotel.com/wp-content/uploads/2019/07/lobby-003.jpg)
+
+# Deployment
+
+### Forking the GitHub Repository
+By forking the GitHub Repository we make a copy of the original repository on our GitHub account to view and/or make changes without affecting the original repository by using the following steps...
+
+1. Log in to GitHub and locate the [GitHub Repository](https://github.com/)
+2. At the top of the Repository (not top of page) just above the "Settings" Button on the menu, locate the "Fork" Button.
+3. You should now have a copy of the original repository in your GitHub account.
+
+### Making a Local Clone
+1. Log in to GitHub and locate the [GitHub Repository](https://github.com/)
+2. Under the repository name, click "Clone or download".
+3. To clone the repository using HTTPS, under "Clone with HTTPS", copy the link.
+4. Open Git Bash
+5. Change the current working directory to the location where you want the cloned directory to be made.
+6. Type `git clone`, and then paste the URL you copied in Step 3.
+
+```
+$ git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY
+```
+
+7. Press Enter. Your local clone will be created.
+
+```
+$ git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY
+> Cloning into `CI-Clone`...
+> remote: Counting objects: 10, done.
+> remote: Compressing objects: 100% (8/8), done.
+> remove: Total 10 (delta 1), reused 10 (delta 1)
+> Unpacking objects: 100% (10/10), done.
+```
+
+Click [Here](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository#cloning-a-repository-to-github-desktop) 
+    to retrieve pictures for some of the buttons and more detailed explanations of the above process.
+
+### How to run this project locally
 To run this project on your own IDE follow the instructions below:
+Ensure you have the following tools: 
+- An IDE such as [Visual Studio Code](https://code.visualstudio.com/)
 
-Ensure you have the following tools:
+The following **must be installed** on your machine:
+- [PIP](https://pip.pypa.io/en/stable/installing/)
+- [Python 3](https://www.python.org/downloads/)
+- [Git](https://gist.github.com/derhuerst/1b15ff4652a867391f03)
+- An account at [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) or MongoDB running locally on your machine. 
+    - How to set up your Mongo Atlas account [here](https://docs.atlas.mongodb.com/).
 
-An IDE such as Visual Studio Code
-The following must be installed on your machine:
+#### Instructions
+1. Save a copy of the github repository located at https://github.com/nsum/ms3-hotel-task-manager by clicking 
+the "download zip" button at the top of the page and extracting the zip file to your chosen folder. If you have Git installed on your system, you can clone the repository with the following command.
+```
+git clone https://github.com/nsum/ms3-hotel-task-manager
+```
 
-PIP
-Python 3
-Git
-An account at MongoDB Atlas or MongoDB running locally on your machine.
-How to set up your Mongo Atlas account here.
-Instructions
-Save a copy of the github repository located at https://github.com/AJGreaves/familyhub by clicking the "download zip" button at the top of the page and extracting the zip file to your chosen folder. If you have Git installed on your system, you can clone the repository with the following command.
-git clone https://github.com/AJGreaves/familyhub
-If possible open a terminal session in the unzip folder or cd to the correct location.
+2. If possible open a terminal session in the unzip folder or cd to the correct location.
 
-A virtual environment is recommended for the Python interpreter, I recommend using Pythons built in virtual environment. Enter the command:
-
+3. A virtual environment is recommended for the Python interpreter, I recommend using Pythons built in virtual environment. Enter the command:
+```
 python -m .venv venv
-NOTE: Your Python command may differ, such as python3 or py
+```  
+_NOTE: Your Python command may differ, such as python3 or py_
 
-Activate the .venv with the command:
+4. Activate the .venv with the command:
+```
 .venv\Scripts\activate 
-Again this command may differ depending on your operating system, please check the Python Documentation on virtual environments for further instructions.
+```
+_Again this **command may differ depending on your operating system**, please check the [Python Documentation on virtual environments](https://docs.python.org/3/library/venv.html) for further instructions._
 
-If needed, Upgrade pip locally with
+4. If needed, Upgrade pip locally with
+```
 pip install --upgrade pip.
-Install all required modules with the command
+```
+
+5. Install all required modules with the command 
+```
 pip -r requirements.txt.
-In your local IDE create a file called .flaskenv.
+```
 
-Inside the .flaskenv file, create a SECRET_KEY variable and a MONGO_URI to link to your own database. Please make sure to call your database familyHub, with 2 collections called users and activities. You will find example json structures for these collections in the schemas folder.
+6. In your local IDE create a file called `.env.py`.
 
-You can now run the application with the command
+7. Inside the .env file, create a SECRET_KEY variable and a MONGO_URI to link to your own database. 
 
+8. You can now run the application with the command
+```
 python app.py
-You can visit the website at http://127.0.0.1:5000
-Heroku Deployment
-To deploy Family Hub to heroku, take the following steps:
+```
 
-Create a requirements.txt file using the terminal command pip freeze > requirements.txt.
+9. You can visit the website at `http://127.0.0.1:5000`
 
-Create a Procfile with the terminal command echo web: python app.py > Procfile.
+### Heroku Deployment
 
-git add and git commit the new requirements and Procfile and then git push the project to GitHub.
+To deploy this app to heroku, take the following steps:
 
-Create a new app on the Heroku website by clicking the "New" button in your dashboard. Give it a name and set the region to Europe.
+1. Create a `requirements.txt` file using the terminal command `pip freeze > requirements.txt`.
 
-From the heroku dashboard of your newly created application, click on "Deploy" > "Deployment method" and select GitHub.
+2. Create a `Procfile` with the terminal command `echo web: python app.py > Procfile`.
 
-Confirm the linking of the heroku app to the correct GitHub repository.
+3. `git add` and `git commit` the new requirements and Procfile and then `git push` the project to GitHub.
 
-In the heroku dashboard for the application, click on "Settings" > "Reveal Config Vars".
+3. Create a new app on the [Heroku website](https://dashboard.heroku.com/apps) by clicking the "New" button in your dashboard. Give it a name and set the region to Europe.
 
-Set the following config vars:
+4. From the heroku dashboard of your newly created application, click on "Deploy" > "Deployment method" and select GitHub.
 
-Key	Value
-DEBUG	FALSE
-IP	0.0.0.0
-MONGO_URI	mongodb+srv://<username>:<password>@<cluster_name>-qtxun.mongodb.net/<database_name>?retryWrites=true&w=majority
-PORT	5000
-SECRET_KEY	<your_secret_key>
-To get you MONGO_URI read the MongoDB Atlas documentation here
-In the heroku dashboard, click "Deploy".
+5. Confirm the linking of the heroku app to the correct GitHub repository.
 
-In the "Manual Deployment" section of this page, made sure the master branch is selected and then click "Deploy Branch".
+6. In the heroku dashboard for the application, click on "Settings" > "Reveal Config Vars".
 
-The site is now successfully deployed.
+7. Set the following config vars:
+
+| Key | Value |
+ --- | ---
+DEBUG | FALSE
+IP | 0.0.0.0
+MONGO_URI | `mongodb+srv://<username>:<password>@<cluster_name>-qtxun.mongodb.net/<database_name>?retryWrites=true&w=majority`
+PORT | 5000
+SECRET_KEY | `<your_secret_key>`
+
+- To get you MONGO_URI read the MongoDB Atlas documentation [here](https://docs.atlas.mongodb.com/)
+
+8. In the heroku dashboard, click "Deploy".
+
+9. In the "Manual Deployment" section of this page, made sure the master branch is selected and then click "Deploy Branch".
+
+10. The site is now successfully deployed.
